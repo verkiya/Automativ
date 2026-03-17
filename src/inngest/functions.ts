@@ -1,14 +1,32 @@
 import { inngest } from "@/inngest/client";
-
-export const helloWorld = inngest.createFunction(
-  { id: "hello-world" }, // 1. config
-  { event: "test/hello.world" }, // 2. trigger
+import { createGoogleGenerativeAI } from "@ai-sdk/google";
+import { generateText } from "ai";
+import { createOpenAI } from "@ai-sdk/openai";
+const google = createGoogleGenerativeAI();
+const openai = createOpenAI();
+export const execute = inngest.createFunction(
+  { id: "execute-ai" }, // 1. config
+  { event: "execute/ai" }, // 2. trigger
   async ({ event, step }) => {
-    // 3. handler (THIS was missing)
-    console.log("Hello world", event);
-
-    return {
-      message: "Hello world",
-    };
+    const { steps: geminiSteps } = await step.ai.wrap(
+      "gemini-generate-text",
+      generateText,
+      {
+        model: google("gemini-2.5-flash"),
+        system: "You are a helpful assistant",
+        prompt: "A very short summary of AI agents",
+      },
+    );
+    // const { steps: openAiSteps } = await step.ai.wrap(
+    //   "openai-generate-text",
+    //   generateText,
+    //   {
+    //     model: openai("gpt-5-nano"),
+    //     system: "You are a helpful assistant",
+    //     prompt: "a very simple chicken soup recipe",
+    //   },
+    // );
+    //return { geminiSteps, openAiSteps };
+    return geminiSteps;
   },
 );
