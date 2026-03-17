@@ -1,11 +1,15 @@
-import { Button } from "@/components/ui/button";
+import { requireAuth } from "@/lib/auth-utils";
 import { caller } from "@/trpc/server";
+
 const Page = async () => {
-  const users = await caller.getUsers();
+  await requireAuth();
+  const data = await caller.getUsers();
   return (
-    <div className="text-red-400 min-h-screen bg-black">
-      Calling the database
-      <Button variant="outline">{JSON.stringify(users)}</Button>
+    <div className="min-h-screen min-w-screen flex items-center justify-center">
+      protected server component
+      <br />
+      <br />
+      <div>{JSON.stringify(data)}</div>
     </div>
   );
 };
