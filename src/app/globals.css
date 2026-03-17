@@ -71,7 +71,6 @@
 :root {
   --radius: 0.425rem;
 
-  /* Cool off-white — feels like a clean dashboard canvas */
   --background: oklch(0.982 0.006 240.0);
   --foreground: oklch(0.195 0.030 258.0);
 
@@ -80,37 +79,30 @@
   --popover: oklch(0.994 0.004 240.0);
   --popover-foreground: oklch(0.195 0.030 258.0);
 
-  /* Primary: electric teal — active nodes, live connections, run buttons */
   --primary: oklch(0.685 0.165 185.0);
   --primary-foreground: oklch(0.99 0 0);
 
-  /* Secondary: icy slate — inactive states, secondary actions */
   --secondary: oklch(0.940 0.018 240.0);
   --secondary-foreground: oklch(0.340 0.032 258.0);
 
-  /* Muted: cool gray with a hint of blue */
   --muted: oklch(0.956 0.010 242.0);
   --muted-foreground: oklch(0.498 0.028 258.0);
 
-  /* Accent: electric violet — triggers, webhooks, automation events */
   --accent: oklch(0.630 0.200 292.0);
   --accent-foreground: oklch(0.99 0 0);
 
-  /* Destructive: sharp red-orange — errors, failed runs */
   --destructive: oklch(0.610 0.210 22.0);
   --destructive-foreground: oklch(0.99 0 0);
 
-  /* Border: cool blue-gray — subtle grid/panel separators */
   --border: oklch(0.872 0.018 242.0);
   --input: oklch(0.952 0.012 242.0);
   --ring: oklch(0.685 0.165 185.0);
 
-  /* Charts: teal → violet → blue → green → pink — node type palette */
-  --chart-1: oklch(0.685 0.165 185.0);  /* teal    — data/transform */
-  --chart-2: oklch(0.630 0.200 292.0);  /* violet  — trigger        */
-  --chart-3: oklch(0.580 0.155 245.0);  /* indigo  — condition      */
-  --chart-4: oklch(0.660 0.155 155.0);  /* green   — success/output */
-  --chart-5: oklch(0.620 0.195 330.0);  /* pink    — notification   */
+  --chart-1: oklch(0.685 0.165 185.0);
+  --chart-2: oklch(0.630 0.200 292.0);
+  --chart-3: oklch(0.580 0.155 245.0);
+  --chart-4: oklch(0.660 0.155 155.0);
+  --chart-5: oklch(0.620 0.195 330.0);
 
   --sidebar: oklch(0.970 0.010 242.0);
   --sidebar-foreground: oklch(0.195 0.030 258.0);
@@ -121,11 +113,11 @@
   --sidebar-border: oklch(0.872 0.018 242.0);
   --sidebar-ring: oklch(0.685 0.165 185.0);
 
-  --font-sans: Inter, sans-serif;
+  /* ↓ Updated fonts */
+  --font-sans: var(--font-geist-sans), "Plus Jakarta Sans", sans-serif;
   --font-serif: Source Serif 4, serif;
-  --font-mono: JetBrains Mono, monospace;
+  --font-mono: var(--font-geist-mono), "JetBrains Mono", monospace;
 
-  /* Shadows: teal-tinted for that glowing node feel */
   --shadow-color: hsl(185 60% 10%);
   --shadow-opacity: 0.08;
   --shadow-blur: 3px;
@@ -152,44 +144,38 @@
 }
 
 .dark {
-  /* Deep navy — the classic node-graph canvas color */
   --background: oklch(0.168 0.034 264.0);
   --foreground: oklch(0.918 0.010 248.0);
 
-  /* Cards slightly elevated from canvas */
   --card: oklch(0.210 0.032 265.0);
   --card-foreground: oklch(0.918 0.010 248.0);
   --popover: oklch(0.198 0.030 265.0);
   --popover-foreground: oklch(0.918 0.010 248.0);
 
-  /* Primary: brighter teal for dark bg legibility */
   --primary: oklch(0.740 0.170 185.0);
   --primary-foreground: oklch(0.12 0.020 265.0);
 
-  /* Secondary: deep navy panel */
   --secondary: oklch(0.255 0.030 265.0);
   --secondary-foreground: oklch(0.880 0.012 248.0);
 
   --muted: oklch(0.248 0.028 265.0);
   --muted-foreground: oklch(0.620 0.018 255.0);
 
-  /* Accent: brighter violet in dark */
   --accent: oklch(0.680 0.210 292.0);
   --accent-foreground: oklch(0.99 0 0);
 
   --destructive: oklch(0.640 0.215 22.0);
   --destructive-foreground: oklch(0.99 0 0);
 
-  /* Border: subtle teal-blue glow lines — node connector feel */
   --border: oklch(0.310 0.038 262.0);
   --input: oklch(0.295 0.032 264.0);
   --ring: oklch(0.740 0.170 185.0);
 
-  --chart-1: oklch(0.740 0.170 185.0);  /* teal    */
-  --chart-2: oklch(0.680 0.210 292.0);  /* violet  */
-  --chart-3: oklch(0.620 0.160 245.0);  /* indigo  */
-  --chart-4: oklch(0.700 0.160 155.0);  /* green   */
-  --chart-5: oklch(0.660 0.200 330.0);  /* pink    */
+  --chart-1: oklch(0.740 0.170 185.0);
+  --chart-2: oklch(0.680 0.210 292.0);
+  --chart-3: oklch(0.620 0.160 245.0);
+  --chart-4: oklch(0.700 0.160 155.0);
+  --chart-5: oklch(0.660 0.200 330.0);
 
   --sidebar: oklch(0.185 0.034 265.0);
   --sidebar-foreground: oklch(0.918 0.010 248.0);
@@ -201,11 +187,12 @@
   --sidebar-ring: oklch(0.740 0.170 185.0);
 
   --radius: 0.425rem;
-  --font-sans: Inter, sans-serif;
-  --font-serif: Source Serif 4, serif;
-  --font-mono: JetBrains Mono, monospace;
 
-  /* Dark shadows: deeper, with navy tint */
+  /* ↓ Updated fonts */
+  --font-sans: var(--font-geist-sans), "Plus Jakarta Sans", sans-serif;
+  --font-serif: Source Serif 4, serif;
+  --font-mono: var(--font-geist-mono), "JetBrains Mono", monospace;
+
   --shadow-color: hsl(240 50% 5%);
   --shadow-opacity: 0.35;
   --shadow-blur: 3px;
