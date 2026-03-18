@@ -42,7 +42,7 @@
   --radius-lg: var(--radius);
   --radius-xl: calc(var(--radius) + 4px);
   --font-serif: Source Serif 4, serif;
-  --radius: 0.425rem;
+  --radius: 0.5rem;
   --tracking-tighter: calc(var(--tracking-normal) - 0.05em);
   --tracking-tight: calc(var(--tracking-normal) - 0.025em);
   --tracking-wide: calc(var(--tracking-normal) + 0.025em);
@@ -68,58 +68,89 @@
   --color-destructive-foreground: var(--destructive-foreground);
 }
 
+/*
+  THEME: "Arctic Steel"
+  ─────────────────────────────────────────────────────────────
+  Identity: Precise, technical, confident automation workspace.
+  Closer to Linear or a data engineering tool than anything in
+  the current automation space. Cool-toned, sharp, trustworthy.
+
+  Palette logic:
+    Primary   → steel blue       (clear, decisive, data-oriented)
+    Accent    → teal             (live/running states, success)
+    Base      → cool blue-grey   (feels engineered, not sterile)
+
+  Light mode: cool blue-grey page, pure white cards,
+              steel blue for interactions, teal for live states.
+
+  Dark mode:  deep blue-charcoal — cool and composed, like
+              a well-lit control room. NOT harsh neon or navy.
+  ─────────────────────────────────────────────────────────────
+*/
+
 :root {
-  --radius: 0.425rem;
+  --radius: 0.5rem;
 
-  --background: oklch(0.982 0.006 240.0);
-  --foreground: oklch(0.195 0.030 258.0);
+  /* Page — cool blue-grey tint (hue 220), very low chroma */
+  --background: oklch(0.966 0.008 228.0);
+  --foreground: oklch(0.168 0.028 248.0);
 
-  --card: oklch(0.994 0.004 240.0);
-  --card-foreground: oklch(0.195 0.030 258.0);
-  --popover: oklch(0.994 0.004 240.0);
-  --popover-foreground: oklch(0.195 0.030 258.0);
+  /* Cards — pure white, lift cleanly off the cool base */
+  --card: oklch(0.999 0.002 240.0);
+  --card-foreground: oklch(0.168 0.028 248.0);
+  --popover: oklch(0.999 0.002 240.0);
+  --popover-foreground: oklch(0.168 0.028 248.0);
 
-  --primary: oklch(0.685 0.165 185.0);
+  /* Primary — steel blue. Decisive and precise. */
+  --primary: oklch(0.478 0.142 248.0);
   --primary-foreground: oklch(0.99 0 0);
 
-  --secondary: oklch(0.940 0.018 240.0);
-  --secondary-foreground: oklch(0.340 0.032 258.0);
+  /* Secondary — muted cool-grey */
+  --secondary: oklch(0.930 0.012 228.0);
+  --secondary-foreground: oklch(0.330 0.030 248.0);
 
-  --muted: oklch(0.956 0.010 242.0);
-  --muted-foreground: oklch(0.498 0.028 258.0);
+  /* Muted — near-neutral with cool undertone */
+  --muted: oklch(0.948 0.008 228.0);
+  --muted-foreground: oklch(0.490 0.022 240.0);
 
-  --accent: oklch(0.630 0.200 292.0);
+  /* Accent — teal. Use for "running", "live", "success" states. */
+  /* In a workflow tool: a pulsing teal = this flow is executing. */
+  --accent: oklch(0.548 0.128 192.0);
   --accent-foreground: oklch(0.99 0 0);
 
-  --destructive: oklch(0.610 0.210 22.0);
+  /* Destructive */
+  --destructive: oklch(0.565 0.180 22.0);
   --destructive-foreground: oklch(0.99 0 0);
 
-  --border: oklch(0.872 0.018 242.0);
-  --input: oklch(0.952 0.012 242.0);
-  --ring: oklch(0.685 0.165 185.0);
+  /* Borders — cool-tinted, not warm grey */
+  --border: oklch(0.878 0.014 228.0);
+  --input: oklch(0.946 0.009 228.0);
+  --ring: oklch(0.478 0.142 248.0);
 
-  --chart-1: oklch(0.685 0.165 185.0);
-  --chart-2: oklch(0.630 0.200 292.0);
-  --chart-3: oklch(0.580 0.155 245.0);
-  --chart-4: oklch(0.660 0.155 155.0);
-  --chart-5: oklch(0.620 0.195 330.0);
+  /* Charts — steel blue, teal, slate, indigo, cool rose */
+  --chart-1: oklch(0.478 0.142 248.0);   /* steel blue  */
+  --chart-2: oklch(0.548 0.128 192.0);   /* teal        */
+  --chart-3: oklch(0.430 0.088 258.0);   /* deep slate  */
+  --chart-4: oklch(0.540 0.110 280.0);   /* indigo      */
+  --chart-5: oklch(0.580 0.100 320.0);   /* cool rose   */
 
-  --sidebar: oklch(0.970 0.010 242.0);
-  --sidebar-foreground: oklch(0.195 0.030 258.0);
-  --sidebar-primary: oklch(0.685 0.165 185.0);
+  /* Sidebar — slightly deeper cool tone, clearly chrome */
+  --sidebar: oklch(0.950 0.010 228.0);
+  --sidebar-foreground: oklch(0.168 0.028 248.0);
+  --sidebar-primary: oklch(0.478 0.142 248.0);
   --sidebar-primary-foreground: oklch(0.99 0 0);
-  --sidebar-accent: oklch(0.630 0.200 292.0);
+  --sidebar-accent: oklch(0.548 0.128 192.0);
   --sidebar-accent-foreground: oklch(0.99 0 0);
-  --sidebar-border: oklch(0.872 0.018 242.0);
-  --sidebar-ring: oklch(0.685 0.165 185.0);
+  --sidebar-border: oklch(0.870 0.014 228.0);
+  --sidebar-ring: oklch(0.478 0.142 248.0);
 
-  /* ↓ Updated fonts */
   --font-sans: var(--font-geist-sans), "Plus Jakarta Sans", sans-serif;
   --font-serif: Source Serif 4, serif;
   --font-mono: var(--font-geist-mono), "JetBrains Mono", monospace;
 
-  --shadow-color: hsl(185 60% 10%);
-  --shadow-opacity: 0.08;
+  /* Shadows — cool blue-toned, light and crisp */
+  --shadow-color: hsl(220 40% 10%);
+  --shadow-opacity: 0.07;
   --shadow-blur: 3px;
   --shadow-spread: 0px;
   --shadow-offset-x: 0px;
@@ -128,73 +159,85 @@
   --spacing: 0.25rem;
   --tracking-normal: 0em;
 
-  --shadow-2xs: 0px 1px 3px 0px hsl(185 60% 10% / 0.05);
-  --shadow-xs:  0px 1px 3px 0px hsl(185 60% 10% / 0.07);
-  --shadow-sm:  0px 1px 3px 0px hsl(185 60% 10% / 0.09),
-                0px 1px 2px -1px hsl(185 60% 10% / 0.08);
-  --shadow:     0px 1px 3px 0px hsl(185 60% 10% / 0.10),
-                0px 1px 2px -1px hsl(185 60% 10% / 0.10);
-  --shadow-md:  0px 2px 6px 0px hsl(185 60% 10% / 0.10),
-                0px 2px 4px -1px hsl(185 60% 10% / 0.10);
-  --shadow-lg:  0px 4px 12px 0px hsl(185 60% 10% / 0.10),
-                0px 4px 6px  -1px hsl(185 60% 10% / 0.10);
-  --shadow-xl:  0px 8px 20px 0px hsl(185 60% 10% / 0.10),
-                0px 8px 10px -1px hsl(185 60% 10% / 0.10);
-  --shadow-2xl: 0px 12px 30px 0px hsl(185 60% 10% / 0.18);
+  --shadow-2xs: 0px 1px 3px 0px hsl(220 40% 10% / 0.04);
+  --shadow-xs:  0px 1px 3px 0px hsl(220 40% 10% / 0.06);
+  --shadow-sm:  0px 1px 4px 0px hsl(220 40% 10% / 0.08),
+                0px 1px 2px -1px hsl(220 40% 10% / 0.06);
+  --shadow:     0px 2px 5px 0px hsl(220 40% 10% / 0.09),
+                0px 1px 3px -1px hsl(220 40% 10% / 0.08);
+  --shadow-md:  0px 3px 8px 0px hsl(220 40% 10% / 0.09),
+                0px 2px 4px -1px hsl(220 40% 10% / 0.08);
+  --shadow-lg:  0px 5px 14px 0px hsl(220 40% 10% / 0.09),
+                0px 4px 6px  -1px hsl(220 40% 10% / 0.08);
+  --shadow-xl:  0px 9px 22px 0px hsl(220 40% 10% / 0.10),
+                0px 8px 10px -1px hsl(220 40% 10% / 0.08);
+  --shadow-2xl: 0px 14px 32px 0px hsl(220 40% 10% / 0.15);
 }
 
 .dark {
-  --background: oklch(0.168 0.034 264.0);
-  --foreground: oklch(0.918 0.010 248.0);
+  /* Page — deep blue-charcoal. Cool and composed.         */
+  /* hue 232 keeps it clearly cool without going navy.     */
+  /* Think: a well-lit control room, not a hacker terminal.*/
+  --background: oklch(0.150 0.022 232.0);
+  --foreground: oklch(0.910 0.010 228.0);
 
-  --card: oklch(0.210 0.032 265.0);
-  --card-foreground: oklch(0.918 0.010 248.0);
-  --popover: oklch(0.198 0.030 265.0);
-  --popover-foreground: oklch(0.918 0.010 248.0);
+  /* Cards — barely lifted from bg */
+  --card: oklch(0.192 0.022 234.0);
+  --card-foreground: oklch(0.910 0.010 228.0);
+  --popover: oklch(0.182 0.020 234.0);
+  --popover-foreground: oklch(0.910 0.010 228.0);
 
-  --primary: oklch(0.740 0.170 185.0);
-  --primary-foreground: oklch(0.12 0.020 265.0);
+  /* Primary — brighter steel blue for dark surfaces */
+  --primary: oklch(0.618 0.148 248.0);
+  --primary-foreground: oklch(0.09 0.018 248.0);
 
-  --secondary: oklch(0.255 0.030 265.0);
-  --secondary-foreground: oklch(0.880 0.012 248.0);
+  /* Secondary */
+  --secondary: oklch(0.238 0.020 232.0);
+  --secondary-foreground: oklch(0.868 0.010 228.0);
 
-  --muted: oklch(0.248 0.028 265.0);
-  --muted-foreground: oklch(0.620 0.018 255.0);
+  /* Muted */
+  --muted: oklch(0.230 0.018 232.0);
+  --muted-foreground: oklch(0.598 0.016 235.0);
 
-  --accent: oklch(0.680 0.210 292.0);
-  --accent-foreground: oklch(0.99 0 0);
+  /* Accent — teal stays vivid enough to signal "live" */
+  --accent: oklch(0.658 0.132 192.0);
+  --accent-foreground: oklch(0.08 0.020 192.0);
 
-  --destructive: oklch(0.640 0.215 22.0);
+  /* Destructive */
+  --destructive: oklch(0.598 0.188 22.0);
   --destructive-foreground: oklch(0.99 0 0);
 
-  --border: oklch(0.310 0.038 262.0);
-  --input: oklch(0.295 0.032 264.0);
-  --ring: oklch(0.740 0.170 185.0);
+  /* Borders */
+  --border: oklch(0.290 0.022 232.0);
+  --input: oklch(0.272 0.020 232.0);
+  --ring: oklch(0.618 0.148 248.0);
 
-  --chart-1: oklch(0.740 0.170 185.0);
-  --chart-2: oklch(0.680 0.210 292.0);
-  --chart-3: oklch(0.620 0.160 245.0);
-  --chart-4: oklch(0.700 0.160 155.0);
-  --chart-5: oklch(0.660 0.200 330.0);
+  /* Charts */
+  --chart-1: oklch(0.618 0.148 248.0);
+  --chart-2: oklch(0.658 0.132 192.0);
+  --chart-3: oklch(0.548 0.095 258.0);
+  --chart-4: oklch(0.598 0.118 280.0);
+  --chart-5: oklch(0.638 0.108 320.0);
 
-  --sidebar: oklch(0.185 0.034 265.0);
-  --sidebar-foreground: oklch(0.918 0.010 248.0);
-  --sidebar-primary: oklch(0.740 0.170 185.0);
-  --sidebar-primary-foreground: oklch(0.12 0.020 265.0);
-  --sidebar-accent: oklch(0.680 0.210 292.0);
-  --sidebar-accent-foreground: oklch(0.99 0 0);
-  --sidebar-border: oklch(0.295 0.036 264.0);
-  --sidebar-ring: oklch(0.740 0.170 185.0);
+  /* Sidebar — slightly deeper than bg */
+  --sidebar: oklch(0.168 0.022 232.0);
+  --sidebar-foreground: oklch(0.910 0.010 228.0);
+  --sidebar-primary: oklch(0.618 0.148 248.0);
+  --sidebar-primary-foreground: oklch(0.09 0.018 248.0);
+  --sidebar-accent: oklch(0.658 0.132 192.0);
+  --sidebar-accent-foreground: oklch(0.08 0.020 192.0);
+  --sidebar-border: oklch(0.275 0.020 232.0);
+  --sidebar-ring: oklch(0.618 0.148 248.0);
 
-  --radius: 0.425rem;
+  --radius: 0.5rem;
 
-  /* ↓ Updated fonts */
   --font-sans: var(--font-geist-sans), "Plus Jakarta Sans", sans-serif;
   --font-serif: Source Serif 4, serif;
   --font-mono: var(--font-geist-mono), "JetBrains Mono", monospace;
 
-  --shadow-color: hsl(240 50% 5%);
-  --shadow-opacity: 0.35;
+  /* Shadows — deep cool charcoal */
+  --shadow-color: hsl(220 40% 3%);
+  --shadow-opacity: 0.42;
   --shadow-blur: 3px;
   --shadow-spread: 0px;
   --shadow-offset-x: 0px;
@@ -202,19 +245,19 @@
   --letter-spacing: 0em;
   --spacing: 0.25rem;
 
-  --shadow-2xs: 0px 1px 4px  0px hsl(240 50% 5% / 0.20);
-  --shadow-xs:  0px 1px 4px  0px hsl(240 50% 5% / 0.28);
-  --shadow-sm:  0px 1px 4px  0px hsl(240 50% 5% / 0.32),
-                0px 1px 2px -1px hsl(240 50% 5% / 0.28);
-  --shadow:     0px 2px 6px  0px hsl(240 50% 5% / 0.36),
-                0px 1px 2px -1px hsl(240 50% 5% / 0.30);
-  --shadow-md:  0px 3px 8px  0px hsl(240 50% 5% / 0.38),
-                0px 2px 4px -1px hsl(240 50% 5% / 0.32);
-  --shadow-lg:  0px 6px 16px 0px hsl(240 50% 5% / 0.40),
-                0px 4px 6px -1px  hsl(240 50% 5% / 0.35);
-  --shadow-xl:  0px 10px 24px 0px hsl(240 50% 5% / 0.45),
-                0px 8px 10px -1px hsl(240 50% 5% / 0.38);
-  --shadow-2xl: 0px 16px 40px 0px hsl(240 50% 5% / 0.55);
+  --shadow-2xs: 0px 1px 4px  0px hsl(220 40% 3% / 0.24);
+  --shadow-xs:  0px 1px 4px  0px hsl(220 40% 3% / 0.32);
+  --shadow-sm:  0px 1px 5px  0px hsl(220 40% 3% / 0.36),
+                0px 1px 2px -1px hsl(220 40% 3% / 0.30);
+  --shadow:     0px 2px 7px  0px hsl(220 40% 3% / 0.40),
+                0px 1px 3px -1px hsl(220 40% 3% / 0.32);
+  --shadow-md:  0px 3px 9px  0px hsl(220 40% 3% / 0.42),
+                0px 2px 4px -1px hsl(220 40% 3% / 0.36);
+  --shadow-lg:  0px 6px 18px 0px hsl(220 40% 3% / 0.46),
+                0px 4px 6px -1px  hsl(220 40% 3% / 0.38);
+  --shadow-xl:  0px 10px 26px 0px hsl(220 40% 3% / 0.50),
+                0px 8px 10px -1px hsl(220 40% 3% / 0.42);
+  --shadow-2xl: 0px 18px 44px 0px hsl(220 40% 3% / 0.60);
 }
 
 @layer base {
