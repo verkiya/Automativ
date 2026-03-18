@@ -21,7 +21,7 @@ export const auth = betterAuth({
         checkout({
           products: [
             {
-              productId: "3b6b1284-01c5-4aaf-9b9a-845f89dde0d8",
+              productId: "798fa6ea-3ff1-4768-b9c2-cd4d0539363f",
               slug: "automativ-pro",
             },
           ],
