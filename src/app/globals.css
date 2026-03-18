@@ -42,7 +42,7 @@
   --radius-lg: var(--radius);
   --radius-xl: calc(var(--radius) + 4px);
   --font-serif: Source Serif 4, serif;
-  --radius: 0.5rem;
+  --radius: 0.425rem;
   --tracking-tighter: calc(var(--tracking-normal) - 0.05em);
   --tracking-tight: calc(var(--tracking-normal) - 0.025em);
   --tracking-wide: calc(var(--tracking-normal) + 0.025em);
@@ -69,87 +69,113 @@
 }
 
 /*
-  THEME: "Arctic Steel"
+  THEME: "Neural Arc — Abyssal Current"
   ─────────────────────────────────────────────────────────────
-  Identity: Precise, technical, confident automation workspace.
-  Closer to Linear or a data engineering tool than anything in
-  the current automation space. Cool-toned, sharp, trustworthy.
+  Identity: Deep-sea bioluminescence meets AI intelligence.
+  Like something that thinks in the dark — deep ocean cerulean
+  blue as primary, soft bioluminescent teal-green as accent.
+  Neither colour is electric or harsh. Together they feel
+  like flowing data, alive but calm.
 
-  Palette logic:
-    Primary   → steel blue       (clear, decisive, data-oriented)
-    Accent    → teal             (live/running states, success)
-    Base      → cool blue-grey   (feels engineered, not sterile)
+  Colour logic:
+    Primary  → deep ocean cerulean   hue 232  (intelligence,
+                                               depth, trust)
+    Accent   → bioluminescent teal   hue 172  (execution flow,
+                                               live states)
+    Base     → cool blue-slate tint           (coherent with
+                                               both primaries)
 
-  Light mode: cool blue-grey page, pure white cards,
-              steel blue for interactions, teal for live states.
+  Light mode: misty blue-white base — like morning fog over
+              the ocean. Clean white cards. Deep blue
+              interactions. Soft teal signals.
 
-  Dark mode:  deep blue-charcoal — cool and composed, like
-              a well-lit control room. NOT harsh neon or navy.
+  Dark mode:  deep abyssal blue-black — the colour of 3000m
+              depth. Blue that genuinely glows. Teal that
+              pulses like a deep-sea creature. Easy on the
+              eyes because the base absorbs light rather
+              than reflecting it.
+
+  Eye comfort decisions:
+    — Primary chroma capped at 0.175 in light, 0.195 in dark
+    — Accent chroma capped at 0.148 light, 0.162 dark
+    — Background chroma extremely low (0.009) — almost neutral
+    — Muted colours stay well below 0.020 chroma
+    — Dark bg lightness 0.128 — deep but not pure black,
+      which actually causes more eye strain than near-black
   ─────────────────────────────────────────────────────────────
 */
 
 :root {
-  --radius: 0.5rem;
+  --radius: 0.425rem;
 
-  /* Page — cool blue-grey tint (hue 220), very low chroma */
-  --background: oklch(0.966 0.008 228.0);
-  --foreground: oklch(0.168 0.028 248.0);
+  /* ── Page ──────────────────────────────────────────────── */
+  /* Misty blue-white — barely perceptible ocean tint.       */
+  /* Feels like a clean lab, not a sterile hospital.         */
+  --background: oklch(0.978 0.009 222.0);
+  --foreground: oklch(0.145 0.028 242.0);
 
-  /* Cards — pure white, lift cleanly off the cool base */
-  --card: oklch(0.999 0.002 240.0);
-  --card-foreground: oklch(0.168 0.028 248.0);
-  --popover: oklch(0.999 0.002 240.0);
-  --popover-foreground: oklch(0.168 0.028 248.0);
+  /* ── Cards — pure white, crisp on the misty base ───────── */
+  --card: oklch(1.000 0.000 0.0);
+  --card-foreground: oklch(0.145 0.028 242.0);
+  --popover: oklch(1.000 0.000 0.0);
+  --popover-foreground: oklch(0.145 0.028 242.0);
 
-  /* Primary — steel blue. Decisive and precise. */
-  --primary: oklch(0.478 0.142 248.0);
+  /* ── Primary — deep ocean cerulean ─────────────────────── */
+  /* Not navy, not electric — the colour of depth.           */
+  /* Authoritative without being cold.                       */
+  --primary: oklch(0.522 0.175 232.0);
   --primary-foreground: oklch(0.99 0 0);
 
-  /* Secondary — muted cool-grey */
-  --secondary: oklch(0.930 0.012 228.0);
-  --secondary-foreground: oklch(0.330 0.030 248.0);
+  /* ── Secondary — soft coastal blue tint ────────────────── */
+  --secondary: oklch(0.938 0.018 226.0);
+  --secondary-foreground: oklch(0.305 0.048 238.0);
 
-  /* Muted — near-neutral with cool undertone */
-  --muted: oklch(0.948 0.008 228.0);
-  --muted-foreground: oklch(0.490 0.022 240.0);
+  /* ── Muted — cool near-neutral, barely blue ────────────── */
+  --muted: oklch(0.952 0.010 222.0);
+  --muted-foreground: oklch(0.488 0.022 232.0);
 
-  /* Accent — teal. Use for "running", "live", "success" states. */
-  /* In a workflow tool: a pulsing teal = this flow is executing. */
-  --accent: oklch(0.548 0.128 192.0);
+  /* ── Accent — bioluminescent teal ──────────────────────── */
+  /* Sits exactly between blue and green (hue 172).          */
+  /* Use for: running workflows, active nodes, success.      */
+  /* Soft enough to stare at, vivid enough to signal.        */
+  --accent: oklch(0.648 0.148 172.0);
   --accent-foreground: oklch(0.99 0 0);
 
-  /* Destructive */
-  --destructive: oklch(0.565 0.180 22.0);
+  /* ── Destructive ────────────────────────────────────────── */
+  --destructive: oklch(0.568 0.200 22.0);
   --destructive-foreground: oklch(0.99 0 0);
 
-  /* Borders — cool-tinted, not warm grey */
-  --border: oklch(0.878 0.014 228.0);
-  --input: oklch(0.946 0.009 228.0);
-  --ring: oklch(0.478 0.142 248.0);
+  /* ── Borders — blue-tinted, not cold grey ──────────────── */
+  --border: oklch(0.882 0.016 222.0);
+  --input: oklch(0.952 0.010 222.0);
+  --ring: oklch(0.522 0.175 232.0);
 
-  /* Charts — steel blue, teal, slate, indigo, cool rose */
-  --chart-1: oklch(0.478 0.142 248.0);   /* steel blue  */
-  --chart-2: oklch(0.548 0.128 192.0);   /* teal        */
-  --chart-3: oklch(0.430 0.088 258.0);   /* deep slate  */
-  --chart-4: oklch(0.540 0.110 280.0);   /* indigo      */
-  --chart-5: oklch(0.580 0.100 320.0);   /* cool rose   */
+  /* ── Charts — full blue-to-green arc ───────────────────── */
+  /* Ocean blue → teal → seafoam → sky → deep indigo         */
+  /* Each stop is a step along the blue-green spectrum.      */
+  --chart-1: oklch(0.522 0.175 232.0);   /* ocean blue    */
+  --chart-2: oklch(0.648 0.148 172.0);   /* biolum teal   */
+  --chart-3: oklch(0.598 0.155 198.0);   /* deep cyan     */
+  --chart-4: oklch(0.548 0.138 152.0);   /* seafoam green */
+  --chart-5: oklch(0.468 0.148 258.0);   /* deep indigo   */
 
-  /* Sidebar — slightly deeper cool tone, clearly chrome */
-  --sidebar: oklch(0.950 0.010 228.0);
-  --sidebar-foreground: oklch(0.168 0.028 248.0);
-  --sidebar-primary: oklch(0.478 0.142 248.0);
+  /* ── Sidebar — fractionally deeper coastal tone ─────────── */
+  --sidebar: oklch(0.960 0.012 224.0);
+  --sidebar-foreground: oklch(0.145 0.028 242.0);
+  --sidebar-primary: oklch(0.522 0.175 232.0);
   --sidebar-primary-foreground: oklch(0.99 0 0);
-  --sidebar-accent: oklch(0.548 0.128 192.0);
+  --sidebar-accent: oklch(0.648 0.148 172.0);
   --sidebar-accent-foreground: oklch(0.99 0 0);
-  --sidebar-border: oklch(0.870 0.014 228.0);
-  --sidebar-ring: oklch(0.478 0.142 248.0);
+  --sidebar-border: oklch(0.872 0.016 222.0);
+  --sidebar-ring: oklch(0.522 0.175 232.0);
+  --destructive-foreground: oklch(0.99 0 0);
 
   --font-sans: var(--font-geist-sans), "Plus Jakarta Sans", sans-serif;
   --font-serif: Source Serif 4, serif;
   --font-mono: var(--font-geist-mono), "JetBrains Mono", monospace;
 
-  /* Shadows — cool blue-toned, light and crisp */
-  --shadow-color: hsl(220 40% 10%);
+  /* ── Shadows — cool blue-tinted, very soft ─────────────── */
+  --shadow-color: hsl(225 45% 8%);
   --shadow-opacity: 0.07;
   --shadow-blur: 3px;
   --shadow-spread: 0px;
@@ -159,85 +185,92 @@
   --spacing: 0.25rem;
   --tracking-normal: 0em;
 
-  --shadow-2xs: 0px 1px 3px 0px hsl(220 40% 10% / 0.04);
-  --shadow-xs:  0px 1px 3px 0px hsl(220 40% 10% / 0.06);
-  --shadow-sm:  0px 1px 4px 0px hsl(220 40% 10% / 0.08),
-                0px 1px 2px -1px hsl(220 40% 10% / 0.06);
-  --shadow:     0px 2px 5px 0px hsl(220 40% 10% / 0.09),
-                0px 1px 3px -1px hsl(220 40% 10% / 0.08);
-  --shadow-md:  0px 3px 8px 0px hsl(220 40% 10% / 0.09),
-                0px 2px 4px -1px hsl(220 40% 10% / 0.08);
-  --shadow-lg:  0px 5px 14px 0px hsl(220 40% 10% / 0.09),
-                0px 4px 6px  -1px hsl(220 40% 10% / 0.08);
-  --shadow-xl:  0px 9px 22px 0px hsl(220 40% 10% / 0.10),
-                0px 8px 10px -1px hsl(220 40% 10% / 0.08);
-  --shadow-2xl: 0px 14px 32px 0px hsl(220 40% 10% / 0.15);
+  --shadow-2xs: 0px 1px 3px 0px hsl(225 45% 8% / 0.04);
+  --shadow-xs:  0px 1px 3px 0px hsl(225 45% 8% / 0.05);
+  --shadow-sm:  0px 1px 3px 0px hsl(225 45% 8% / 0.07),
+                0px 1px 2px -1px hsl(225 45% 8% / 0.06);
+  --shadow:     0px 1px 3px 0px hsl(225 45% 8% / 0.08),
+                0px 1px 2px -1px hsl(225 45% 8% / 0.07);
+  --shadow-md:  0px 1px 3px 0px hsl(225 45% 8% / 0.08),
+                0px 2px 4px -1px hsl(225 45% 8% / 0.07);
+  --shadow-lg:  0px 1px 3px 0px hsl(225 45% 8% / 0.08),
+                0px 4px 6px -1px hsl(225 45% 8% / 0.07);
+  --shadow-xl:  0px 1px 3px 0px hsl(225 45% 8% / 0.08),
+                0px 8px 10px -1px hsl(225 45% 8% / 0.07);
+  --shadow-2xl: 0px 1px 3px 0px hsl(225 45% 8% / 0.18);
 }
 
 .dark {
-  /* Page — deep blue-charcoal. Cool and composed.         */
-  /* hue 232 keeps it clearly cool without going navy.     */
-  /* Think: a well-lit control room, not a hacker terminal.*/
-  --background: oklch(0.150 0.022 232.0);
-  --foreground: oklch(0.910 0.010 228.0);
+  /* ── Page — deep abyssal blue-black ─────────────────────── */
+  /* Not pure black (which causes halation/eye strain).      */
+  /* Not navy (which reads as "old enterprise app").         */
+  /* This is the colour of 3000m ocean depth — absorbs       */
+  /* light, feels infinite, gives the accent colours room    */
+  /* to glow without competing.                              */
+  --background: oklch(0.128 0.022 240.0);
+  --foreground: oklch(0.922 0.012 225.0);
 
-  /* Cards — barely lifted from bg */
-  --card: oklch(0.192 0.022 234.0);
-  --card-foreground: oklch(0.910 0.010 228.0);
-  --popover: oklch(0.182 0.020 234.0);
-  --popover-foreground: oklch(0.910 0.010 228.0);
+  /* ── Cards — lifted abyss, clearly above bg ────────────── */
+  --card: oklch(0.172 0.024 240.0);
+  --card-foreground: oklch(0.922 0.012 225.0);
+  --popover: oklch(0.160 0.022 240.0);
+  --popover-foreground: oklch(0.922 0.012 225.0);
 
-  /* Primary — brighter steel blue for dark surfaces */
-  --primary: oklch(0.618 0.148 248.0);
-  --primary-foreground: oklch(0.09 0.018 248.0);
+  /* ── Primary — cerulean that glows in the dark ──────────── */
+  /* Lightness pushed to 0.648 so it reads on dark bg.       */
+  /* Chroma 0.195 — vivid but not electric.                  */
+  --primary: oklch(0.648 0.195 232.0);
+  --primary-foreground: oklch(0.06 0.015 240.0);
 
-  /* Secondary */
-  --secondary: oklch(0.238 0.020 232.0);
-  --secondary-foreground: oklch(0.868 0.010 228.0);
+  /* ── Secondary ─────────────────────────────────────────── */
+  --secondary: oklch(0.225 0.028 240.0);
+  --secondary-foreground: oklch(0.878 0.014 225.0);
 
-  /* Muted */
-  --muted: oklch(0.230 0.018 232.0);
-  --muted-foreground: oklch(0.598 0.016 235.0);
+  /* ── Muted ──────────────────────────────────────────────── */
+  --muted: oklch(0.215 0.022 240.0);
+  --muted-foreground: oklch(0.598 0.020 232.0);
 
-  /* Accent — teal stays vivid enough to signal "live" */
-  --accent: oklch(0.658 0.132 192.0);
-  --accent-foreground: oklch(0.08 0.020 192.0);
+  /* ── Accent — bioluminescent teal, softly glowing ───────── */
+  /* Deep sea creature energy. Calm but unmistakeable.       */
+  --accent: oklch(0.718 0.162 172.0);
+  --accent-foreground: oklch(0.06 0.018 172.0);
 
-  /* Destructive */
-  --destructive: oklch(0.598 0.188 22.0);
+  /* ── Destructive ────────────────────────────────────────── */
+  --destructive: oklch(0.605 0.205 22.0);
   --destructive-foreground: oklch(0.99 0 0);
 
-  /* Borders */
-  --border: oklch(0.290 0.022 232.0);
-  --input: oklch(0.272 0.020 232.0);
-  --ring: oklch(0.618 0.148 248.0);
+  /* ── Borders — deep blue, clearly visible not harsh ─────── */
+  --border: oklch(0.272 0.032 238.0);
+  --input: oklch(0.255 0.028 240.0);
+  --ring: oklch(0.648 0.195 232.0);
 
-  /* Charts */
-  --chart-1: oklch(0.618 0.148 248.0);
-  --chart-2: oklch(0.658 0.132 192.0);
-  --chart-3: oklch(0.548 0.095 258.0);
-  --chart-4: oklch(0.598 0.118 280.0);
-  --chart-5: oklch(0.638 0.108 320.0);
+  /* ── Charts — vivid blue-green arc on dark ──────────────── */
+  --chart-1: oklch(0.648 0.195 232.0);   /* glowing blue  */
+  --chart-2: oklch(0.718 0.162 172.0);   /* biolum teal   */
+  --chart-3: oklch(0.688 0.172 198.0);   /* bright cyan   */
+  --chart-4: oklch(0.638 0.158 152.0);   /* seafoam       */
+  --chart-5: oklch(0.578 0.168 258.0);   /* soft indigo   */
 
-  /* Sidebar — slightly deeper than bg */
-  --sidebar: oklch(0.168 0.022 232.0);
-  --sidebar-foreground: oklch(0.910 0.010 228.0);
-  --sidebar-primary: oklch(0.618 0.148 248.0);
-  --sidebar-primary-foreground: oklch(0.09 0.018 248.0);
-  --sidebar-accent: oklch(0.658 0.132 192.0);
-  --sidebar-accent-foreground: oklch(0.08 0.020 192.0);
-  --sidebar-border: oklch(0.275 0.020 232.0);
-  --sidebar-ring: oklch(0.618 0.148 248.0);
+  /* ── Sidebar — fractionally deeper than bg ─────────────── */
+  --sidebar: oklch(0.148 0.024 240.0);
+  --sidebar-foreground: oklch(0.922 0.012 225.0);
+  --sidebar-primary: oklch(0.648 0.195 232.0);
+  --sidebar-primary-foreground: oklch(0.06 0.015 240.0);
+  --sidebar-accent: oklch(0.718 0.162 172.0);
+  --sidebar-accent-foreground: oklch(0.06 0.018 172.0);
+  --sidebar-border: oklch(0.258 0.030 238.0);
+  --sidebar-ring: oklch(0.648 0.195 232.0);
+  --destructive-foreground: oklch(0.99 0 0);
 
-  --radius: 0.5rem;
+  --radius: 0.425rem;
 
   --font-sans: var(--font-geist-sans), "Plus Jakarta Sans", sans-serif;
   --font-serif: Source Serif 4, serif;
   --font-mono: var(--font-geist-mono), "JetBrains Mono", monospace;
 
-  /* Shadows — deep cool charcoal */
-  --shadow-color: hsl(220 40% 3%);
-  --shadow-opacity: 0.42;
+  /* ── Shadows — deep abyssal blue ───────────────────────── */
+  --shadow-color: hsl(230 55% 3%);
+  --shadow-opacity: 0.48;
   --shadow-blur: 3px;
   --shadow-spread: 0px;
   --shadow-offset-x: 0px;
@@ -245,19 +278,19 @@
   --letter-spacing: 0em;
   --spacing: 0.25rem;
 
-  --shadow-2xs: 0px 1px 4px  0px hsl(220 40% 3% / 0.24);
-  --shadow-xs:  0px 1px 4px  0px hsl(220 40% 3% / 0.32);
-  --shadow-sm:  0px 1px 5px  0px hsl(220 40% 3% / 0.36),
-                0px 1px 2px -1px hsl(220 40% 3% / 0.30);
-  --shadow:     0px 2px 7px  0px hsl(220 40% 3% / 0.40),
-                0px 1px 3px -1px hsl(220 40% 3% / 0.32);
-  --shadow-md:  0px 3px 9px  0px hsl(220 40% 3% / 0.42),
-                0px 2px 4px -1px hsl(220 40% 3% / 0.36);
-  --shadow-lg:  0px 6px 18px 0px hsl(220 40% 3% / 0.46),
-                0px 4px 6px -1px  hsl(220 40% 3% / 0.38);
-  --shadow-xl:  0px 10px 26px 0px hsl(220 40% 3% / 0.50),
-                0px 8px 10px -1px hsl(220 40% 3% / 0.42);
-  --shadow-2xl: 0px 18px 44px 0px hsl(220 40% 3% / 0.60);
+  --shadow-2xs: 0px 1px 3px 0px hsl(230 55% 3% / 0.24);
+  --shadow-xs:  0px 1px 3px 0px hsl(230 55% 3% / 0.24);
+  --shadow-sm:  0px 1px 3px 0px hsl(230 55% 3% / 0.38),
+                0px 1px 2px -1px hsl(230 55% 3% / 0.32);
+  --shadow:     0px 1px 3px 0px hsl(230 55% 3% / 0.38),
+                0px 1px 2px -1px hsl(230 55% 3% / 0.38);
+  --shadow-md:  0px 1px 3px 0px hsl(230 55% 3% / 0.38),
+                0px 2px 4px -1px hsl(230 55% 3% / 0.38);
+  --shadow-lg:  0px 1px 3px 0px hsl(230 55% 3% / 0.38),
+                0px 4px 6px -1px hsl(230 55% 3% / 0.38);
+  --shadow-xl:  0px 1px 3px 0px hsl(230 55% 3% / 0.38),
+                0px 8px 10px -1px hsl(230 55% 3% / 0.38);
+  --shadow-2xl: 0px 1px 3px 0px hsl(230 55% 3% / 0.58);
 }
 
 @layer base {
