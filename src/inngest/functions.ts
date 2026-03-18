@@ -15,6 +15,11 @@ export const execute = inngest.createFunction(
         model: google("gemini-2.5-flash"),
         system: "You are a helpful assistant",
         prompt: "A very short summary of AI agents",
+        experimental_telemetry: {
+          isEnabled: true,
+          recordInputs: true,
+          recordOutputs: true,
+        },
       },
     );
     // const { steps: openAiSteps } = await step.ai.wrap(
