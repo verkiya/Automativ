@@ -1,6 +1,13 @@
 procs:
+  format:
+    shell: "npx prettier --write ."
+
   next:
     shell: "npm run dev"
+    depends_on:
+      - format
 
   inngest:
     shell: "npm run inngest:dev"
+    depends_on:
+      - format

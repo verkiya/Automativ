@@ -111,63 +111,63 @@
   /* ── Page ──────────────────────────────────────────────── */
   /* Misty blue-white — barely perceptible ocean tint.       */
   /* Feels like a clean lab, not a sterile hospital.         */
-  --background: oklch(0.978 0.009 222.0);
-  --foreground: oklch(0.145 0.028 242.0);
+  --background: oklch(0.978 0.009 222);
+  --foreground: oklch(0.145 0.028 242);
 
   /* ── Cards — pure white, crisp on the misty base ───────── */
-  --card: oklch(1.000 0.000 0.0);
-  --card-foreground: oklch(0.145 0.028 242.0);
-  --popover: oklch(1.000 0.000 0.0);
-  --popover-foreground: oklch(0.145 0.028 242.0);
+  --card: oklch(1 0 0);
+  --card-foreground: oklch(0.145 0.028 242);
+  --popover: oklch(1 0 0);
+  --popover-foreground: oklch(0.145 0.028 242);
 
   /* ── Primary — deep ocean cerulean ─────────────────────── */
   /* Not navy, not electric — the colour of depth.           */
   /* Authoritative without being cold.                       */
-  --primary: oklch(0.522 0.175 232.0);
+  --primary: oklch(0.522 0.175 232);
   --primary-foreground: oklch(0.99 0 0);
 
   /* ── Secondary — soft coastal blue tint ────────────────── */
-  --secondary: oklch(0.938 0.018 226.0);
-  --secondary-foreground: oklch(0.305 0.048 238.0);
+  --secondary: oklch(0.938 0.018 226);
+  --secondary-foreground: oklch(0.305 0.048 238);
 
   /* ── Muted — cool near-neutral, barely blue ────────────── */
-  --muted: oklch(0.952 0.010 222.0);
-  --muted-foreground: oklch(0.488 0.022 232.0);
+  --muted: oklch(0.952 0.01 222);
+  --muted-foreground: oklch(0.488 0.022 232);
 
   /* ── Accent — bioluminescent teal ──────────────────────── */
   /* Sits exactly between blue and green (hue 172).          */
   /* Use for: running workflows, active nodes, success.      */
   /* Soft enough to stare at, vivid enough to signal.        */
-  --accent: oklch(0.648 0.148 172.0);
+  --accent: oklch(0.648 0.148 172);
   --accent-foreground: oklch(0.99 0 0);
 
   /* ── Destructive ────────────────────────────────────────── */
-  --destructive: oklch(0.568 0.200 22.0);
+  --destructive: oklch(0.568 0.2 22);
   --destructive-foreground: oklch(0.99 0 0);
 
   /* ── Borders — blue-tinted, not cold grey ──────────────── */
-  --border: oklch(0.882 0.016 222.0);
-  --input: oklch(0.952 0.010 222.0);
-  --ring: oklch(0.522 0.175 232.0);
+  --border: oklch(0.882 0.016 222);
+  --input: oklch(0.952 0.01 222);
+  --ring: oklch(0.522 0.175 232);
 
   /* ── Charts — full blue-to-green arc ───────────────────── */
   /* Ocean blue → teal → seafoam → sky → deep indigo         */
   /* Each stop is a step along the blue-green spectrum.      */
-  --chart-1: oklch(0.522 0.175 232.0);   /* ocean blue    */
-  --chart-2: oklch(0.648 0.148 172.0);   /* biolum teal   */
-  --chart-3: oklch(0.598 0.155 198.0);   /* deep cyan     */
-  --chart-4: oklch(0.548 0.138 152.0);   /* seafoam green */
-  --chart-5: oklch(0.468 0.148 258.0);   /* deep indigo   */
+  --chart-1: oklch(0.522 0.175 232); /* ocean blue    */
+  --chart-2: oklch(0.648 0.148 172); /* biolum teal   */
+  --chart-3: oklch(0.598 0.155 198); /* deep cyan     */
+  --chart-4: oklch(0.548 0.138 152); /* seafoam green */
+  --chart-5: oklch(0.468 0.148 258); /* deep indigo   */
 
   /* ── Sidebar — fractionally deeper coastal tone ─────────── */
-  --sidebar: oklch(0.960 0.012 224.0);
-  --sidebar-foreground: oklch(0.145 0.028 242.0);
-  --sidebar-primary: oklch(0.522 0.175 232.0);
+  --sidebar: oklch(0.96 0.012 224);
+  --sidebar-foreground: oklch(0.145 0.028 242);
+  --sidebar-primary: oklch(0.522 0.175 232);
   --sidebar-primary-foreground: oklch(0.99 0 0);
-  --sidebar-accent: oklch(0.648 0.148 172.0);
+  --sidebar-accent: oklch(0.648 0.148 172);
   --sidebar-accent-foreground: oklch(0.99 0 0);
-  --sidebar-border: oklch(0.872 0.016 222.0);
-  --sidebar-ring: oklch(0.522 0.175 232.0);
+  --sidebar-border: oklch(0.872 0.016 222);
+  --sidebar-ring: oklch(0.522 0.175 232);
   --destructive-foreground: oklch(0.99 0 0);
 
   --font-sans: var(--font-geist-sans), "Plus Jakarta Sans", sans-serif;
@@ -186,17 +186,22 @@
   --tracking-normal: 0em;
 
   --shadow-2xs: 0px 1px 3px 0px hsl(225 45% 8% / 0.04);
-  --shadow-xs:  0px 1px 3px 0px hsl(225 45% 8% / 0.05);
-  --shadow-sm:  0px 1px 3px 0px hsl(225 45% 8% / 0.07),
-                0px 1px 2px -1px hsl(225 45% 8% / 0.06);
-  --shadow:     0px 1px 3px 0px hsl(225 45% 8% / 0.08),
-                0px 1px 2px -1px hsl(225 45% 8% / 0.07);
-  --shadow-md:  0px 1px 3px 0px hsl(225 45% 8% / 0.08),
-                0px 2px 4px -1px hsl(225 45% 8% / 0.07);
-  --shadow-lg:  0px 1px 3px 0px hsl(225 45% 8% / 0.08),
-                0px 4px 6px -1px hsl(225 45% 8% / 0.07);
-  --shadow-xl:  0px 1px 3px 0px hsl(225 45% 8% / 0.08),
-                0px 8px 10px -1px hsl(225 45% 8% / 0.07);
+  --shadow-xs: 0px 1px 3px 0px hsl(225 45% 8% / 0.05);
+  --shadow-sm:
+    0px 1px 3px 0px hsl(225 45% 8% / 0.07),
+    0px 1px 2px -1px hsl(225 45% 8% / 0.06);
+  --shadow:
+    0px 1px 3px 0px hsl(225 45% 8% / 0.08),
+    0px 1px 2px -1px hsl(225 45% 8% / 0.07);
+  --shadow-md:
+    0px 1px 3px 0px hsl(225 45% 8% / 0.08),
+    0px 2px 4px -1px hsl(225 45% 8% / 0.07);
+  --shadow-lg:
+    0px 1px 3px 0px hsl(225 45% 8% / 0.08),
+    0px 4px 6px -1px hsl(225 45% 8% / 0.07);
+  --shadow-xl:
+    0px 1px 3px 0px hsl(225 45% 8% / 0.08),
+    0px 8px 10px -1px hsl(225 45% 8% / 0.07);
   --shadow-2xl: 0px 1px 3px 0px hsl(225 45% 8% / 0.18);
 }
 
@@ -207,59 +212,59 @@
   /* This is the colour of 3000m ocean depth — absorbs       */
   /* light, feels infinite, gives the accent colours room    */
   /* to glow without competing.                              */
-  --background: oklch(0.128 0.022 240.0);
-  --foreground: oklch(0.922 0.012 225.0);
+  --background: oklch(0.128 0.022 240);
+  --foreground: oklch(0.922 0.012 225);
 
   /* ── Cards — lifted abyss, clearly above bg ────────────── */
-  --card: oklch(0.172 0.024 240.0);
-  --card-foreground: oklch(0.922 0.012 225.0);
-  --popover: oklch(0.160 0.022 240.0);
-  --popover-foreground: oklch(0.922 0.012 225.0);
+  --card: oklch(0.172 0.024 240);
+  --card-foreground: oklch(0.922 0.012 225);
+  --popover: oklch(0.16 0.022 240);
+  --popover-foreground: oklch(0.922 0.012 225);
 
   /* ── Primary — cerulean that glows in the dark ──────────── */
   /* Lightness pushed to 0.648 so it reads on dark bg.       */
   /* Chroma 0.195 — vivid but not electric.                  */
-  --primary: oklch(0.648 0.195 232.0);
-  --primary-foreground: oklch(0.06 0.015 240.0);
+  --primary: oklch(0.648 0.195 232);
+  --primary-foreground: oklch(0.06 0.015 240);
 
   /* ── Secondary ─────────────────────────────────────────── */
-  --secondary: oklch(0.225 0.028 240.0);
-  --secondary-foreground: oklch(0.878 0.014 225.0);
+  --secondary: oklch(0.225 0.028 240);
+  --secondary-foreground: oklch(0.878 0.014 225);
 
   /* ── Muted ──────────────────────────────────────────────── */
-  --muted: oklch(0.215 0.022 240.0);
-  --muted-foreground: oklch(0.598 0.020 232.0);
+  --muted: oklch(0.215 0.022 240);
+  --muted-foreground: oklch(0.598 0.02 232);
 
   /* ── Accent — bioluminescent teal, softly glowing ───────── */
   /* Deep sea creature energy. Calm but unmistakeable.       */
-  --accent: oklch(0.718 0.162 172.0);
-  --accent-foreground: oklch(0.06 0.018 172.0);
+  --accent: oklch(0.718 0.162 172);
+  --accent-foreground: oklch(0.06 0.018 172);
 
   /* ── Destructive ────────────────────────────────────────── */
-  --destructive: oklch(0.605 0.205 22.0);
+  --destructive: oklch(0.605 0.205 22);
   --destructive-foreground: oklch(0.99 0 0);
 
   /* ── Borders — deep blue, clearly visible not harsh ─────── */
-  --border: oklch(0.272 0.032 238.0);
-  --input: oklch(0.255 0.028 240.0);
-  --ring: oklch(0.648 0.195 232.0);
+  --border: oklch(0.272 0.032 238);
+  --input: oklch(0.255 0.028 240);
+  --ring: oklch(0.648 0.195 232);
 
   /* ── Charts — vivid blue-green arc on dark ──────────────── */
-  --chart-1: oklch(0.648 0.195 232.0);   /* glowing blue  */
-  --chart-2: oklch(0.718 0.162 172.0);   /* biolum teal   */
-  --chart-3: oklch(0.688 0.172 198.0);   /* bright cyan   */
-  --chart-4: oklch(0.638 0.158 152.0);   /* seafoam       */
-  --chart-5: oklch(0.578 0.168 258.0);   /* soft indigo   */
+  --chart-1: oklch(0.648 0.195 232); /* glowing blue  */
+  --chart-2: oklch(0.718 0.162 172); /* biolum teal   */
+  --chart-3: oklch(0.688 0.172 198); /* bright cyan   */
+  --chart-4: oklch(0.638 0.158 152); /* seafoam       */
+  --chart-5: oklch(0.578 0.168 258); /* soft indigo   */
 
   /* ── Sidebar — fractionally deeper than bg ─────────────── */
-  --sidebar: oklch(0.148 0.024 240.0);
-  --sidebar-foreground: oklch(0.922 0.012 225.0);
-  --sidebar-primary: oklch(0.648 0.195 232.0);
-  --sidebar-primary-foreground: oklch(0.06 0.015 240.0);
-  --sidebar-accent: oklch(0.718 0.162 172.0);
-  --sidebar-accent-foreground: oklch(0.06 0.018 172.0);
-  --sidebar-border: oklch(0.258 0.030 238.0);
-  --sidebar-ring: oklch(0.648 0.195 232.0);
+  --sidebar: oklch(0.148 0.024 240);
+  --sidebar-foreground: oklch(0.922 0.012 225);
+  --sidebar-primary: oklch(0.648 0.195 232);
+  --sidebar-primary-foreground: oklch(0.06 0.015 240);
+  --sidebar-accent: oklch(0.718 0.162 172);
+  --sidebar-accent-foreground: oklch(0.06 0.018 172);
+  --sidebar-border: oklch(0.258 0.03 238);
+  --sidebar-ring: oklch(0.648 0.195 232);
   --destructive-foreground: oklch(0.99 0 0);
 
   --radius: 0.425rem;
@@ -279,17 +284,22 @@
   --spacing: 0.25rem;
 
   --shadow-2xs: 0px 1px 3px 0px hsl(230 55% 3% / 0.24);
-  --shadow-xs:  0px 1px 3px 0px hsl(230 55% 3% / 0.24);
-  --shadow-sm:  0px 1px 3px 0px hsl(230 55% 3% / 0.38),
-                0px 1px 2px -1px hsl(230 55% 3% / 0.32);
-  --shadow:     0px 1px 3px 0px hsl(230 55% 3% / 0.38),
-                0px 1px 2px -1px hsl(230 55% 3% / 0.38);
-  --shadow-md:  0px 1px 3px 0px hsl(230 55% 3% / 0.38),
-                0px 2px 4px -1px hsl(230 55% 3% / 0.38);
-  --shadow-lg:  0px 1px 3px 0px hsl(230 55% 3% / 0.38),
-                0px 4px 6px -1px hsl(230 55% 3% / 0.38);
-  --shadow-xl:  0px 1px 3px 0px hsl(230 55% 3% / 0.38),
-                0px 8px 10px -1px hsl(230 55% 3% / 0.38);
+  --shadow-xs: 0px 1px 3px 0px hsl(230 55% 3% / 0.24);
+  --shadow-sm:
+    0px 1px 3px 0px hsl(230 55% 3% / 0.38),
+    0px 1px 2px -1px hsl(230 55% 3% / 0.32);
+  --shadow:
+    0px 1px 3px 0px hsl(230 55% 3% / 0.38),
+    0px 1px 2px -1px hsl(230 55% 3% / 0.38);
+  --shadow-md:
+    0px 1px 3px 0px hsl(230 55% 3% / 0.38),
+    0px 2px 4px -1px hsl(230 55% 3% / 0.38);
+  --shadow-lg:
+    0px 1px 3px 0px hsl(230 55% 3% / 0.38),
+    0px 4px 6px -1px hsl(230 55% 3% / 0.38);
+  --shadow-xl:
+    0px 1px 3px 0px hsl(230 55% 3% / 0.38),
+    0px 8px 10px -1px hsl(230 55% 3% / 0.38);
   --shadow-2xl: 0px 1px 3px 0px hsl(230 55% 3% / 0.58);
 }
 
@@ -303,8 +313,13 @@
   }
 }
 @keyframes float {
-  0%, 100% { transform: translateY(0px); }
-  50%       { transform: translateY(-6px); }
+  0%,
+  100% {
+    transform: translateY(0px);
+  }
+  50% {
+    transform: translateY(-6px);
+  }
 }
 @layer base {
   button:not([disabled]),
