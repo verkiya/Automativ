@@ -4,6 +4,7 @@ import "./globals.css";
 import { TRPCReactProvider } from "@/trpc/client";
 import { Toaster } from "@/components/ui/sonner";
 import { NuqsAdapter } from "nuqs/adapters/next/app";
+import { Provider } from "jotai";
 const jakartaSans = Plus_Jakarta_Sans({
   variable: "--font-geist-sans",
   subsets: ["latin"],
@@ -35,7 +36,10 @@ export default function RootLayout({
         className={`${jakartaSans.variable} ${jetbrainsMono.variable} antialiased`}
       >
         <TRPCReactProvider>
-          <NuqsAdapter> {children}</NuqsAdapter> <Toaster />
+          <NuqsAdapter>
+            <Provider> {children}</Provider>
+          </NuqsAdapter>
+          <Toaster />
         </TRPCReactProvider>
       </body>
     </html>
