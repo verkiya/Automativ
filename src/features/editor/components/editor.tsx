@@ -22,9 +22,12 @@ import { ErrorView, LoadingView } from "@/components/entity-components";
 import { useSuspenseWorkflow } from "@/features/workflows/hooks/use-workflows";
 import { nodeComponents } from "@/config/node-components";
 import { AddNodeButton } from "@/components/add-node-button";
+import { useSetAtom } from "jotai";
+import { editorAtom } from "../store/atoms";
 
 export const Editor = ({ workflowId }: { workflowId: string }) => {
   const { data: workflow } = useSuspenseWorkflow(workflowId);
+  const setEditor = useSetAtom(editorAtom);
   const [nodes, setNodes] = useState<Node[]>(workflow.nodes);
   const [edges, setEdges] = useState<Edge[]>(workflow.edges);
   const onNodesChange = useCallback(
@@ -42,7 +45,7 @@ export const Editor = ({ workflowId }: { workflowId: string }) => {
       setEdges((edgesSnapshot) => addEdge(params, edgesSnapshot)),
     [],
   );
-
+  //Use backspace to delete the selected items
   return (
     <div className="size-full">
       <ReactFlow
@@ -53,6 +56,15 @@ export const Editor = ({ workflowId }: { workflowId: string }) => {
         nodeTypes={nodeComponents}
         onConnect={onConnect}
         fitView
+        onInit={setEditor}
+        snapGrid={[10, 10]}
+        snapToGrid
+        panOnScroll
+        panOnDrag={[2]}
+        selectionKeyCode={["Shift"]}
+        multiSelectionKeyCode={["Control", "Meta"]}
+        deleteKeyCode={["Backspace", "Delete"]}
+        selectionOnDrag
       >
         <Background />
         <Controls />
