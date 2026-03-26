@@ -1,13 +1,12 @@
 procs:
   format:
-    shell: "npx prettier --write ."
+    shell: "npm run format && echo '✓ Format complete'"
 
   next:
     shell: "npm run dev"
-    depends_on:
-      - format
 
   inngest:
     shell: "npm run inngest:dev"
-    depends_on:
-      - format
+
+  ngrok:
+    shell: "npm run ngrok:dev"
