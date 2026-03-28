@@ -13,19 +13,18 @@ import { Label } from "@/components/ui/label";
 import { CopyIcon } from "lucide-react";
 import { useParams } from "next/navigation";
 import { toast } from "sonner";
-import { generateGoogleFormScript } from "./utils";
 
 interface Props {
   open: boolean;
   onOpenChange: (open: boolean) => void;
 }
 
-export const GoogleFormTriggerDialog = ({ open, onOpenChange }: Props) => {
+export const StripeTriggerDialog = ({ open, onOpenChange }: Props) => {
   const params = useParams();
   const workflowId = params.workflowId as string;
 
   const baseUrl = process.env.NEXT_PUBLIC_APP_URL || "http://localhost:3000";
-  const webhookUrl = `${baseUrl}/api/webhooks/google-form?workflowId=${workflowId}`;
+  const webhookUrl = `${baseUrl}/api/webhooks/stripe?workflowId=${workflowId}`;
 
   const copyToClipboard = async () => {
     try {
@@ -51,10 +50,11 @@ export const GoogleFormTriggerDialog = ({ open, onOpenChange }: Props) => {
       >
         <DialogHeader className="space-y-2">
           <DialogTitle className="text-lg font-semibold">
-            Google Form Trigger
+            Stripe Trigger Configuration{" "}
           </DialogTitle>
           <DialogDescription className="text-sm">
-            Connect your Google Form to this workflow using a webhook.
+            Configure this webhook URL in your Stripe Dashboard to trigger this
+            workflow on payment events.{" "}
           </DialogDescription>
         </DialogHeader>
 
@@ -85,14 +85,12 @@ export const GoogleFormTriggerDialog = ({ open, onOpenChange }: Props) => {
 
             <ol className="space-y-2 text-sm text-muted-foreground">
               {[
-                "Open your Google Form",
-                "Click the three-dot menu → Apps Script editor",
-                "Paste the script (below)",
-                "Replace WEBHOOK_URL with your URL",
-                "Go to Triggers → Add Trigger",
-                "Function to run: onFormSubmit",
-                "Select: Event Source (From form) & Event Type (On form submit)",
-                "Save the trigger and authorize the account",
+                "Open your Stripe Dashboard",
+                "Go to Developers → Webhooks",
+                "Click 'Add endpoint'",
+                "Paste the webhook URL above",
+                "Select events to listen for (e.g., payment_intent.succeeded)",
+                "Save and copy the signing secret",
               ].map((step, i) => (
                 <li key={i} className="flex gap-2">
                   <span className="font-medium text-foreground">{i + 1}.</span>
@@ -102,63 +100,48 @@ export const GoogleFormTriggerDialog = ({ open, onOpenChange }: Props) => {
             </ol>
           </div>
 
-          <div className="rounded-xl border bg-muted/40 p-4 space-y-4">
-            <div className="flex items-center justify-between">
-              <h4 className="text-sm font-semibold">Google Apps Script</h4>
-
-              <Button
-                type="button"
-                size="sm"
-                variant="outline"
-                onClick={async () => {
-                  const script = generateGoogleFormScript(webhookUrl);
-                  try {
-                    await navigator.clipboard.writeText(script);
-                    toast.success("Script copied");
-                  } catch {
-                    toast.error("Failed to copy script");
-                  }
-                }}
-                className="hover:scale-105 active:scale-95 transition"
-              >
-                <CopyIcon className="size-4 mr-2" />
-                Copy Script
-              </Button>
-            </div>
-
-            <p className="text-xs text-muted-foreground">
-              Includes your webhook URL and handles submissions automatically.
-            </p>
-          </div>
-
           <div className="rounded-xl border bg-muted/40 p-4 space-y-3">
             <h4 className="text-sm font-semibold">Available Variables</h4>
 
             <div className="space-y-2 text-sm">
               <div className="flex items-center gap-1">
                 <code className="bg-background px-2 py-1 rounded text-xs font-mono w-fit">
-                  {"{{googleForm.respondentEmail}}"}
+                  {"{{stripe.amount}}"}
                 </code>
                 <span className="text-muted-foreground text-xs">
-                  Respondent email
+                  - Payment amount
                 </span>
               </div>
-
               <div className="flex items-center gap-1">
                 <code className="bg-background px-2 py-1 rounded text-xs font-mono w-fit">
-                  {"{{googleForm.responses['Question Name']}}"}
+                  {"{{stripe.currency}}"}
                 </code>
                 <span className="text-muted-foreground text-xs">
-                  Specific answer
+                  - Currency code
                 </span>
               </div>
-
               <div className="flex items-center gap-1">
                 <code className="bg-background px-2 py-1 rounded text-xs font-mono w-fit">
-                  {"{{json googleForm.responses}}"}
+                  {"{{stripe.customerId}}"}
                 </code>
                 <span className="text-muted-foreground text-xs">
-                  All responses as JSON
+                  - Customer ID
+                </span>
+              </div>{" "}
+              <div className="flex items-center gap-1">
+                <code className="bg-background px-2 py-1 rounded text-xs font-mono w-fit">
+                  {"{{json stripe}}"}
+                </code>
+                <span className="text-muted-foreground text-xs">
+                  - Full event data as JSON
+                </span>
+              </div>
+              <div className="flex items-center gap-1">
+                <code className="bg-background px-2 py-1 rounded text-xs font-mono w-fit">
+                  {"{{stripe.eventType}}"}
+                </code>
+                <span className="text-muted-foreground text-xs">
+                  - Event type (e.g, payment_intent.succeeded)
                 </span>
               </div>
             </div>
