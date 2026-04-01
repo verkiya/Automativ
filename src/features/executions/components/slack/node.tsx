@@ -3,34 +3,33 @@
 import { useReactFlow, type Node, type NodeProps } from "@xyflow/react";
 import { memo, useState } from "react";
 import { BaseExecutionNode } from "../base-execution-node";
-import { OpenAiDialog, OpenAiFormValues } from "./dialog";
+import { SlackDialog, SlackFormValues } from "./dialog";
 import { useNodeStatus } from "../../hooks/use-node-status";
-import { fetchOpenAiRealtimeToken } from "./actions";
-import { OPENAI_CHANNEL_NAME } from "@/inngest/channels/openai";
+import { fetchSlackRealtimeToken } from "./actions";
+import { SLACK_CHANNEL_NAME } from "@/inngest/channels/slack";
 
-type OpenAiNodeData = {
-  variableName?: string;
-  credentialId?: string;
-  systemPrompt?: string;
-  userPrompt?: string;
+type SlackNodeData = {
+  webhookUrl?: string;
+  content?: string;
+  username?: string;
 };
 
-type OpenAiNodeType = Node<OpenAiNodeData>;
+type SlackNodeType = Node<SlackNodeData>;
 
-export const OpenAiNode = memo((props: NodeProps<OpenAiNodeType>) => {
+export const SlackNode = memo((props: NodeProps<SlackNodeType>) => {
   const [dialogOpen, setDialogOpen] = useState(false);
   const { setNodes } = useReactFlow();
 
   const nodeStatus = useNodeStatus({
     nodeId: props.id,
-    channel: OPENAI_CHANNEL_NAME,
+    channel: SLACK_CHANNEL_NAME,
     topic: "status",
-    refreshToken: fetchOpenAiRealtimeToken,
+    refreshToken: fetchSlackRealtimeToken,
   });
 
   const handleOpenSettings = () => setDialogOpen(true);
 
-  const handleSubmit = (values: OpenAiFormValues) => {
+  const handleSubmit = (values: SlackFormValues) => {
     setNodes((nodes) =>
       nodes.map((node) => {
         if (node.id === props.id) {
@@ -48,13 +47,13 @@ export const OpenAiNode = memo((props: NodeProps<OpenAiNodeType>) => {
   };
 
   const nodeData = props.data;
-  const description = nodeData?.userPrompt
-    ? `gpt-5.4-mini: ${nodeData.userPrompt.slice(0, 50)}...`
+  const description = nodeData?.content
+    ? `Send: ${nodeData.content.slice(0, 50)}...`
     : "Not configured";
 
   return (
     <>
-      <OpenAiDialog
+      <SlackDialog
         open={dialogOpen}
         onOpenChange={setDialogOpen}
         onSubmit={handleSubmit}
@@ -63,8 +62,8 @@ export const OpenAiNode = memo((props: NodeProps<OpenAiNodeType>) => {
       <BaseExecutionNode
         {...props}
         id={props.id}
-        icon="/openai.svg"
-        name="OpenAi"
+        icon="/slack.svg"
+        name="Slack"
         status={nodeStatus}
         description={description}
         onSettings={handleOpenSettings}
@@ -74,4 +73,4 @@ export const OpenAiNode = memo((props: NodeProps<OpenAiNodeType>) => {
   );
 });
 
-OpenAiNode.displayName = "OpenAiNode";
+SlackNode.displayName = "SlackNode";
