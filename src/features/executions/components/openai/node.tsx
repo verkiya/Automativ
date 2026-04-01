@@ -10,6 +10,7 @@ import { OPENAI_CHANNEL_NAME } from "@/inngest/channels/openai";
 
 type OpenAiNodeData = {
   variableName?: string;
+  credentialId?: string;
   systemPrompt?: string;
   userPrompt?: string;
 };
@@ -30,20 +31,18 @@ export const OpenAiNode = memo((props: NodeProps<OpenAiNodeType>) => {
   const handleOpenSettings = () => setDialogOpen(true);
 
   const handleSubmit = (values: OpenAiFormValues) => {
-    setNodes((nodes) =>
-      nodes.map((node) => {
-        if (node.id === props.id) {
-          return {
-            ...node,
-            data: {
-              ...node.data,
-              ...values,
-            },
-          };
+    setNodes((nodes) => nodes.map((node) => {
+      if (node.id === props.id) {
+        return {
+          ...node,
+          data: {
+            ...node.data,
+            ...values,
+          }
         }
-        return node;
-      }),
-    );
+      }
+      return node;
+    }))
   };
 
   const nodeData = props.data;
@@ -70,7 +69,7 @@ export const OpenAiNode = memo((props: NodeProps<OpenAiNodeType>) => {
         onDoubleClick={handleOpenSettings}
       />
     </>
-  );
+  )
 });
 
 OpenAiNode.displayName = "OpenAiNode";
