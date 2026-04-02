@@ -11,9 +11,7 @@ export const ExecuteWorkflowButton = ({
   workflowId: string;
 }) => {
   const executeWorkflow = useExecuteWorkflow();
-  // const handleExecute = () => {
-  //   executeWorkflow.mutate({ id: workflowId });
-  // };
+
   const saveWorkflow = useUpdateWorkflow();
   const editor = useAtomValue(editorAtom);
   const handleExecute = async () => {
@@ -35,8 +33,9 @@ export const ExecuteWorkflowButton = ({
       });
 
       await executeWorkflow.mutateAsync({ id: workflowId });
-    } catch (err: any) {
-      console.error(err);
+    } catch (err: unknown) {
+      const message =
+        err instanceof Error ? err.message : "Failed to execute workflow";
     }
   };
   return (
