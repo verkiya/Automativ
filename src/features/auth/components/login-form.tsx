@@ -91,8 +91,10 @@ export function LoginForm() {
     <div className="flex flex-col gap-6">
       <Card>
         <CardHeader className="text-center">
-          <CardTitle>Welcome back</CardTitle>
-          <CardDescription>Login To Continue</CardDescription>
+          <CardTitle>Automate Your Workflows</CardTitle>
+          <CardDescription>
+            Connect apps and automate tasks with intelligent execution.
+          </CardDescription>
         </CardHeader>
         <CardContent>
           <Form {...form}>

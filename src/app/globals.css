@@ -68,43 +68,76 @@
   --color-destructive-foreground: var(--destructive-foreground);
 }
 
+/* ============================================================
+   SUNSET HORIZON — Light mode
+   Warm pinkish surface · soft slate-blue primary · mint green accent
+   Blues softened: hue ~250, chroma ~0.17 (periwinkle, not cobalt)
+   ============================================================ */
 :root {
   --radius: 0.425rem;
-  --background: oklch(1 0 0);
-  --foreground: oklch(0.3211 0 0);
+
+  /* #f2eded — warm pinkish white */
+  --background: oklch(0.95 0.0054 17.25);
+  /* #0a1931 — deep navy */
+  --foreground: oklch(0.2151 0.0518 259.4);
+
+  /* Card: white */
   --card: oklch(1 0 0);
-  --card-foreground: oklch(0.3211 0 0);
+  --card-foreground: oklch(0.2151 0.0518 259.4);
+
+  /* Popover: white */
   --popover: oklch(1 0 0);
-  --popover-foreground: oklch(0.3211 0 0);
-  --primary: oklch(0.6397 0.172 36.4421);
+  --popover-foreground: oklch(0.2151 0.0518 259.4);
+
+  /* Primary: softened slate-blue — chroma pulled back from 0.22 to 0.172,
+     hue shifted slightly toward 260 (periwinkle direction, not hard cobalt) */
+  --primary: oklch(0.4284 0.172 259.7);
   --primary-foreground: oklch(1 0 0);
-  --secondary: oklch(0.967 0.0029 264.5419);
-  --secondary-foreground: oklch(0.425461 0.0263 256.8018);
-  --muted: oklch(0.9846 0.0017 247.8389);
-  --muted-foreground: oklch(0.551 0.0234 264.3637);
-  --accent: oklch(0.922 0 0);
-  --accent-foreground: oklch(0.371 0 0);
-  --destructive: oklch(0.6368 0.2078 25.3313);
-  --border: oklch(0.9022 0.0052 247.8822);
-  --input: oklch(0.97 0.0029 264.542);
-  --ring: oklch(0.6397 0.172 36.4421);
-  --chart-1: oklch(0.7156 0.0605 248.6845);
-  --chart-2: oklch(0.7875 0.0917 35.9616);
-  --chart-3: oklch(0.5778 0.0759 254.1573);
-  --chart-4: oklch(0.5016 0.0849 259.4902);
-  --chart-5: oklch(0.425241 0.0952 264.0306);
-  --sidebar: oklch(1 0 0);
-  --sidebar-foreground: oklch(0.3211 0 0);
-  --sidebar-primary: oklch(0.6397 0.172 36.4421);
-  --sidebar-primary-foreground: oklch(1 0 0);
-  --sidebar-accent: oklch(0.922 0 0);
-  --sidebar-accent-foreground: oklch(0.371 0 0);
-  --sidebar-border: oklch(0.9276 0.0058 264.5313);
-  --sidebar-ring: oklch(0.6397 0.172 36.4421);
+
+  /* Secondary: near-black / white fg */
+  --secondary: oklch(0.1149 0 0);
+  --secondary-foreground: oklch(1 0 0);
+
+  /* Muted: #e5eaf5 — cool blue-grey wash */
+  --muted: oklch(0.9365 0.0158 266.3);
+  --muted-foreground: oklch(0.4474 0.0343 261.3);
+
+  /* Accent: #9effa9 — mint green / deep navy fg */
+  --accent: oklch(0.9187 0.1484 146.9);
+  --accent-foreground: oklch(0.2151 0.0518 259.4);
+
+  /* Destructive: #e11d48 */
+  --destructive: oklch(0.5858 0.222 17.58);
   --destructive-foreground: oklch(1 0 0);
+
+  /* Border: #248f4d — green (kept as requested) */
+  --border: oklch(0.5749 0.1378 151.5);
+  /* Input: white */
+  --input: oklch(1 0 0);
+  /* Ring: matches softened primary */
+  --ring: oklch(0.4284 0.172 259.7);
+
+  /* Charts */
+  --chart-1: oklch(0.4284 0.172 259.7); /* soft slate-blue */
+  --chart-2: oklch(0.4891 0.1205 148.2); /* forest green */
+  --chart-3: oklch(0.7909 0.125 39.51); /* soft coral */
+  --chart-4: oklch(0.2853 0.1242 261.1); /* deep navy-blue */
+  --chart-5: oklch(0.5767 0.1164 287.5); /* muted violet */
+
+  /* Sidebar: dark navy bg, light fg */
+  --sidebar: oklch(0.2151 0.0518 259.4);
+  --sidebar-foreground: oklch(0.9842 0.0034 247.9);
+  --sidebar-primary: oklch(0.4284 0.172 259.7);
+  --sidebar-primary-foreground: oklch(1 0 0);
+  --sidebar-accent: oklch(0.2795 0.0368 260);
+  --sidebar-accent-foreground: oklch(0.9842 0.0034 247.9);
+  --sidebar-border: oklch(0.2795 0.0368 260);
+  --sidebar-ring: oklch(0.4284 0.172 259.7);
+
   --font-sans: Inter, sans-serif;
   --font-serif: Source Serif 4, serif;
   --font-mono: JetBrains Mono, monospace;
+
   --shadow-color: hsl(0 0% 0%);
   --shadow-opacity: 0.1;
   --shadow-blur: 3px;
@@ -113,6 +146,7 @@
   --shadow-offset-y: 1px;
   --letter-spacing: 0em;
   --spacing: 0.25rem;
+
   --shadow-2xs: 0px 1px 3px 0px hsl(0 0% 0% / 0.05);
   --shadow-xs: 0px 1px 3px 0px hsl(0 0% 0% / 0.05);
   --shadow-sm:
@@ -129,66 +163,98 @@
   --tracking-normal: 0em;
 }
 
+/* ============================================================
+   SUNSET HORIZON — Dark mode
+   Deep blue-black canvas · lifted periwinkle primary · mint green accent
+   Primary/ring sourced from NLAN dark: oklch(0.72 0.15 248)
+   ============================================================ */
 .dark {
-  --background: oklch(0.2598 0.0306 262.6666);
-  --foreground: oklch(0.9219 0 0);
-  --card: oklch(0.3106 0.0301 268.6365);
-  --card-foreground: oklch(0.9219 0 0);
-  --popover: oklch(0.29 0.0249 268.3986);
-  --popover-foreground: oklch(0.9219 0 0);
-  --primary: oklch(0.6397 0.172 36.4421);
-  --primary-foreground: oklch(1 0 0);
-  --secondary: oklch(0.3095 0.0266 266.7132);
-  --secondary-foreground: oklch(0.9219 0 0);
-  --muted: oklch(0.3095 0.0266 266.7132);
-  --muted-foreground: oklch(0.7155 0 0);
-  --accent: oklch(0.338 0.0589 267.5867);
-  --accent-foreground: oklch(0.8823 0.0571 254.1284);
-  --destructive: oklch(0.6368 0.2078 25.3313);
-  --border: oklch(0.3843 0.0301 269.7337);
-  --input: oklch(0.3843 0.0301 269.7337);
-  --ring: oklch(0.6397 0.172 36.4421);
-  --chart-1: oklch(0.7156 0.0605 248.6845);
-  --chart-2: oklch(0.7693 0.0876 34.1875);
-  --chart-3: oklch(0.5778 0.0759 254.1573);
-  --chart-4: oklch(0.5016 0.0849 259.4902);
-  --chart-5: oklch(0.425241 0.0952 264.0306);
-  --sidebar: oklch(0.31 0.0283 267.7408);
-  --sidebar-foreground: oklch(0.9219 0 0);
-  --sidebar-primary: oklch(0.6397 0.172 36.4421);
-  --sidebar-primary-foreground: oklch(1 0 0);
-  --sidebar-accent: oklch(0.338 0.0589 267.5867);
-  --sidebar-accent-foreground: oklch(0.8823 0.0571 254.1284);
-  --sidebar-border: oklch(0.3843 0.0301 269.7337);
-  --sidebar-ring: oklch(0.6397 0.172 36.4421);
+  /* NLAN dark background: deep blue-black */
+  --background: oklch(0.1107 0.0274 244.1);
+  --foreground: oklch(1 0 0);
+
+  /* Cards: slightly lifted navy */
+  --card: oklch(0.1728 0.0527 252.6);
+  --card-foreground: oklch(1 0 0);
+
+  --popover: oklch(0.1107 0.0274 244.1);
+  --popover-foreground: oklch(1 0 0);
+
+  /* Primary: NLAN's lifted periwinkle — airy and readable on deep navy */
+  --primary: oklch(0.7222 0.1514 248.5);
+  --primary-foreground: oklch(0.1107 0.0274 244.1);
+
+  /* Secondary: dark navy surface / light fg */
+  --secondary: oklch(0.26 0.05 252);
+  --secondary-foreground: oklch(0.95 0 0);
+
+  /* Muted: NLAN dark muted */
+  --muted: oklch(0.2254 0.08 257);
+  --muted-foreground: oklch(0.869 0.0198 252.9);
+
+  /* Accent: mint green — slightly toned for dark readability */
+  --accent: oklch(0.88 0.12 148);
+  --accent-foreground: oklch(0.16 0.06 250);
+
+  /* Destructive */
+  --destructive: oklch(0.6489 0.237 26.97);
   --destructive-foreground: oklch(1 0 0);
-  --radius: 0.425rem;
+
+  /* Border: green toned for dark surface */
+  --border: oklch(0.42 0.1 152);
+  --input: oklch(0.2254 0.08 257);
+  /* Ring: lifted periwinkle */
+  --ring: oklch(0.7222 0.1514 248.5);
+
+  /* Charts */
+  --chart-1: oklch(0.7222 0.1514 248.5); /* lifted periwinkle */
+  --chart-2: oklch(0.58 0.14 152); /* lifted forest green */
+  --chart-3: oklch(0.82 0.11 38); /* soft coral */
+  --chart-4: oklch(0.787 0.1124 249.8); /* mid periwinkle */
+  --chart-5: oklch(0.6 0.1 285); /* soft violet */
+
+  /* Sidebar: NLAN's darkest navy */
+  --sidebar: oklch(0.0812 0.0193 242.2);
+  --sidebar-foreground: oklch(1 0 0);
+  --sidebar-primary: oklch(0.7222 0.1514 248.5);
+  --sidebar-primary-foreground: oklch(0.1107 0.0274 244.1);
+  --sidebar-accent: oklch(0.2254 0.08 257);
+  --sidebar-accent-foreground: oklch(1 0 0);
+  --sidebar-border: oklch(0.3233 0.1025 253.9);
+  --sidebar-ring: oklch(0.7222 0.1514 248.5);
+
   --font-sans: Inter, sans-serif;
   --font-serif: Source Serif 4, serif;
   --font-mono: JetBrains Mono, monospace;
+
   --shadow-color: hsl(0 0% 0%);
-  --shadow-opacity: 0.1;
-  --shadow-blur: 3px;
+  --shadow-opacity: 0.4;
+  --shadow-blur: 6px;
   --shadow-spread: 0px;
   --shadow-offset-x: 0px;
-  --shadow-offset-y: 1px;
+  --shadow-offset-y: 2px;
   --letter-spacing: 0em;
   --spacing: 0.25rem;
-  --shadow-2xs: 0px 1px 3px 0px hsl(0 0% 0% / 0.05);
-  --shadow-xs: 0px 1px 3px 0px hsl(0 0% 0% / 0.05);
+
+  --shadow-2xs: 0px 1px 4px 0px hsl(0 0% 0% / 0.3);
+  --shadow-xs: 0px 1px 4px 0px hsl(0 0% 0% / 0.35);
   --shadow-sm:
-    0px 1px 3px 0px hsl(0 0% 0% / 0.1), 0px 1px 2px -1px hsl(0 0% 0% / 0.1);
+    0px 2px 6px 0px hsl(0 0% 0% / 0.4), 0px 1px 2px -1px hsl(0 0% 0% / 0.3);
   --shadow:
-    0px 1px 3px 0px hsl(0 0% 0% / 0.1), 0px 1px 2px -1px hsl(0 0% 0% / 0.1);
+    0px 4px 10px 0px hsl(0 0% 0% / 0.45), 0px 1px 3px -1px hsl(0 0% 0% / 0.3);
   --shadow-md:
-    0px 1px 3px 0px hsl(0 0% 0% / 0.1), 0px 2px 4px -1px hsl(0 0% 0% / 0.1);
+    0px 6px 14px 0px hsl(0 0% 0% / 0.45), 0px 2px 4px -1px hsl(0 0% 0% / 0.3);
   --shadow-lg:
-    0px 1px 3px 0px hsl(0 0% 0% / 0.1), 0px 4px 6px -1px hsl(0 0% 0% / 0.1);
+    0px 10px 24px 0px hsl(0 0% 0% / 0.5), 0px 4px 6px -1px hsl(0 0% 0% / 0.3);
   --shadow-xl:
-    0px 1px 3px 0px hsl(0 0% 0% / 0.1), 0px 8px 10px -1px hsl(0 0% 0% / 0.1);
-  --shadow-2xl: 0px 1px 3px 0px hsl(0 0% 0% / 0.25);
+    0px 16px 36px 0px hsl(0 0% 0% / 0.5), 0px 8px 10px -1px hsl(0 0% 0% / 0.3);
+  --shadow-2xl: 0px 4px 16px 0px hsl(0 0% 0% / 0.6);
+  --tracking-normal: 0em;
 }
 
+/* ============================================================
+   BASE
+   ============================================================ */
 @layer base {
   * {
     @apply border-border outline-ring/50;
@@ -206,7 +272,23 @@
   }
 }
 
-/* React Flow node selection styles */
+/* ============================================================
+   REACT FLOW — Node styles
+   Only the selected state gets a ring.
+   Hover is fully suppressed — nodes keep their original look.
+   ============================================================ */
 .react-flow__node.selected #base-node {
-  @apply ring-3 ring-muted-foreground/25 shadow-lg;
+  @apply ring-3 ring-primary/30 shadow-lg;
+}
+
+/* Strip React Flow's default hover box-shadow on the node wrapper */
+.react-flow__node:hover {
+  box-shadow: none !important;
+}
+
+/* Prevent opacity/filter shifts on any direct child (covers
+   Tailwind hover:opacity-* or hover:brightness-* utilities) */
+.react-flow__node:hover > * {
+  filter: none !important;
+  opacity: 1 !important;
 }
