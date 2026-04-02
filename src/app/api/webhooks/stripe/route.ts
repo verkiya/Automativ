@@ -27,7 +27,8 @@ export async function POST(request: NextRequest) {
     await sendWorkflowExecution({
       workflowId,
       initialData: {
-        googleForm: stripeData,
+        stripe: stripeData,
+        googleForm: stripeData, // temporary fallback
       },
     });
     return NextResponse.json(

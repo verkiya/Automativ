@@ -8,6 +8,7 @@ import {
   TrashIcon,
 } from "lucide-react";
 import { Button } from "./ui/button";
+import { motion } from "framer-motion";
 import Link from "next/link";
 import React, { useState } from "react";
 import { Input } from "./ui/input";
@@ -168,10 +169,34 @@ interface StateViewProps {
 interface LoadingViewProps extends StateViewProps {
   entity?: string;
 }
+
 export const LoadingView = ({ message }: LoadingViewProps) => {
   return (
     <div className="flex justify-center items-center h-full flex-1 flex-col gap-y-4">
-      <Loader2Icon className="size-6 animate-spin text-primary" />
+      <div className="relative w-12 h-12">
+        {/* Outer circle */}
+        <motion.div
+          className="absolute inset-0 rounded-full border-2 border-primary/30"
+          animate={{ rotate: 360 }}
+          transition={{
+            repeat: Infinity,
+            duration: 2,
+            ease: "linear",
+          }}
+        />
+
+        {/* Inner circle */}
+        <motion.div
+          className="absolute inset-2 rounded-full border-2 border-primary border-t-transparent"
+          animate={{ rotate: -360 }}
+          transition={{
+            repeat: Infinity,
+            duration: 1.2,
+            ease: "linear",
+          }}
+        />
+      </div>
+
       {!!message && <p className="text-sm text-muted-foreground">{message}</p>}
     </div>
   );
@@ -338,7 +363,7 @@ export const EntityItem = ({
                     onClick={(e) => e.stopPropagation()}
                   >
                     <DropdownMenuItem
-                      className="hover:cursor-pointer"
+                      className="hover:cursor-pointer "
                       onClick={handleRemove}
                     >
                       <TrashIcon className="size-4" />

@@ -53,7 +53,7 @@ export const openAiExecutor: NodeExecutor<OpenAiData> = async ({
         status: "error",
       }),
     );
-    throw new NonRetriableError("Gemini node: Credential is required");
+    throw new NonRetriableError("OpenAI node: Credential is required");
   }
 
   if (!data.userPrompt) {

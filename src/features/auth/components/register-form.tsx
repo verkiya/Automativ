@@ -100,8 +100,10 @@ export function RegisterForm() {
     <div className="flex flex-col gap-6">
       <Card>
         <CardHeader className="text-center">
-          <CardTitle>Get Started</CardTitle>
-          <CardDescription>Create Your Account To Get Started</CardDescription>
+          <CardTitle>Start Building Workflows</CardTitle>
+          <CardDescription>
+            Sign up and connect your tools in minutes.
+          </CardDescription>
         </CardHeader>
         <CardContent>
           <Form {...form}>
@@ -191,7 +193,12 @@ export function RegisterForm() {
                       </FormItem>
                     )}
                   />
-                  <Button type="submit" className="w-full" disabled={isPending}>
+                  <Button
+                    type="submit"
+                    variant="secondary"
+                    className="w-full"
+                    disabled={isPending}
+                  >
                     Sign Up
                   </Button>
                 </div>
