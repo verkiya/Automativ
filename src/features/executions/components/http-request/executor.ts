@@ -3,6 +3,7 @@ import { NonRetriableError } from "inngest";
 import ky, { type Options as KyOptions } from "ky";
 import type { NodeExecutor } from "@/features/executions/types";
 import { httpRequestChannel } from "@/inngest/channels/http-request";
+import { toast } from "sonner";
 
 Handlebars.registerHelper("json", (context) => {
   const jsonString = JSON.stringify(context, null, 2);
@@ -61,8 +62,14 @@ export const httpRequestExecutor: NodeExecutor<HttpRequestData> = async ({
         options.body = resolved;
         options.headers = { "Content-Type": "application/json" };
       }
+      const response = await ky(endpoint, {
+        ...options,
+        throwHttpErrors: false,
+      });
 
-      const response = await ky(endpoint, options);
+      if (!response.ok) {
+        throw new Error(`HTTP ${response.status}: ${response.statusText}`);
+      }
       const contentType = response.headers.get("content-type");
       const responseData = contentType?.includes("application/json")
         ? await response.json()
@@ -84,6 +91,7 @@ export const httpRequestExecutor: NodeExecutor<HttpRequestData> = async ({
     return result;
   } catch (error) {
     await publish(httpRequestChannel().status({ nodeId, status: "error" }));
+    
     throw error;
   }
 };

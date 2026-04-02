@@ -363,7 +363,7 @@ export const EntityItem = ({
                     onClick={(e) => e.stopPropagation()}
                   >
                     <DropdownMenuItem
-                      className="hover:cursor-pointer"
+                      className="hover:cursor-pointer "
                       onClick={handleRemove}
                     >
                       <TrashIcon className="size-4" />

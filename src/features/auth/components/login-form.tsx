@@ -168,7 +168,12 @@ export function LoginForm() {
                       </FormItem>
                     )}
                   />
-                  <Button type="submit" className="w-full" disabled={isPending}>
+                  <Button
+                    type="submit"
+                    variant="secondary"
+                    className="w-full"
+                    disabled={isPending}
+                  >
                     Login
                   </Button>
                 </div>

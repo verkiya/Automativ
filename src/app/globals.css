@@ -115,8 +115,7 @@
   /* Input: white */
   --input: oklch(1 0 0);
   /* Ring: matches softened primary */
-  --ring: oklch(0.4284 0.172 259.7);
-
+  --ring: oklch(from var(--accent) l c h / 0.5);
   /* Charts */
   --chart-1: oklch(0.4284 0.172 259.7); /* soft slate-blue */
   --chart-2: oklch(0.4891 0.1205 148.2); /* forest green */
