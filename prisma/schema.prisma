@@ -97,6 +97,7 @@ model Workflow {
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
   nodes Node[]
+  executions Execution[]
   connections Connection[]
   userId String
   user User @relation(fields: [userId], references: [id], onDelete: Cascade)
@@ -113,6 +114,11 @@ enum NodeType{
   OPENAI
   DISCORD
   SLACK
+}
+enum ExecutionStatus{
+  RUNNING
+  SUCCESS
+  FAILED
 }
 model Node {
   id String @id @default(cuid())
@@ -148,4 +154,16 @@ model Connection {
   updatedAt DateTime @updatedAt
 
   @@unique([fromNodeId, toNodeId, fromOutput, toInput])
+}
+model Execution {
+  id String @id @default(cuid())
+  startedAt DateTime @default(now())
+  status ExecutionStatus @default(RUNNING)
+  workflowId String
+  error String? @db.Text
+  errorStack String? @db.Text
+  workflow Workflow @relation(fields: [workflowId], references: [id], onDelete: Cascade)
+  completedAt DateTime?
+  inngestEventId String @unique
+  output Json?
 }
