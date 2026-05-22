@@ -170,7 +170,7 @@ export function LoginForm() {
                   />
                   <Button
                     type="submit"
-                    variant="secondary"
+                    variant="glow"
                     className="w-full"
                     disabled={isPending}
                   >
