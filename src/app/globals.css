@@ -3,133 +3,22 @@
 
 @custom-variant dark (&:is(.dark *));
 
-:root {
-  --radius: 0.95rem;
-
-  /* CORE */
-  --background: #f4f1fb;
-  --foreground: #221d35;
-
-  --card: rgba(255, 255, 255, 0.74);
-  --card-foreground: #221d35;
-
-  --popover: rgba(255, 255, 255, 0.9);
-  --popover-foreground: #221d35;
-
-  /* BRAND */
-  --primary: #7c3aed;
-  --primary-foreground: #ffffff;
-
-  --secondary: #ede8fb;
-  --secondary-foreground: #4c1d95;
-
-  --muted: #f3effb;
-  --muted-foreground: #685d82;
-
-  --accent: #e9efff;
-  --accent-foreground: #26304f;
-
-  --destructive: #ef4444;
-  --destructive-foreground: #ffffff;
-
-  /* STRONGER CONTRAST */
-  --border: rgba(124, 58, 237, 0.18);
-  --input: rgba(124, 58, 237, 0.12);
-  --ring: rgba(124, 58, 237, 0.35);
-
-  /* SEMANTIC */
-  --success: #10b981;
-  --success-foreground: #ffffff;
-
-  --info: #3b82f6;
-  --info-foreground: #ffffff;
-
-  --premium: #ec4899;
-  --premium-foreground: #ffffff;
-
-  /* SIDEBAR */
-  --sidebar: #f2eefb;
-  --sidebar-foreground: #221d35;
-  --sidebar-primary: var(--primary);
-  --sidebar-primary-foreground: var(--primary-foreground);
-  --sidebar-accent: var(--accent);
-  --sidebar-accent-foreground: var(--accent-foreground);
-  --sidebar-border: var(--border);
-  --sidebar-ring: var(--ring);
-
-  /* BETTER GLASS */
-  --glass-bg: rgba(255, 255, 255, 0.82);
-  --glass-border: rgba(255, 255, 255, 0.58);
-
-  /* HARDER POP */
-  --gradient-primary: linear-gradient(
-    135deg,
-    #8b5cf6 0%,
-    #6366f1 100%
-  );
-
-  --gradient-success: linear-gradient(
-    135deg,
-    #22c55e 0%,
-    #14b8a6 100%
-  );
-
-  --gradient-info: linear-gradient(
-    135deg,
-    #3b82f6 0%,
-    #6366f1 100%
-  );
-
-  --gradient-premium: linear-gradient(
-    135deg,
-    #f472b6 0%,
-    #a855f7 100%
-  );
-}
-
-.dark {
-  --background: #14111f;
-  --foreground: #f6f3ff;
-
-  --card: rgba(33, 26, 49, 0.8);
-  --card-foreground: #f6f3ff;
-
-  --popover: rgba(33, 26, 49, 0.92);
-  --popover-foreground: #f6f3ff;
-
-  --primary: #a78bfa;
-  --primary-foreground: #120f1d;
-
-  --secondary: #2a2140;
-  --secondary-foreground: #ede9fe;
-
-  --muted: #251d38;
-  --muted-foreground: #b5a9d0;
-
-  --accent: #29314f;
-  --accent-foreground: #f6f3ff;
-
-  --destructive: #f87171;
-  --destructive-foreground: #ffffff;
-
-  --border: rgba(167, 139, 250, 0.16);
-  --input: rgba(167, 139, 250, 0.08);
-  --ring: rgba(167, 139, 250, 0.35);
-
-  --glass-bg: rgba(36, 28, 56, 0.68);
-  --glass-border: rgba(167, 139, 250, 0.16);
-}
-
 @theme inline {
+  /* Core */
   --color-background: var(--background);
   --color-foreground: var(--foreground);
 
+  /* Typography */
+  --font-sans: var(--font-geist-sans);
+  --font-mono: var(--font-geist-mono);
+
+  /* Surface */
   --color-card: var(--card);
   --color-card-foreground: var(--card-foreground);
-
   --color-popover: var(--popover);
   --color-popover-foreground: var(--popover-foreground);
 
+  /* Semantic */
   --color-primary: var(--primary);
   --color-primary-foreground: var(--primary-foreground);
 
@@ -145,28 +34,202 @@
   --color-destructive: var(--destructive);
   --color-destructive-foreground: var(--destructive-foreground);
 
+  /* Inputs */
   --color-border: var(--border);
   --color-input: var(--input);
   --color-ring: var(--ring);
 
+  /* Sidebar */
   --color-sidebar: var(--sidebar);
   --color-sidebar-foreground: var(--sidebar-foreground);
+
   --color-sidebar-primary: var(--sidebar-primary);
   --color-sidebar-primary-foreground: var(--sidebar-primary-foreground);
+
   --color-sidebar-accent: var(--sidebar-accent);
   --color-sidebar-accent-foreground: var(--sidebar-accent-foreground);
+
   --color-sidebar-border: var(--sidebar-border);
   --color-sidebar-ring: var(--sidebar-ring);
 
+  /* Charts */
+  --color-chart-1: var(--chart-1);
+  --color-chart-2: var(--chart-2);
+  --color-chart-3: var(--chart-3);
+  --color-chart-4: var(--chart-4);
+  --color-chart-5: var(--chart-5);
+
+  /* Radius */
   --radius-sm: calc(var(--radius) - 4px);
   --radius-md: calc(var(--radius) - 2px);
   --radius-lg: var(--radius);
   --radius-xl: calc(var(--radius) + 4px);
 }
 
+:root {
+  --radius: 0.8rem;
+
+  /* ============================================================
+     BRAND TOKENS
+  ============================================================ */
+  --brand-primary: #7c3aed;
+  --brand-secondary: #6366f1;
+  --brand-cyan: #06b6d4;
+  --brand-cyan-2: #3b82f6;
+
+  --brand-success: #10b981;
+  --brand-success-2: #22c55e;
+
+  --brand-premium: #d946ef;
+  --brand-danger: #ef4444;
+
+  /* ============================================================
+     LIGHT THEME
+  ============================================================ */
+  --background: oklch(0.985 0.012 285);
+  --foreground: oklch(0.24 0.025 280);
+
+  --card: rgba(255, 255, 255, 0.82);
+  --card-foreground: oklch(0.24 0.025 280);
+
+  --popover: rgba(255, 255, 255, 0.94);
+  --popover-foreground: oklch(0.24 0.025 280);
+
+  --primary: oklch(0.58 0.22 300);
+  --primary-foreground: white;
+
+  --secondary: oklch(0.965 0.02 255);
+  --secondary-foreground: oklch(0.28 0.025 260);
+
+  --muted: oklch(0.975 0.008 285);
+  --muted-foreground: oklch(0.55 0.018 280);
+
+  --accent: oklch(0.955 0.03 220);
+  --accent-foreground: oklch(0.24 0.025 250);
+
+  --destructive: oklch(0.64 0.22 25);
+  --destructive-foreground: white;
+
+  --border: oklch(0.9 0.015 270);
+  --input: oklch(0.99 0.006 285);
+  --ring: oklch(0.58 0.22 300);
+
+  /* ============================================================
+     CHARTS
+  ============================================================ */
+  --chart-1: oklch(0.68 0.18 295);
+  --chart-2: oklch(0.72 0.14 220);
+  --chart-3: oklch(0.62 0.12 250);
+  --chart-4: oklch(0.72 0.12 190);
+  --chart-5: oklch(0.52 0.16 300);
+
+  /* ============================================================
+     SIDEBAR
+  ============================================================ */
+  --sidebar: rgba(255, 255, 255, 0.78);
+  --sidebar-foreground: oklch(0.24 0.025 280);
+
+  --sidebar-primary: oklch(0.58 0.22 300);
+  --sidebar-primary-foreground: white;
+
+  --sidebar-accent: oklch(0.96 0.02 220);
+  --sidebar-accent-foreground: oklch(0.28 0.025 250);
+
+  --sidebar-border: oklch(0.9 0.015 270);
+  --sidebar-ring: oklch(0.58 0.22 300);
+
+  /* ============================================================
+     GLASS
+  ============================================================ */
+  --glass-bg: linear-gradient(
+    135deg,
+    rgba(255, 255, 255, 0.78),
+    rgba(245, 248, 255, 0.52)
+  );
+
+  --glass-bg-hover: linear-gradient(
+    135deg,
+    rgba(255, 255, 255, 0.88),
+    rgba(240, 247, 255, 0.62)
+  );
+
+  --glass-border: rgba(255, 255, 255, 0.72);
+  --glass-shadow: rgba(99, 102, 241, 0.08);
+
+  /* ============================================================
+     BUTTON GLOWS
+  ============================================================ */
+  --glow-primary: rgba(124, 58, 237, 0.28);
+  --glow-cyan: rgba(6, 182, 212, 0.24);
+  --glow-success: rgba(34, 197, 94, 0.22);
+  --glow-premium: rgba(217, 70, 239, 0.24);
+}
+
+.dark {
+  --background: oklch(0.17 0.02 280);
+  --foreground: oklch(0.95 0.01 290);
+
+  --card: rgba(20, 24, 40, 0.8);
+  --card-foreground: oklch(0.95 0.01 290);
+
+  --popover: rgba(18, 22, 36, 0.94);
+  --popover-foreground: oklch(0.95 0.01 290);
+
+  --primary: oklch(0.7 0.18 300);
+  --primary-foreground: white;
+
+  --secondary: oklch(0.26 0.02 250);
+  --secondary-foreground: oklch(0.95 0.01 290);
+
+  --muted: oklch(0.24 0.015 280);
+  --muted-foreground: oklch(0.7 0.01 285);
+
+  --accent: oklch(0.28 0.03 220);
+  --accent-foreground: oklch(0.92 0.01 220);
+
+  --destructive: oklch(0.64 0.22 25);
+  --destructive-foreground: white;
+
+  --border: oklch(0.32 0.015 275);
+  --input: oklch(0.28 0.015 275);
+  --ring: oklch(0.7 0.18 300);
+
+  --sidebar: rgba(18, 22, 36, 0.88);
+  --sidebar-foreground: oklch(0.95 0.01 290);
+
+  --sidebar-primary: oklch(0.7 0.18 300);
+  --sidebar-primary-foreground: white;
+
+  --sidebar-accent: oklch(0.28 0.03 220);
+  --sidebar-accent-foreground: oklch(0.92 0.01 220);
+
+  --sidebar-border: oklch(0.32 0.015 275);
+  --sidebar-ring: oklch(0.7 0.18 300);
+
+  --glass-bg: linear-gradient(
+    135deg,
+    rgba(45, 27, 78, 0.5),
+    rgba(14, 30, 50, 0.34)
+  );
+
+  --glass-bg-hover: linear-gradient(
+    135deg,
+    rgba(55, 35, 92, 0.62),
+    rgba(20, 42, 66, 0.46)
+  );
+
+  --glass-border: rgba(255, 255, 255, 0.08);
+  --glass-shadow: rgba(0, 0, 0, 0.28);
+
+  --glow-primary: rgba(167, 139, 250, 0.28);
+  --glow-cyan: rgba(34, 211, 238, 0.22);
+  --glow-success: rgba(34, 197, 94, 0.2);
+  --glow-premium: rgba(217, 70, 239, 0.22);
+}
+
 @layer base {
   * {
-    @apply border-border;
+    @apply border-border outline-ring/50;
   }
 
   html {
@@ -175,36 +238,60 @@
 
   body {
     @apply bg-background text-foreground;
-    background-image:
-      radial-gradient(circle at top left, rgba(139, 92, 246, 0.1), transparent 32%),
-      radial-gradient(circle at top right, rgba(99, 102, 241, 0.08), transparent 28%),
-      radial-gradient(circle at bottom left, rgba(236, 72, 153, 0.04), transparent 30%);
-    background-attachment: fixed;
-  }
+    font-family: var(--font-sans);
+    letter-spacing: -0.01em;
 
-  .dark body {
     background-image:
-      radial-gradient(circle at top left, rgba(139, 92, 246, 0.08), transparent 35%),
-      radial-gradient(circle at top right, rgba(99, 102, 241, 0.05), transparent 28%);
+      radial-gradient(
+        circle at top left,
+        rgba(124, 58, 237, 0.08),
+        transparent 28%
+      ),
+      radial-gradient(
+        circle at top right,
+        rgba(6, 182, 212, 0.06),
+        transparent 24%
+      );
+    background-attachment: fixed;
   }
 
   button:not([disabled]),
   [role="button"]:not([disabled]) {
     cursor: pointer;
   }
+
+  input,
+  textarea,
+  select {
+    background: var(--input);
+  }
+
+  ::selection {
+    background: rgba(124, 58, 237, 0.18);
+    color: inherit;
+  }
 }
 
 .react-flow__node.selected #base-node {
   box-shadow:
-    0 0 0 3px rgba(124, 58, 237, 0.18),
-    0 20px 40px rgba(124, 58, 237, 0.14);
+    0 0 0 2px rgba(124, 58, 237, 0.22),
+    0 14px 34px rgba(124, 58, 237, 0.12);
 }
 
-.react-flow__node:hover {
-  box-shadow: none !important;
+::-webkit-scrollbar {
+  width: 10px;
+  height: 10px;
 }
 
-.react-flow__node:hover > * {
-  filter: none !important;
-  opacity: 1 !important;
+::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+::-webkit-scrollbar-thumb {
+  background: rgba(124, 58, 237, 0.2);
+  border-radius: 999px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: rgba(124, 58, 237, 0.34);
 }

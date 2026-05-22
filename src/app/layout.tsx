@@ -39,7 +39,7 @@ export default function RootLayout({
           <NuqsAdapter>
             <Provider> {children}</Provider>
           </NuqsAdapter>
-          <Toaster />
+          <Toaster richColors closeButton/>
         </TRPCReactProvider>
       </body>
     </html>

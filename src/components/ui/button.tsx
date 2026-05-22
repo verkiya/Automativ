@@ -7,18 +7,15 @@ import { cn } from "@/lib/utils";
 const buttonVariants = cva(
   [
     "relative inline-flex shrink-0 items-center justify-center gap-2 whitespace-nowrap",
-    "overflow-hidden",
+    "overflow-hidden isolate",
     "font-medium select-none",
     "transition-all duration-300 ease-out",
     "outline-none",
-    "disabled:pointer-events-none disabled:opacity-50",
-    "focus-visible:ring-[3px] focus-visible:ring-ring/40",
+    "disabled:pointer-events-none disabled:opacity-50 disabled:scale-100",
+    "focus-visible:ring-[3px] focus-visible:ring-ring/35",
     "focus-visible:border-ring",
     "aria-invalid:border-destructive aria-invalid:ring-destructive/20",
-
-    /* FIXED LAYERING */
-    "[&>*]:relative",
-    "[&>*]:z-10",
+    "[&>*]:relative [&>*]:z-10",
     "[&_svg]:pointer-events-none",
     "[&_svg]:shrink-0",
     "[&_svg:not([class*='size-'])]:size-4",
@@ -26,98 +23,242 @@ const buttonVariants = cva(
   {
     variants: {
       variant: {
-        default:
-          "bg-primary text-white shadow-md shadow-primary/20 hover:shadow-lg hover:shadow-primary/28 hover:scale-[1.015] active:scale-[0.985]",
+        default: [
+          "text-white",
+          "border border-white/10",
+          "bg-[linear-gradient(135deg,#7c3aed_0%,#6366f1_100%)]",
+          "shadow-[0_12px_34px_rgba(124,58,237,0.22)]",
+          "hover:scale-[1.03]",
+          "hover:brightness-110",
+          "active:scale-[0.985]",
+        ].join(" "),
 
-        gradient:
-          "bg-[var(--gradient-primary)] text-white shadow-lg shadow-primary/25 hover:shadow-xl hover:shadow-primary/35 hover:scale-[1.02]",
+        gradient: [
+          "text-white",
+          "border border-white/10",
+          "bg-[linear-gradient(135deg,#7c3aed_0%,#6366f1_45%,#06b6d4_100%)]",
+          "shadow-[0_14px_40px_rgba(99,102,241,0.24)]",
+          "hover:scale-[1.03]",
+          "hover:brightness-110",
+          "active:scale-[0.985]",
+        ].join(" "),
 
-        shimmer:
-          [
-            "bg-[var(--gradient-primary)] text-white",
-            "shadow-lg shadow-primary/25",
-            "hover:shadow-xl hover:shadow-primary/35",
-            "hover:scale-[1.015]",
-            "before:absolute before:inset-0 before:z-0",
-            "before:-translate-x-full",
-            "before:rounded-[inherit]",
-            "before:bg-[linear-gradient(120deg,transparent,rgba(255,255,255,0.35),transparent)]",
-            "before:transition-transform before:duration-700",
-            "hover:before:translate-x-full",
-          ].join(" "),
+        shimmer: [
+          "text-white",
+          "border border-white/10",
+          "bg-[linear-gradient(135deg,#7c3aed_0%,#6366f1_100%)]",
+          "shadow-[0_14px_40px_rgba(124,58,237,0.24)]",
+          "hover:scale-[1.03]",
+          "active:scale-[0.985]",
+          "before:absolute before:inset-0 before:-translate-x-full before:rounded-[inherit]",
+          "before:bg-[linear-gradient(120deg,transparent,rgba(255,255,255,0.32),transparent)]",
+          "before:transition-transform before:duration-1000",
+          "hover:before:translate-x-full",
+        ].join(" "),
 
-        aiGlow:
-          "bg-[var(--gradient-info)] text-white shadow-[0_0_26px_rgba(59,130,246,0.22)] hover:shadow-[0_0_42px_rgba(59,130,246,0.32)] hover:scale-[1.015]",
+        workflow: [
+          "text-white",
+          "border border-white/10",
+          "bg-[linear-gradient(135deg,#059669_0%,#10b981_100%)]",
+          "shadow-[0_14px_34px_rgba(16,185,129,0.22)]",
+          "hover:scale-[1.03]",
+          "hover:brightness-110",
+          "active:scale-[0.985]",
+        ].join(" "),
 
-        workflow:
-          "bg-[var(--gradient-success)] text-white shadow-lg shadow-emerald-400/25 hover:shadow-xl hover:shadow-emerald-400/35 hover:scale-[1.015]",
+        aiGlow: [
+          "text-white",
+          "border border-cyan-200/20",
+          "bg-[linear-gradient(135deg,#0891b2_0%,#06b6d4_45%,#3b82f6_100%)]",
+          "shadow-[0_0_0_1px_rgba(255,255,255,0.08)_inset,0_14px_40px_rgba(6,182,212,0.2)]",
+          "hover:scale-[1.03]",
+          "hover:brightness-110",
+          "active:scale-[0.985]",
+        ].join(" "),
 
-        premium:
-          "bg-[var(--gradient-premium)] text-white shadow-lg shadow-pink-400/22 hover:shadow-xl hover:shadow-pink-400/30 hover:scale-[1.015]",
+        premium: [
+          "text-white",
+          "border border-white/10",
+          "bg-[linear-gradient(135deg,#6366f1_0%,#8b5cf6_45%,#d946ef_100%)]",
+          "shadow-[0_14px_40px_rgba(139,92,246,0.22)]",
+          "hover:scale-[1.03]",
+          "hover:brightness-110",
+          "active:scale-[0.985]",
+        ].join(" "),
 
-        glass:
-          "border border-white/40 bg-white/85 backdrop-blur-xl text-foreground shadow-md hover:bg-white hover:shadow-lg hover:scale-[1.01]",
+        glass: [
+          "text-foreground",
+          "border border-white/60",
+          "bg-white/65",
+          "backdrop-blur-2xl",
+          "shadow-[0_10px_26px_rgba(99,102,241,0.06)]",
+          "hover:bg-white/78",
+          "hover:scale-[1.02]",
+          "active:scale-[0.99]",
+        ].join(" "),
 
-        shimmerGlass:
-          [
-            "border border-white/40",
-            "bg-white/82",
-            "backdrop-blur-xl",
-            "text-foreground",
-            "shadow-md",
-            "hover:shadow-lg",
-            "before:absolute before:inset-0 before:z-0",
-            "before:-translate-x-full",
-            "before:rounded-[inherit]",
-            "before:bg-[linear-gradient(120deg,transparent,rgba(255,255,255,0.22),transparent)]",
-            "before:transition-transform before:duration-700",
-            "hover:before:translate-x-full",
-          ].join(" "),
+        shimmerGlass: [
+          "text-foreground",
+          "border border-white/60",
+          "bg-white/65",
+          "backdrop-blur-2xl",
+          "shadow-[0_10px_26px_rgba(99,102,241,0.06)]",
+          "hover:scale-[1.02]",
+          "before:absolute before:inset-0 before:-translate-x-full before:rounded-[inherit]",
+          "before:bg-[linear-gradient(120deg,transparent,rgba(255,255,255,0.22),transparent)]",
+          "before:transition-transform before:duration-1000",
+          "hover:before:translate-x-full",
+        ].join(" "),
 
-        frost:
-          "border border-white/50 bg-white/92 backdrop-blur-2xl text-foreground shadow-lg hover:bg-white hover:shadow-xl",
+        frost: [
+          "text-foreground",
+          "border border-white/50",
+          "bg-[linear-gradient(135deg,rgba(255,255,255,0.75),rgba(245,248,255,0.42))]",
+          "backdrop-blur-3xl",
+          "shadow-xl",
+          "hover:scale-[1.02]",
+        ].join(" "),
 
-        success:
-          "bg-emerald-500 text-white shadow-md shadow-emerald-400/20 hover:bg-emerald-600 hover:shadow-lg",
+        outline: [
+          "border border-violet-200",
+          "bg-white/80",
+          "text-foreground",
+          "shadow-sm",
+          "hover:bg-violet-50",
+          "hover:border-violet-300",
+          "hover:text-primary",
+        ].join(" "),
 
-        destructive:
-          "bg-red-500 text-white shadow-md shadow-red-400/20 hover:bg-red-600 hover:shadow-lg",
+        secondary: [
+          "bg-[linear-gradient(135deg,#eef2ff_0%,#f8fafc_100%)]",
+          "text-secondary-foreground",
+          "border border-violet-100",
+          "shadow-sm",
+          "hover:brightness-95",
+        ].join(" "),
 
-        outline:
-          "border border-border bg-background text-foreground shadow-sm hover:bg-accent hover:shadow-md",
+        subtle: [
+          "bg-slate-100/80",
+          "text-muted-foreground",
+          "hover:bg-slate-200/80",
+          "hover:text-foreground",
+        ].join(" "),
 
-        secondary:
-          "bg-secondary text-secondary-foreground shadow-sm hover:shadow-md",
+        accent: [
+          "text-white",
+          "border border-white/10",
+          "bg-[linear-gradient(135deg,#6366f1_0%,#8b5cf6_100%)]",
+          "shadow-[0_10px_28px_rgba(99,102,241,0.2)]",
+          "hover:brightness-110",
+          "hover:scale-[1.02]",
+        ].join(" "),
 
-        subtle:
-          "bg-muted text-muted-foreground hover:bg-muted/80 hover:text-foreground",
+        success: [
+          "text-white",
+          "bg-[linear-gradient(135deg,#10b981_0%,#22c55e_100%)]",
+          "shadow-[0_12px_28px_rgba(34,197,94,0.2)]",
+          "hover:brightness-110",
+          "hover:scale-[1.02]",
+        ].join(" "),
 
-        node:
-          "border border-primary/15 bg-card text-foreground shadow-sm hover:border-primary/35 hover:shadow-md",
+        destructive: [
+          "text-white",
+          "bg-[linear-gradient(135deg,#dc2626_0%,#ef4444_100%)]",
+          "shadow-[0_12px_28px_rgba(239,68,68,0.18)]",
+          "hover:brightness-110",
+          "hover:scale-[1.02]",
+        ].join(" "),
 
-        ghost:
-          "text-foreground hover:bg-accent hover:text-accent-foreground",
+        dangerGlass: [
+          "text-red-500",
+          "border border-red-200",
+          "bg-red-50/80",
+          "backdrop-blur-xl",
+          "shadow-[0_8px_20px_rgba(239,68,68,0.05)]",
+          "hover:bg-red-100/80",
+        ].join(" "),
 
-        ghostSoft:
-          "text-muted-foreground hover:bg-muted hover:text-foreground",
+        glow: [
+          "text-primary",
+          "border border-violet-200",
+          "bg-violet-50",
+          "shadow-[0_0_24px_rgba(124,58,237,0.12)]",
+          "hover:bg-violet-100",
+          "hover:shadow-[0_0_36px_rgba(124,58,237,0.18)]",
+        ].join(" "),
 
-        toolbar:
-          "bg-transparent text-muted-foreground hover:bg-accent hover:text-foreground",
+        signal: [
+          "text-cyan-700",
+          "border border-cyan-200",
+          "bg-[linear-gradient(135deg,#ecfeff_0%,#f0f9ff_100%)]",
+          "shadow-[0_0_18px_rgba(6,182,212,0.08)]",
+          "hover:shadow-[0_0_28px_rgba(6,182,212,0.14)]",
+          "hover:scale-[1.02]",
+        ].join(" "),
 
-        floating:
-          "rounded-full border border-white/40 bg-white/88 backdrop-blur-xl text-foreground shadow-lg hover:shadow-xl hover:scale-[1.03]",
+        neo: [
+          "text-foreground",
+          "bg-white",
+          "border border-violet-100",
+          "shadow-[6px_6px_0px_rgba(99,102,241,0.08)]",
+          "hover:translate-x-[2px]",
+          "hover:translate-y-[2px]",
+          "hover:shadow-[4px_4px_0px_rgba(99,102,241,0.12)]",
+        ].join(" "),
 
-        midnight:
-          "bg-[linear-gradient(135deg,#1e1b2e_0%,#111827_100%)] text-white shadow-xl hover:shadow-2xl hover:scale-[1.015]",
+        floating: [
+          "rounded-full",
+          "text-foreground",
+          "border border-white/60",
+          "bg-white/72",
+          "backdrop-blur-2xl",
+          "shadow-[0_14px_30px_rgba(99,102,241,0.08)]",
+          "hover:scale-[1.05]",
+          "active:scale-[0.98]",
+        ].join(" "),
 
-        loading:
-          "bg-[var(--gradient-primary)] text-white cursor-wait shadow-lg",
+        ghost: [
+          "text-foreground",
+          "hover:bg-violet-50",
+          "hover:text-primary",
+        ].join(" "),
 
-        loadingGlass:
-          "border border-white/40 bg-white/82 backdrop-blur-xl text-foreground cursor-wait shadow-md",
+        ghostSoft: [
+          "text-muted-foreground",
+          "hover:bg-slate-100",
+          "hover:text-foreground",
+        ].join(" "),
 
-        link:
-          "text-primary underline-offset-4 hover:underline p-0 h-auto",
+        toolbar: [
+          "text-muted-foreground",
+          "bg-transparent",
+          "hover:bg-white/80",
+          "hover:text-foreground",
+          "hover:shadow-sm",
+        ].join(" "),
+
+        loading: [
+          "text-white",
+          "cursor-wait",
+          "bg-[linear-gradient(135deg,#7c3aed_0%,#6366f1_100%)]",
+          "shadow-[0_12px_30px_rgba(124,58,237,0.2)]",
+        ].join(" "),
+
+        loadingGlass: [
+          "text-foreground",
+          "cursor-wait",
+          "border border-white/60",
+          "bg-white/65",
+          "backdrop-blur-2xl",
+        ].join(" "),
+
+        link: [
+          "p-0 h-auto",
+          "text-primary",
+          "shadow-none",
+          "underline-offset-4",
+          "hover:underline",
+        ].join(" "),
       },
 
       size: {
@@ -126,7 +267,7 @@ const buttonVariants = cva(
         default: "h-10 rounded-xl px-4 text-sm",
         lg: "h-11 rounded-xl px-6 text-sm",
         xl: "h-12 rounded-2xl px-8 text-base",
-        hero: "h-14 rounded-2xl px-10 text-base font-semibold",
+        hero: "h-14 rounded-full px-10 text-base font-semibold tracking-tight",
 
         icon: "size-10 rounded-xl",
         "icon-xs": "size-7 rounded-md",
@@ -153,14 +294,20 @@ function Button({
   VariantProps<typeof buttonVariants> & {
     asChild?: boolean;
   }) {
-    const Comp = asChild ? Slot.Root : "button";
+  const Comp = asChild ? Slot.Root : "button";
 
-    return (
-      <Comp
-        className={cn(buttonVariants({ variant, size, className }))}
-        {...props}
-      />
-    );
+  return (
+    <Comp
+      data-slot="button"
+      data-variant={variant}
+      data-size={size}
+      className={cn(
+        buttonVariants({ variant, size, className }),
+        "cursor-pointer",
+      )}
+      {...props}
+    />
+  );
 }
 
 export { Button, buttonVariants };

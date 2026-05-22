@@ -1,71 +1,139 @@
 "use client";
 
 import Link from "next/link";
+import { useEffect, useState } from "react";
 import {
   ArrowRight,
   Bot,
   Brain,
+  Crown,
   Home,
   Loader2,
+  Moon,
   Rocket,
-  Shield,
+  Signal,
   Sparkles,
+  Sun,
   Workflow,
+  Zap,
+  Wand2,
 } from "lucide-react";
 
 import { Button } from "@/components/ui/button";
 
-const variants = [
-  "default",
-  "gradient",
-  "shimmer",
-  "aiGlow",
-  "glass",
-  "shimmerGlass",
-  "frost",
-  "premium",
-  "workflow",
-  "success",
-  "destructive",
-  "outline",
-  "secondary",
-  "subtle",
-  "node",
-  "ghost",
-  "ghostSoft",
-  "toolbar",
-  "floating",
-  "midnight",
+const variantGroups = [
+  {
+    title: "Primary Actions",
+    description: "Core CTA buttons for launches, onboarding, workflows.",
+    cardClass:
+      "bg-[linear-gradient(135deg,rgba(124,58,237,0.05),rgba(6,182,212,0.04))]",
+    variants: [
+      "default",
+      "gradient",
+      "shimmer",
+      "workflow",
+      "aiGlow",
+      "premium",
+    ] as const,
+  },
+  {
+    title: "Glass & Surface Buttons",
+    description: "For overlays, auth, dashboards, premium surfaces.",
+    cardClass:
+      "bg-[linear-gradient(135deg,rgba(255,255,255,0.75),rgba(240,247,255,0.55))]",
+    variants: [
+      "glass",
+      "shimmerGlass",
+      "frost",
+      "floating",
+      "loadingGlass",
+    ] as const,
+  },
+  {
+    title: "States & Signals",
+    description: "Feedback, execution states, system actions.",
+    cardClass:
+      "bg-[linear-gradient(135deg,rgba(6,182,212,0.04),rgba(16,185,129,0.03))]",
+    variants: [
+      "success",
+      "destructive",
+      "dangerGlass",
+      "glow",
+      "signal",
+      "loading",
+    ] as const,
+  },
+  {
+    title: "Utilities",
+    description: "Secondary actions and editor controls.",
+    cardClass:
+      "bg-[linear-gradient(135deg,rgba(99,102,241,0.04),rgba(255,255,255,0.55))]",
+    variants: [
+      "secondary",
+      "outline",
+      "subtle",
+      "accent",
+      "ghost",
+      "ghostSoft",
+      "toolbar",
+      "neo",
+    ] as const,
+  },
 ] as const;
 
 const sizes = ["xs", "sm", "default", "lg", "xl", "hero"] as const;
 
 export default function TestPage() {
+  const [dark, setDark] = useState(false);
+
+  useEffect(() => {
+    document.documentElement.classList.toggle("dark", dark);
+
+    return () => {
+      document.documentElement.classList.remove("dark");
+    };
+  }, [dark]);
+
   return (
-    <main className="min-h-screen bg-background">
-      <div className="mx-auto max-w-7xl px-6 py-16">
+    <main className="relative min-h-screen overflow-hidden bg-background">
+      {/* background glows */}
+      <div className="pointer-events-none absolute inset-0">
+        <div className="absolute left-[-8%] top-[-8%] h-[480px] w-[480px] rounded-full bg-violet-500/10 blur-3xl" />
+        <div className="absolute right-[-8%] top-[6%] h-[420px] w-[420px] rounded-full bg-cyan-400/10 blur-3xl" />
+        <div className="absolute bottom-[-10%] left-1/2 h-[420px] w-[420px] -translate-x-1/2 rounded-full bg-indigo-400/8 blur-3xl" />
+      </div>
+
+      <div className="relative mx-auto max-w-7xl px-6 py-16">
         {/* HERO */}
-        <section className="mb-20 text-center">
-          <div className="mb-5 inline-flex items-center gap-2 rounded-full border border-border bg-card px-5 py-2 shadow-md">
-            <Sparkles className="size-4 text-primary" />
-            <span className="text-sm text-muted-foreground">
-              Automativ Design System Playground
-            </span>
+        <section className="mb-20 rounded-[2rem] border border-white/50 bg-card/80 p-10 shadow-2xl backdrop-blur-2xl">
+          <div className="mb-10 flex flex-col gap-6 lg:flex-row lg:items-center lg:justify-between">
+            <div className="max-w-3xl">
+              <div className="mb-5 inline-flex items-center gap-2 rounded-full border border-white/50 bg-white/70 px-4 py-2 backdrop-blur-xl">
+                <Sparkles className="size-4 text-primary" />
+                <span className="text-sm text-muted-foreground">
+                  Automativ Design System
+                </span>
+              </div>
+
+              <h1 className="mb-4 text-5xl font-bold tracking-tight md:text-6xl">
+                Premium Button System
+              </h1>
+
+              <p className="max-w-2xl text-lg leading-relaxed text-muted-foreground">
+                AI-native dual-tone interface buttons built for automation,
+                workflows, orchestration, dashboards, and premium SaaS UX.
+              </p>
+            </div>
+
+            <Button
+              variant="glass"
+              size="lg"
+              onClick={() => setDark((d) => !d)}
+            >
+              {dark ? <Sun /> : <Moon />}
+              {dark ? "Light mode" : "Dark mode"}
+            </Button>
           </div>
-
-          <h1 className="mb-6 text-5xl font-bold tracking-tight md:text-6xl">
-            Premium Button System
-          </h1>
-
-          <p className="mx-auto max-w-3xl text-lg leading-relaxed text-muted-foreground">
-            Production-grade button primitives aligned with Automativ’s premium
-            AI-native visual language.
-          </p>
-        </section>
-
-        {/* HERO CTAS */}
-        <section className="mb-16 rounded-3xl border border-border bg-card p-10 shadow-2xl">
-          <h2 className="mb-8 text-2xl font-semibold">Hero CTAs</h2>
 
           <div className="flex flex-wrap gap-5">
             <Button variant="gradient" size="hero">
@@ -79,45 +147,59 @@ export default function TestPage() {
             </Button>
 
             <Button variant="aiGlow" size="hero">
-              AI Orchestration
+              Run AI Agent
               <Brain />
             </Button>
 
             <Button variant="premium" size="hero">
-              Upgrade Plan
-              <Sparkles />
+              Upgrade
+              <Crown />
             </Button>
           </div>
         </section>
 
-        {/* ALL VARIANTS */}
-        <section className="mb-16">
-          <h2 className="mb-8 text-2xl font-semibold">All Variants</h2>
+        {/* VARIANT GROUPS */}
+        {variantGroups.map((group) => (
+          <section key={group.title} className="mb-20">
+            <div className="mb-8">
+              <h2 className="text-3xl font-bold">{group.title}</h2>
+              <p className="mt-2 text-muted-foreground">
+                {group.description}
+              </p>
+            </div>
 
-          <div className="grid gap-6 md:grid-cols-2 xl:grid-cols-3">
-            {variants.map((variant) => (
-              <div
-                key={variant}
-                className="rounded-2xl border border-border bg-card p-6 shadow-lg"
-              >
-                <h3 className="mb-5 text-sm font-medium capitalize text-muted-foreground">
-                  {variant}
-                </h3>
+            <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
+              {group.variants.map((variant) => (
+                <div
+                  key={variant}
+                  className={`rounded-3xl border border-white/50 p-6 shadow-xl backdrop-blur-2xl ${group.cardClass}`}
+                >
+                  <div className="mb-5 flex items-center justify-between">
+                    <span className="rounded-full bg-white/70 px-3 py-1 font-mono text-xs text-muted-foreground">
+                      {variant}
+                    </span>
 
-                <Button variant={variant}>
-                  {variant}
-                  <ArrowRight />
-                </Button>
-              </div>
-            ))}
-          </div>
-        </section>
+                    <Wand2 className="size-4 text-primary/70" />
+                  </div>
 
-        {/* SIZES */}
-        <section className="mb-16 rounded-3xl border border-border bg-card p-10 shadow-xl">
-          <h2 className="mb-8 text-2xl font-semibold">Sizes</h2>
+                  <Button variant={variant} size="lg" className="w-full">
+                    {variant}
+                    <ArrowRight />
+                  </Button>
+                </div>
+              ))}
+            </div>
+          </section>
+        ))}
 
-          <div className="flex flex-wrap items-end gap-4">
+        {/* SIZE */}
+        <section className="mb-20 rounded-[2rem] border border-white/50 bg-card/80 p-10 shadow-2xl backdrop-blur-2xl">
+          <h2 className="mb-3 text-3xl font-bold">Sizing Scale</h2>
+          <p className="mb-10 text-muted-foreground">
+            Responsive sizing system for every interface surface.
+          </p>
+
+          <div className="flex flex-wrap items-end gap-5">
             {sizes.map((size) => (
               <Button key={size} variant="gradient" size={size}>
                 {size}
@@ -127,8 +209,11 @@ export default function TestPage() {
         </section>
 
         {/* EFFECTS */}
-        <section className="mb-16 rounded-3xl border border-border bg-card p-10 shadow-xl">
-          <h2 className="mb-8 text-2xl font-semibold">Effects</h2>
+        <section className="mb-20 rounded-[2rem] border border-white/50 bg-card/80 p-10 shadow-2xl backdrop-blur-2xl">
+          <h2 className="mb-3 text-3xl font-bold">Effects</h2>
+          <p className="mb-10 text-muted-foreground">
+            Motion and interaction states.
+          </p>
 
           <div className="flex flex-wrap gap-5">
             <Button variant="shimmer" size="lg">
@@ -137,55 +222,63 @@ export default function TestPage() {
             </Button>
 
             <Button variant="shimmerGlass" size="lg">
-              Glass Sheen
+              Glass Shimmer
               <Sparkles />
             </Button>
 
-            <Button variant="midnight" size="lg">
-              Midnight
-              <Shield />
+            <Button variant="glow" size="lg">
+              Glow CTA
+              <Zap />
             </Button>
 
-            <Button variant="aiGlow" size="lg">
-              AI Glow
+            <Button variant="signal" size="lg">
+              Signal
+              <Signal />
+            </Button>
+
+            <Button variant="neo" size="lg">
+              Neo
               <Bot />
             </Button>
           </div>
         </section>
 
         {/* LOADING */}
-        <section className="mb-16 rounded-3xl border border-border bg-card p-10 shadow-xl">
-          <h2 className="mb-8 text-2xl font-semibold">Loading States</h2>
+        <section className="mb-20 rounded-[2rem] border border-white/50 bg-card/80 p-10 shadow-2xl backdrop-blur-2xl">
+          <h2 className="mb-3 text-3xl font-bold">Loading States</h2>
+          <p className="mb-10 text-muted-foreground">
+            Async feedback patterns.
+          </p>
 
           <div className="flex flex-wrap gap-5">
             <Button variant="loading" disabled>
               <Loader2 className="animate-spin" />
-              Processing...
+              Processing
             </Button>
 
             <Button variant="loadingGlass" disabled>
               <Loader2 className="animate-spin" />
-              Authenticating...
+              Authenticating
             </Button>
 
             <Button variant="workflow" disabled>
               <Loader2 className="animate-spin" />
-              Running Workflow...
+              Running
             </Button>
           </div>
         </section>
 
-        {/* FINAL CTA */}
-        <section className="rounded-3xl border border-border bg-card p-12 shadow-2xl text-center">
-          <h2 className="mb-4 text-3xl font-semibold">
-            Build Premium Interfaces Faster
+        {/* FOOTER */}
+        <section className="rounded-[2rem] border border-white/50 bg-card/80 p-14 text-center shadow-2xl backdrop-blur-2xl">
+          <h2 className="mb-4 text-4xl font-bold">
+            Built for AI-native products
           </h2>
 
-          <p className="mx-auto mb-8 max-w-2xl leading-relaxed text-muted-foreground">
-            Reusable UI primitives for AI-native SaaS products.
+          <p className="mx-auto mb-10 max-w-2xl text-lg leading-relaxed text-muted-foreground">
+            Workflow-first interface primitives with premium visual identity.
           </p>
 
-          <div className="flex flex-wrap justify-center gap-4">
+          <div className="flex flex-wrap justify-center gap-5">
             <Button variant="premium" size="hero">
               Launch Product
               <Rocket />
