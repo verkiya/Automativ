@@ -11,7 +11,6 @@ export const auth = betterAuth({
   }),
   trustedOrigins: [
     process.env.NEXT_PUBLIC_APP_URL!,
-    "https://automativ.verkiya.tech",
     "https://automativ.vercel.app",
     "http://localhost:3000",
     "https://hyperemetic-josefa-gloriously.ngrok-free.dev",
