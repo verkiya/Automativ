@@ -11,6 +11,11 @@ import { HydrateClient } from "@/trpc/server";
 import type { SearchParams } from "nuqs/server";
 import { Suspense } from "react";
 import { ErrorBoundary } from "react-error-boundary";
+
+// Workflows are split across route groups so the list/detail UI stays in `(rest)`
+// while the visual editor lives in `(editor)`. That keeps the dashboard list
+// route lightweight and lets the editor use a separate layout and loading flow
+// without coupling the two experiences together.
 type Props = {
   searchParams: Promise<SearchParams>;
 };
