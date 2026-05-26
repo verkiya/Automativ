@@ -3,13 +3,7 @@
 import Image from "next/image";
 import Link from "next/link";
 import { motion } from "framer-motion";
-import {
-  ArrowRight,
-  Bot,
-  Cpu,
-  Sparkles,
-  Workflow,
-} from "lucide-react";
+import { ArrowRight, Bot, Cpu, Sparkles, Workflow } from "lucide-react";
 
 const icons = [
   "/github.svg",
@@ -182,13 +176,7 @@ function BackgroundAnimation() {
   );
 }
 
-function Feature({
-  icon,
-  title,
-}: {
-  icon: React.ReactNode;
-  title: string;
-}) {
+function Feature({ icon, title }: { icon: React.ReactNode; title: string }) {
   return (
     <motion.div
       whileHover={{ y: -3 }}
@@ -248,7 +236,9 @@ export default function AuthLayout({
         <div className="hidden lg:flex flex-col justify-center px-14 xl:px-20">
           <Link href="/" className="mb-8 flex items-center gap-4">
             <Image src="/logo.svg" alt="Automativ" width={54} height={54} />
-            <span className="text-2xl font-bold tracking-tight">Automativ</span>
+            <span className="-ml-5 text-4xl font-bold tracking-tight">
+              utomativ
+            </span>
           </Link>
 
           <div className="max-w-xl">
@@ -315,12 +305,7 @@ export default function AuthLayout({
               <div className="pointer-events-none absolute inset-2 rounded-[1.65rem] border border-white/20" />
 
               <div className="relative mb-5 flex items-center gap-3 lg:hidden">
-                <Image
-                  src="/logo.svg"
-                  alt="Automativ"
-                  width={42}
-                  height={42}
-                />
+                <Image src="/logo.svg" alt="Automativ" width={42} height={42} />
                 <span className="text-xl font-bold">Automativ</span>
               </div>
 

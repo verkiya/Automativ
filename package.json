@@ -7,6 +7,7 @@
     "build": "next build --turbopack",
     "start": "next start",
     "lint": "biome check",
+    "mprocs": "mprocs",
     "ngrok:dev:win": "powershell -Command \"$env:NGROK_URL = (Select-String -Path .env -Pattern 'NGROK_URL=(.*)' | ForEach-Object { $_.Matches.Groups[1].Value }); ngrok http --url=$env:NGROK_URL 3000\"",
     "ngrok:dev:unix": "sh -c 'export $(cat .env | grep NGROK_URL); ngrok http --url=$NGROK_URL 3000'",
     "ngrok:dev": "node -e \"process.platform === 'win32' ? require('child_process').execSync('npm run ngrok:dev:win', {stdio: 'inherit'}) : require('child_process').execSync('npm run ngrok:dev:unix', {stdio: 'inherit'})\"",
