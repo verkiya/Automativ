@@ -113,7 +113,7 @@ export function LoginForm() {
                       src="/github.svg"
                       width={20}
                       height={20}
-                      alt="Github"
+                      alt="GitHub"
                     />
                     Continue With Github
                   </Button>
