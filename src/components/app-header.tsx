@@ -52,9 +52,7 @@ export const AppHeader = () => {
         </div>
       </div>
 
-      <div className="flex items-center gap-2">
-        {/* future utilities */}
-      </div>
+      <div className="flex items-center gap-2">{/* future utilities */}</div>
     </header>
   );
 };
