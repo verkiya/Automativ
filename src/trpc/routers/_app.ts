@@ -1,5 +1,5 @@
 import { credentialsRouter } from "@/features/credentials/server/routers";
-import { baseProcedure, createTRPCRouter, protectedProcedure } from "../init";
+import {  createTRPCRouter } from "../init";
 import { workflowsRouter } from "@/features/workflows/server/routers";
 import { executionsRouter } from "@/features/executions/server/routers";
 export const appRouter = createTRPCRouter({

@@ -42,7 +42,7 @@ export default function RootLayout({
       >
         <TRPCReactProvider>
           <NuqsAdapter>
-            <Provider> {children}</Provider>
+            <Provider>{children}</Provider>
           </NuqsAdapter>
           <Toaster richColors closeButton position="bottom-right" />
         </TRPCReactProvider>

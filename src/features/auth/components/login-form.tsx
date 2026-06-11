@@ -102,7 +102,7 @@ export function LoginForm() {
               <div className="grid gap-6">
                 <div className="flex flex-col gap-4">
                   <Button
-                    variant="glow"
+                    variant="outline"
                     className="w-full"
                     onClick={signInGithub}
                     type="button"
@@ -118,7 +118,7 @@ export function LoginForm() {
                     Continue With Github
                   </Button>
                   <Button
-                    variant="glow"
+                    variant="outline"
                     onClick={signInGoogle}
                     className="w-full"
                     type="button"
@@ -150,7 +150,7 @@ export function LoginForm() {
                         <FormMessage />
                       </FormItem>
                     )}
-                  />{" "}
+                  />
                   <FormField
                     control={form.control}
                     name="password"
@@ -178,7 +178,7 @@ export function LoginForm() {
                   </Button>
                 </div>
                 <div className="text-center text-sm">
-                  Don't have an account?{" "}
+                  Don&apos;t have an account?{" "}
                   <Link href="/signup" className="underline underline-offset-4">
                     Sign Up
                   </Link>
