@@ -225,3 +225,15 @@
 ::-webkit-scrollbar-thumb:hover {
   background: rgba(124, 58, 237, 0.34);
 }
+/* Automativ custom cursor */
+.cursor-automativ {
+  cursor:
+    url("/logo.png") 16 16,
+    auto;
+}
+
+.cursor-automativ button,
+.cursor-automativ a,
+.cursor-automativ [role="button"] {
+  cursor: pointer;
+}

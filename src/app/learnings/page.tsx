@@ -95,7 +95,7 @@ const capabilities = [
 
 export default function LearningsPage() {
   return (
-    <main className="min-h-screen bg-background">
+    <main className="min-h-screen bg-background cursor-automativ">
       <div className="absolute inset-0 -z-10 bg-[radial-gradient(circle_at_top_left,rgba(167,139,250,0.14),transparent_35%),radial-gradient(circle_at_top_right,rgba(99,102,241,0.10),transparent_30%),radial-gradient(circle_at_bottom_left,rgba(192,132,252,0.08),transparent_35%)]" />
 
       <div className="mx-auto max-w-7xl px-6 py-16 pb-40">

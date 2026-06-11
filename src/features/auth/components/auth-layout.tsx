@@ -283,7 +283,7 @@ export default function AuthLayout({
   children: React.ReactNode;
 }) {
   return (
-    <div className="relative h-screen overflow-hidden bg-background">
+    <div className="cursor-automativ relative h-screen overflow-hidden bg-background">
       <BackgroundAnimation />
 
       <div className="relative z-10 grid h-screen grid-cols-1 lg:grid-cols-2">
@@ -306,7 +306,7 @@ export default function AuthLayout({
               </span>
             </h1>
 
-           
+
 
             <div className="mb-6 flex flex-wrap gap-2">
               {brandPills.map((brand) => (
