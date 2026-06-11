@@ -4,6 +4,8 @@ import Image from "next/image";
 import Link from "next/link";
 import { motion } from "framer-motion";
 import { ArrowRight, Bot, Cpu, Sparkles, Workflow } from "lucide-react";
+import { cn } from "@/lib/utils";
+import { Button } from "@/components/ui/button";
 
 const icons = [
   "/github.svg",
@@ -17,14 +19,17 @@ const icons = [
 ];
 
 const nodes = [
-  { id: 0, x: 74, y: 18, icon: icons[0] },
-  { id: 1, x: 88, y: 28, icon: icons[1] },
-  { id: 2, x: 78, y: 44, icon: icons[2] },
-  { id: 3, x: 92, y: 56, icon: icons[3] },
-  { id: 4, x: 70, y: 66, icon: icons[4] },
-  { id: 5, x: 84, y: 78, icon: icons[5] },
-  { id: 6, x: 62, y: 36, icon: icons[6] },
-  { id: 7, x: 96, y: 14, icon: icons[7] },
+  { id: 0, x: 60, y: 12, icon: icons[0] }, // top-left
+  { id: 1, x: 82, y: 10, icon: icons[1] }, // top-right
+
+  { id: 2, x: 55, y: 38, icon: icons[2] }, // left
+  { id: 3, x: 92, y: 35, icon: icons[3] }, // right
+
+  { id: 4, x: 56, y: 65, icon: icons[4] }, // lower-left
+  { id: 5, x: 88, y: 75, icon: icons[5] }, // lower-right
+
+  { id: 6, x: 70, y: 84, icon: icons[6] }, // bottom
+  { id: 7, x: 70, y: 6, icon: icons[7] }, // top center
 ];
 
 const connections = [
@@ -39,34 +44,68 @@ const connections = [
 const brandPills = [
   {
     name: "OpenAI",
-    className: "bg-emerald-600 text-white border-emerald-500/30",
+    className:
+      "bg-gradient-to-r from-emerald-50 via-teal-50 to-cyan-50 text-emerald-700 border-emerald-200/70",
   },
   {
     name: "Anthropic",
-    className: "bg-amber-700 text-white border-amber-600/30",
+    className:
+      "bg-gradient-to-r from-stone-50 via-orange-50 to-amber-50 text-stone-700 border-orange-200/70",
   },
   {
     name: "Google",
-    className: "bg-blue-600 text-white border-blue-500/30",
+    className:
+      "bg-gradient-to-r from-blue-50 via-red-50 to-yellow-50 text-slate-700 border-slate-200",
   },
   {
     name: "Slack",
-    className: "bg-fuchsia-700 text-white border-fuchsia-600/30",
+    className:
+      "bg-gradient-to-r from-fuchsia-50 via-purple-50 to-indigo-50 text-purple-700 border-purple-200/70",
   },
   {
     name: "Stripe",
-    className: "bg-indigo-600 text-white border-indigo-500/30",
+    className:
+      "bg-gradient-to-r from-indigo-50 via-violet-50 to-purple-50 text-indigo-700 border-indigo-200/70",
+  },
+  {
+    name: "GitHub",
+    className:
+      "bg-gradient-to-r from-slate-50 via-zinc-50 to-neutral-50 text-slate-700 border-slate-200/70",
+  },
+  {
+    name: "Discord",
+    className:
+      "bg-gradient-to-r from-indigo-50 via-violet-50 to-purple-50 text-indigo-700 border-indigo-200/70",
+  },
+  {
+    name: "Vercel",
+    className:
+      "bg-gradient-to-r from-zinc-50 via-neutral-50 to-slate-50 text-zinc-700 border-zinc-200/70",
   },
 ];
-
+function LearningsButton() {
+  return (
+    <Button
+      asChild
+      size="lg"
+      variant="glow"
+      className="fixed bottom-8 left-1/2 z-50 -translate-x-1/2 rounded-full  px-6 "
+    >
+      <Link href="/learnings" prefetch>
+        <span>What I Learned Building Automativ</span>
+        <ArrowRight className="size-4 transition-transform group-hover:translate-x-1" />
+      </Link>
+    </Button>
+  );
+}
 function BackgroundAnimation() {
   return (
-    <div className="pointer-events-none absolute inset-y-0 right-[-8%] w-[72%] overflow-hidden">
+    <div className="pointer-events-none absolute inset-y-0 -right-[8%]  w-[135%] overflow-hidden">
       <motion.div
         className="absolute top-[2%] right-[14%] h-[340px] w-[340px] rounded-full blur-3xl"
         style={{
           background:
-            "radial-gradient(circle, rgba(124,58,237,0.16), transparent 68%)",
+            "radial-gradient(circle, rgba(124,58,237,0.16), transparent 48%)",
         }}
         animate={{
           scale: [1, 1.08, 1],
@@ -104,7 +143,7 @@ function BackgroundAnimation() {
             y1={`${nodes[from].y}%`}
             x2={`${nodes[to].x}%`}
             y2={`${nodes[to].y}%`}
-            stroke="rgba(124,58,237,0.12)"
+            stroke="rgba(99,102,241,0.28)"
             strokeWidth="1"
             animate={{
               opacity: [0.2, 0.55, 0.2],
@@ -146,7 +185,7 @@ function BackgroundAnimation() {
       {nodes.map((node, i) => (
         <motion.div
           key={node.id}
-          className="absolute flex h-11 w-11 items-center justify-center rounded-2xl border border-white/50 bg-white/70 shadow-xl backdrop-blur-xl"
+          className="absolute flex h-12 w-12  items-center justify-center rounded-2xl border border-white/50 bg-white/70 shadow-xl backdrop-blur-xl"
           style={{
             left: `${node.x}%`,
             top: `${node.y}%`,
@@ -154,6 +193,7 @@ function BackgroundAnimation() {
           animate={{
             y: [-4, 4, -4],
             scale: [0.98, 1.03, 0.98],
+            rotate: [-3, 3, -3],
           }}
           transition={{
             duration: 6 + i * 0.25,
@@ -175,15 +215,27 @@ function BackgroundAnimation() {
     </div>
   );
 }
-
-function Feature({ icon, title }: { icon: React.ReactNode; title: string }) {
+function Feature({
+  icon,
+  title,
+  gradient,
+}: {
+  icon: React.ReactNode;
+  title: string;
+  gradient: string;
+}) {
   return (
     <motion.div
-      whileHover={{ y: -3 }}
+      whileHover={{
+        y: -4,
+        scale: 1.02,
+      }}
       transition={{ duration: 0.18 }}
-      className="flex items-center gap-3 rounded-2xl border border-white/50 bg-white/60 px-4 py-3 shadow-lg backdrop-blur-xl"
+      className="flex items-center gap-3 rounded-3xl border border-white/70 bg-white/75 px-4 py-3 shadow-lg backdrop-blur-xl hover:bg-white/90"
     >
-      <div className="flex h-9 w-9 items-center justify-center rounded-xl bg-gradient-to-br from-violet-500 via-indigo-500 to-cyan-500 text-white shadow-md">
+      <div
+        className={`flex h-10 w-10 items-center justify-center rounded-2xl bg-gradient-to-br ${gradient} text-white shadow-md`}
+      >
         {icon}
       </div>
 
@@ -199,7 +251,7 @@ function WorkflowPreview() {
         <div>
           <p className="text-sm font-semibold">Workflow Execution</p>
           <p className="text-[11px] text-muted-foreground">
-            AI orchestration live
+            Executing workflow in real time
           </p>
         </div>
 
@@ -210,14 +262,16 @@ function WorkflowPreview() {
       </div>
 
       <div className="flex items-center gap-2 flex-wrap">
-        {["OpenAI", "Slack", "Stripe", "Done"].map((step, i) => (
-          <div key={step} className="flex items-center gap-2">
-            <div className="rounded-xl border border-white/60 bg-white/80 px-3 py-2 text-xs font-medium shadow-sm">
-              {step}
+        {["Webhook", "OpenAI", "Discord", "Stripe", "Completed"].map(
+          (step, i) => (
+            <div key={step} className="flex items-center gap-2">
+              <div className="rounded-xl border border-white/60 bg-white/80 px-3 py-2 text-xs font-medium shadow-sm">
+                {step}
+              </div>
+              {i < 4 && <ArrowRight className="size-3.5 text-cyan-500" />}
             </div>
-            {i < 3 && <ArrowRight className="size-3.5 text-cyan-500" />}
-          </div>
-        ))}
+          ),
+        )}
       </div>
     </div>
   );
@@ -234,39 +288,37 @@ export default function AuthLayout({
 
       <div className="relative z-10 grid h-screen grid-cols-1 lg:grid-cols-2">
         <div className="hidden lg:flex flex-col justify-center px-14 xl:px-20">
-          <Link href="/" className="mb-8 flex items-center gap-4">
+          <Link href="/" className="mb-8 inline-flex w-fit items-center gap-2">
             <Image src="/logo.svg" alt="Automativ" width={54} height={54} />
-            <span className="-ml-5 text-4xl font-bold tracking-tight">
+            <span className="-ml-4 text-4xl font-bold tracking-tight">
               utomativ
             </span>
           </Link>
 
-          <div className="max-w-xl">
-            <div className="mb-5 inline-flex items-center gap-2 rounded-full border border-white/60 bg-white/75 px-4 py-2 shadow-sm backdrop-blur-xl">
-              <Sparkles className="size-4 text-primary" />
-              <span className="text-xs font-medium text-muted-foreground tracking-wide">
-                AI-NATIVE WORKFLOW AUTOMATION
-              </span>
-            </div>
-
-            <h1 className="mb-5 text-5xl font-bold leading-[1.05] tracking-tight">
+          <div className="max-w-2xl">
+            <h1 className="mb-5 text-6xl xl:text-7xl font-semibold leading-[1.05] tracking-tight text-slate-900">
               Automate work.
               <br />
               Orchestrate agents.
               <br />
-              Scale execution.
+              <span className="text-transparent bg-clip-text bg-gradient-to-r from-violet-600 via-indigo-600 to-cyan-500">
+                Scale execution.
+              </span>
             </h1>
 
-            <p className="mb-6 max-w-lg text-base leading-relaxed text-muted-foreground">
-              Connect apps, trigger workflows, run AI agents, and automate
-              repetitive execution with intelligent orchestration.
-            </p>
+           
 
             <div className="mb-6 flex flex-wrap gap-2">
               {brandPills.map((brand) => (
                 <div
                   key={brand.name}
-                  className={`rounded-full border px-3 py-1.5 text-xs font-semibold shadow-sm ${brand.className}`}
+                  className={cn(
+                    "rounded-full border px-3 py-1.5 text-sm font-medium",
+                    "backdrop-blur-sm",
+                    "transition-all duration-200",
+                    "hover:scale-105 hover:shadow-md",
+                    brand.className,
+                  )}
                 >
                   {brand.name}
                 </div>
@@ -276,31 +328,39 @@ export default function AuthLayout({
             <div className="grid grid-cols-2 gap-3">
               <Feature
                 icon={<Workflow className="size-4" />}
-                title="Visual workflow builder"
+                title="Drag & Drop Workflows"
+                gradient="from-violet-500 to-fuchsia-500"
               />
+
               <Feature
                 icon={<Bot className="size-4" />}
-                title="AI agent execution"
+                title="Multi-Agent Execution"
+                gradient="from-cyan-500 to-blue-500"
               />
+
               <Feature
                 icon={<Cpu className="size-4" />}
-                title="Async execution engine"
+                title="Production Monitoring"
+                gradient="from-emerald-500 to-teal-500"
               />
+
               <Feature
                 icon={<Sparkles className="size-4" />}
-                title="Realtime triggers"
+                title="Real-Time Automation"
+                gradient="from-amber-500 to-orange-500"
               />
             </div>
 
             <WorkflowPreview />
+            <LearningsButton />
           </div>
         </div>
 
-        <div className="flex items-center justify-center px-6 py-6 md:px-10">
-          <div className="relative w-full max-w-lg">
-            <div className="absolute inset-0 rounded-[2rem] bg-gradient-to-br from-violet-500/20 via-indigo-500/10 to-cyan-500/18 blur-2xl" />
+        <div className="flex items-center justify-center px-4 py-4 md:px-10">
+          <div className="relative w-full max-w-md">
+            <div className="absolute inset-0 rounded-[2rem] bg-gradient-to-br from-violet-500/30 via-indigo-500/20 to-cyan-500/30 blur-xl" />
 
-            <div className="relative rounded-[2rem] border border-white/60 bg-white/78 p-6 shadow-2xl backdrop-blur-3xl md:p-8">
+            <div className="relative rounded-[2rem] border border-white/50 bg-white/70 p-2 shadow-[0_25px_80px_-20px_rgba(99,102,241,0.25)] backdrop-blur-2xl md:p-6">
               <div className="pointer-events-none absolute inset-x-0 top-0 h-20 rounded-t-[2rem] bg-gradient-to-b from-white/40 to-transparent" />
               <div className="pointer-events-none absolute inset-2 rounded-[1.65rem] border border-white/20" />
 

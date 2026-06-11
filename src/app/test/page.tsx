@@ -1,7 +1,6 @@
 "use client";
 
 import Link from "next/link";
-import { useEffect, useState } from "react";
 import {
   ArrowRight,
   Bot,
@@ -9,17 +8,16 @@ import {
   Crown,
   Home,
   Loader2,
-  Moon,
   Rocket,
   Signal,
   Sparkles,
-  Sun,
   Workflow,
   Zap,
   Wand2,
 } from "lucide-react";
 
 import { Button } from "@/components/ui/button";
+import { toast } from "sonner";
 
 const variantGroups = [
   {
@@ -79,21 +77,24 @@ const variantGroups = [
       "neo",
     ] as const,
   },
+  {
+    title: "Brand Actions",
+    description: "Actions highlighting specific brand semantic colours.",
+    cardClass:
+      "bg-[linear-gradient(135deg,rgba(6,182,212,0.04),rgba(217,70,239,0.04))]",
+    variants: [
+      "brandCyan",
+      "brandSuccess",
+      "brandPremium",
+      "brandDanger",
+      "cyberpunk",
+    ] as const,
+  },
 ] as const;
 
 const sizes = ["xs", "sm", "default", "lg", "xl", "hero"] as const;
 
 export default function TestPage() {
-  const [dark, setDark] = useState(false);
-
-  useEffect(() => {
-    document.documentElement.classList.toggle("dark", dark);
-
-    return () => {
-      document.documentElement.classList.remove("dark");
-    };
-  }, [dark]);
-
   return (
     <main className="relative min-h-screen overflow-hidden bg-background">
       {/* background glows */}
@@ -124,15 +125,6 @@ export default function TestPage() {
                 workflows, orchestration, dashboards, and premium SaaS UX.
               </p>
             </div>
-
-            <Button
-              variant="glass"
-              size="lg"
-              onClick={() => setDark((d) => !d)}
-            >
-              {dark ? <Sun /> : <Moon />}
-              {dark ? "Light mode" : "Dark mode"}
-            </Button>
           </div>
 
           <div className="flex flex-wrap gap-5">
@@ -262,6 +254,38 @@ export default function TestPage() {
             <Button variant="workflow" disabled>
               <Loader2 className="animate-spin" />
               Running
+            </Button>
+          </div>
+        </section>
+
+        {/* TOASTS */}
+        <section className="mb-20 rounded-[2rem] border border-white/50 bg-card/80 p-10 shadow-2xl backdrop-blur-2xl">
+          <h2 className="mb-3 text-3xl font-bold">Toasts</h2>
+          <p className="mb-10 text-muted-foreground">
+            Notification styles using sonner.
+          </p>
+
+          <div className="flex flex-wrap gap-5">
+            <Button variant="default" onClick={() => toast("Default toast message")}>
+              Default Toast
+            </Button>
+            <Button variant="success" onClick={() => toast.success("Success toast message")}>
+              Success Toast
+            </Button>
+            <Button variant="destructive" onClick={() => toast.error("Error toast message")}>
+              Error Toast
+            </Button>
+            <Button variant="outline" onClick={() => toast.warning("Warning toast message")}>
+              Warning Toast
+            </Button>
+            <Button variant="secondary" onClick={() => toast.info("Info toast message")}>
+              Info Toast
+            </Button>
+            <Button variant="aiGlow" onClick={() => toast("AI action started", {
+              description: "Generating your workflow...",
+              icon: <Wand2 className="size-4" />
+            })}>
+              Custom Toast
             </Button>
           </div>
         </section>
