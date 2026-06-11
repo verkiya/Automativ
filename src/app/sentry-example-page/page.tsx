@@ -53,7 +53,7 @@ export default function Page() {
           <a
             target="_blank"
             rel="noopener"
-            href="https://himanshu-verkiya-ej.sentry.io/issues/?project=4511064051941376"
+            href="https://himanshu-verkiya-ej.sentry.io/issues/?project=4511438138179584"
           >
             Issues Page
           </a>

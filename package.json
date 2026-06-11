@@ -3,16 +3,15 @@
   "version": "1.0.0",
   "private": true,
   "scripts": {
-    "dev": "cross-env next dev --turbopack",
+    "dev": "dotenv -- concurrently -n NEXT,INNGEST,NGROK -c blue,magenta,yellow \"cross-env next dev --turbopack\" \"npm run inngest:dev\" \"npm run ngrok:dev\"",
     "build": "next build --turbopack",
     "start": "next start",
     "lint": "biome check",
     "ngrok:dev:win": "powershell -Command \"$env:NGROK_URL = (Select-String -Path .env -Pattern 'NGROK_URL=(.*)' | ForEach-Object { $_.Matches.Groups[1].Value }); ngrok http --url=$env:NGROK_URL 3000\"",
     "ngrok:dev:unix": "sh -c 'export $(cat .env | grep NGROK_URL); ngrok http --url=$NGROK_URL 3000'",
     "ngrok:dev": "node -e \"process.platform === 'win32' ? require('child_process').execSync('npm run ngrok:dev:win', {stdio: 'inherit'}) : require('child_process').execSync('npm run ngrok:dev:unix', {stdio: 'inherit'})\"",
-    "format": "biome format --write",
     "inngest:dev": "inngest-cli dev",
-    "dev:all": "dotenv -- concurrently -n NEXT,INNGEST -c blue,magenta \"npm run dev\" \"npm run inngest:dev\""
+    "format": "biome format --write"
   },
   "overrides": {
     "import-in-the-middle": "3.0.0"
@@ -108,7 +107,6 @@
     "cross-env": "^7.0.3",
     "dotenv-cli": "^11.0.0",
     "inngest-cli": "^1.21.0",
-    "mprocs": "^0.9.3",
     "prettier": "^3.8.3",
     "prisma": "^6.19.3",
     "shadcn": "^4.8.0",

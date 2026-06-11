@@ -28,7 +28,7 @@ export const UpgradeModal = ({ open, onOpenChange }: UpgradeModalProps) => {
         <AlertDialogFooter>
           <AlertDialogCancel>Cancel</AlertDialogCancel>
           <AlertDialogAction
-            onClick={() => authClient.checkout({ slug: "automativ-pro" })}
+            onClick={() => authClient.checkout({ slug: "automativ" })}
           >
             Upgrade Now
           </AlertDialogAction>

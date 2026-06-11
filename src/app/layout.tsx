@@ -20,8 +20,13 @@ const jetbrainsMono = JetBrains_Mono({
 });
 
 export const metadata: Metadata = {
-  title: "Automativ",
-  description: "AI-Powered Orchestration Engine",
+  metadataBase: new URL("https://automativ.vercel.app"),
+  title: {
+    default: "Automativ",
+    template: "%s • Automativ",
+  },
+  description:
+    "Build AI-powered workflows, orchestrate intelligent agents, and automate execution.",
   icons: { icon: "/logo.svg", shortcut: "/logo.svg", apple: "/logo.svg" },
 };
 
@@ -31,7 +36,7 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en">
+    <html lang="en" suppressHydrationWarning>
       <body
         className={`${jakartaSans.variable} ${jetbrainsMono.variable} antialiased`}
       >
@@ -39,7 +44,7 @@ export default function RootLayout({
           <NuqsAdapter>
             <Provider> {children}</Provider>
           </NuqsAdapter>
-          <Toaster />
+          <Toaster richColors closeButton position="bottom-right" />
         </TRPCReactProvider>
       </body>
     </html>

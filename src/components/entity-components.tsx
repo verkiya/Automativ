@@ -39,6 +39,7 @@ type EntityHeaderProps = {
   | { newButtonHref: string; onNew?: never }
   | { onNew?: never; newButtonHref?: never }
 );
+
 export const EntityHeader = ({
   title,
   description,
@@ -49,23 +50,48 @@ export const EntityHeader = ({
   isCreating,
 }: EntityHeaderProps) => {
   return (
-    <div className="flex flex-row items-center justify-between gap-x-4">
-      <div className="flex flex-col">
-        <h1 className="text-lg md:text-xl font-semibold">{title}</h1>
+    <div
+      className="
+        flex
+        flex-col
+        gap-4
+        rounded-2xl
+        border
+        border-white/40
+        bg-white/50
+        p-5
+        backdrop-blur-xl
+        md:flex-row
+        md:items-center
+        md:justify-between
+      "
+    >
+      <div className="flex flex-col gap-1.5">
+        <h1 className="text-xl font-semibold tracking-[-0.03em] text-slate-900 md:text-2xl">
+          {title}
+        </h1>
+
         {description && (
-          <p className="text-xs md:text-sm text-muted-foreground">
+          <p className="max-w-2xl text-sm leading-relaxed text-muted-foreground">
             {description}
           </p>
         )}
       </div>
+
       {onNew && !newButtonHref && (
-        <Button disabled={isCreating || disabled} size="sm" onClick={onNew}>
+        <Button
+          disabled={isCreating || disabled}
+          size="lg"
+          variant={isCreating ? "loading" : "accent"}
+          onClick={onNew}
+        >
           <PlusIcon className="size-4" />
-          {newButtonLabel}
+          {isCreating ? "Creating..." : newButtonLabel}
         </Button>
       )}
+
       {newButtonHref && !onNew && (
-        <Button size="sm" asChild>
+        <Button size="lg" variant="accent" asChild>
           <Link href={newButtonHref} prefetch>
             <PlusIcon className="size-4" />
             {newButtonLabel}
@@ -91,7 +117,6 @@ export const EntityContainer = ({
     <div className="p-4 md:px-10 md:py-6 h-full">
       <div className="mx-auto max-w-screen-xl w-full flex flex-col gap-y-8 h-full">
         {header}
-
         <div className="flex flex-col gap-y-4 h-full">
           {search}
           {children}

@@ -102,7 +102,7 @@ export function LoginForm() {
               <div className="grid gap-6">
                 <div className="flex flex-col gap-4">
                   <Button
-                    variant="outline"
+                    variant="glow"
                     className="w-full"
                     onClick={signInGithub}
                     type="button"
@@ -118,7 +118,7 @@ export function LoginForm() {
                     Continue With Github
                   </Button>
                   <Button
-                    variant="outline"
+                    variant="glow"
                     onClick={signInGoogle}
                     className="w-full"
                     type="button"
@@ -170,7 +170,7 @@ export function LoginForm() {
                   />
                   <Button
                     type="submit"
-                    variant="secondary"
+                    variant="accent"
                     className="w-full"
                     disabled={isPending}
                   >

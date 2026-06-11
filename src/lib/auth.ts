@@ -9,7 +9,12 @@ export const auth = betterAuth({
   database: prismaAdapter(prisma, {
     provider: "postgresql", // or "mysql", "postgresql", ...etc
   }),
-  trustedOrigins: ["https://hyperemetic-josefa-gloriously.ngrok-free.dev"],
+  trustedOrigins: [
+    process.env.NEXT_PUBLIC_APP_URL!,
+    "https://automativ.vercel.app",
+    "http://localhost:3000",
+    "https://hyperemetic-josefa-gloriously.ngrok-free.dev",
+  ],
   emailAndPassword: {
     enabled: true,
     autoSignIn: true,
@@ -32,8 +37,8 @@ export const auth = betterAuth({
         checkout({
           products: [
             {
-              productId: "798fa6ea-3ff1-4768-b9c2-cd4d0539363f",
-              slug: "automativ-pro",
+              productId: process.env.POLAR_PRODUCT_ID!,
+              slug: process.env.POLAR_PRODUCT_ID_SLUG!,
             },
           ],
           successUrl: process.env.POLAR_SUCCESS_URL,

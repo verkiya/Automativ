@@ -69,7 +69,7 @@ export const WorkflowsHeader = ({ disabled }: { disabled?: boolean }) => {
         title="Workflows"
         description="Create and manage your workflows"
         onNew={handleCreate}
-        newButtonLabel="New workflow"
+        newButtonLabel="New Workflow"
         disabled={disabled}
         isCreating={createWorkflow.isPending}
       />
@@ -114,22 +114,24 @@ export const WorkflowsEmpty = () => {
   const router = useRouter();
   const createWorkflow = useCreateWorkflow();
   const { handleError, modal } = useUpgradeModal();
+
   const handleCreate = () => {
+    if (createWorkflow.isPending) return;
+
     createWorkflow.mutate(undefined, {
-      onError: (error) => {
-        handleError(error);
-      },
+      onError: handleError,
       onSuccess: (data) => {
         router.push(`/workflows/${data.id}`);
       },
     });
   };
+
   return (
     <>
       {modal}
       <EmptyView
         onNew={handleCreate}
-        message="No workflows found. Create your first workflow to start automating."
+        message="Your automation workspace is empty"
       />
     </>
   );

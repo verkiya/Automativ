@@ -1,0 +1,296 @@
+"use client";
+
+import Link from "next/link";
+import { useEffect, useState } from "react";
+import {
+  ArrowRight,
+  Bot,
+  Brain,
+  Crown,
+  Home,
+  Loader2,
+  Moon,
+  Rocket,
+  Signal,
+  Sparkles,
+  Sun,
+  Workflow,
+  Zap,
+  Wand2,
+} from "lucide-react";
+
+import { Button } from "@/components/ui/button";
+
+const variantGroups = [
+  {
+    title: "Primary Actions",
+    description: "Core CTA buttons for launches, onboarding, workflows.",
+    cardClass:
+      "bg-[linear-gradient(135deg,rgba(124,58,237,0.05),rgba(6,182,212,0.04))]",
+    variants: [
+      "default",
+      "gradient",
+      "shimmer",
+      "workflow",
+      "aiGlow",
+      "premium",
+    ] as const,
+  },
+  {
+    title: "Glass & Surface Buttons",
+    description: "For overlays, auth, dashboards, premium surfaces.",
+    cardClass:
+      "bg-[linear-gradient(135deg,rgba(255,255,255,0.75),rgba(240,247,255,0.55))]",
+    variants: [
+      "glass",
+      "shimmerGlass",
+      "frost",
+      "floating",
+      "loadingGlass",
+    ] as const,
+  },
+  {
+    title: "States & Signals",
+    description: "Feedback, execution states, system actions.",
+    cardClass:
+      "bg-[linear-gradient(135deg,rgba(6,182,212,0.04),rgba(16,185,129,0.03))]",
+    variants: [
+      "success",
+      "destructive",
+      "dangerGlass",
+      "glow",
+      "signal",
+      "loading",
+    ] as const,
+  },
+  {
+    title: "Utilities",
+    description: "Secondary actions and editor controls.",
+    cardClass:
+      "bg-[linear-gradient(135deg,rgba(99,102,241,0.04),rgba(255,255,255,0.55))]",
+    variants: [
+      "secondary",
+      "outline",
+      "subtle",
+      "accent",
+      "ghost",
+      "ghostSoft",
+      "toolbar",
+      "neo",
+    ] as const,
+  },
+] as const;
+
+const sizes = ["xs", "sm", "default", "lg", "xl", "hero"] as const;
+
+export default function TestPage() {
+  const [dark, setDark] = useState(false);
+
+  useEffect(() => {
+    document.documentElement.classList.toggle("dark", dark);
+
+    return () => {
+      document.documentElement.classList.remove("dark");
+    };
+  }, [dark]);
+
+  return (
+    <main className="relative min-h-screen overflow-hidden bg-background">
+      {/* background glows */}
+      <div className="pointer-events-none absolute inset-0">
+        <div className="absolute left-[-8%] top-[-8%] h-[480px] w-[480px] rounded-full bg-violet-500/10 blur-3xl" />
+        <div className="absolute right-[-8%] top-[6%] h-[420px] w-[420px] rounded-full bg-cyan-400/10 blur-3xl" />
+        <div className="absolute bottom-[-10%] left-1/2 h-[420px] w-[420px] -translate-x-1/2 rounded-full bg-indigo-400/8 blur-3xl" />
+      </div>
+
+      <div className="relative mx-auto max-w-7xl px-6 py-16">
+        {/* HERO */}
+        <section className="mb-20 rounded-[2rem] border border-white/50 bg-card/80 p-10 shadow-2xl backdrop-blur-2xl">
+          <div className="mb-10 flex flex-col gap-6 lg:flex-row lg:items-center lg:justify-between">
+            <div className="max-w-3xl">
+              <div className="mb-5 inline-flex items-center gap-2 rounded-full border border-white/50 bg-white/70 px-4 py-2 backdrop-blur-xl">
+                <Sparkles className="size-4 text-primary" />
+                <span className="text-sm text-muted-foreground">
+                  Automativ Design System
+                </span>
+              </div>
+
+              <h1 className="mb-4 text-5xl font-bold tracking-tight md:text-6xl">
+                Premium Button System
+              </h1>
+
+              <p className="max-w-2xl text-lg leading-relaxed text-muted-foreground">
+                AI-native dual-tone interface buttons built for automation,
+                workflows, orchestration, dashboards, and premium SaaS UX.
+              </p>
+            </div>
+
+            <Button
+              variant="glass"
+              size="lg"
+              onClick={() => setDark((d) => !d)}
+            >
+              {dark ? <Sun /> : <Moon />}
+              {dark ? "Light mode" : "Dark mode"}
+            </Button>
+          </div>
+
+          <div className="flex flex-wrap gap-5">
+            <Button variant="gradient" size="hero">
+              Start Building
+              <Rocket />
+            </Button>
+
+            <Button variant="workflow" size="hero">
+              Launch Workflow
+              <Workflow />
+            </Button>
+
+            <Button variant="aiGlow" size="hero">
+              Run AI Agent
+              <Brain />
+            </Button>
+
+            <Button variant="premium" size="hero">
+              Upgrade
+              <Crown />
+            </Button>
+          </div>
+        </section>
+
+        {/* VARIANT GROUPS */}
+        {variantGroups.map((group) => (
+          <section key={group.title} className="mb-20">
+            <div className="mb-8">
+              <h2 className="text-3xl font-bold">{group.title}</h2>
+              <p className="mt-2 text-muted-foreground">{group.description}</p>
+            </div>
+
+            <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
+              {group.variants.map((variant) => (
+                <div
+                  key={variant}
+                  className={`rounded-3xl border border-white/50 p-6 shadow-xl backdrop-blur-2xl ${group.cardClass}`}
+                >
+                  <div className="mb-5 flex items-center justify-between">
+                    <span className="rounded-full bg-white/70 px-3 py-1 font-mono text-xs text-muted-foreground">
+                      {variant}
+                    </span>
+
+                    <Wand2 className="size-4 text-primary/70" />
+                  </div>
+
+                  <Button variant={variant} size="lg" className="w-full">
+                    {variant}
+                    <ArrowRight />
+                  </Button>
+                </div>
+              ))}
+            </div>
+          </section>
+        ))}
+
+        {/* SIZE */}
+        <section className="mb-20 rounded-[2rem] border border-white/50 bg-card/80 p-10 shadow-2xl backdrop-blur-2xl">
+          <h2 className="mb-3 text-3xl font-bold">Sizing Scale</h2>
+          <p className="mb-10 text-muted-foreground">
+            Responsive sizing system for every interface surface.
+          </p>
+
+          <div className="flex flex-wrap items-end gap-5">
+            {sizes.map((size) => (
+              <Button key={size} variant="gradient" size={size}>
+                {size}
+              </Button>
+            ))}
+          </div>
+        </section>
+
+        {/* EFFECTS */}
+        <section className="mb-20 rounded-[2rem] border border-white/50 bg-card/80 p-10 shadow-2xl backdrop-blur-2xl">
+          <h2 className="mb-3 text-3xl font-bold">Effects</h2>
+          <p className="mb-10 text-muted-foreground">
+            Motion and interaction states.
+          </p>
+
+          <div className="flex flex-wrap gap-5">
+            <Button variant="shimmer" size="lg">
+              Shimmer
+              <Sparkles />
+            </Button>
+
+            <Button variant="shimmerGlass" size="lg">
+              Glass Shimmer
+              <Sparkles />
+            </Button>
+
+            <Button variant="glow" size="lg">
+              Glow CTA
+              <Zap />
+            </Button>
+
+            <Button variant="signal" size="lg">
+              Signal
+              <Signal />
+            </Button>
+
+            <Button variant="neo" size="lg">
+              Neo
+              <Bot />
+            </Button>
+          </div>
+        </section>
+
+        {/* LOADING */}
+        <section className="mb-20 rounded-[2rem] border border-white/50 bg-card/80 p-10 shadow-2xl backdrop-blur-2xl">
+          <h2 className="mb-3 text-3xl font-bold">Loading States</h2>
+          <p className="mb-10 text-muted-foreground">
+            Async feedback patterns.
+          </p>
+
+          <div className="flex flex-wrap gap-5">
+            <Button variant="loading" disabled>
+              <Loader2 className="animate-spin" />
+              Processing
+            </Button>
+
+            <Button variant="loadingGlass" disabled>
+              <Loader2 className="animate-spin" />
+              Authenticating
+            </Button>
+
+            <Button variant="workflow" disabled>
+              <Loader2 className="animate-spin" />
+              Running
+            </Button>
+          </div>
+        </section>
+
+        {/* FOOTER */}
+        <section className="rounded-[2rem] border border-white/50 bg-card/80 p-14 text-center shadow-2xl backdrop-blur-2xl">
+          <h2 className="mb-4 text-4xl font-bold">
+            Built for AI-native products
+          </h2>
+
+          <p className="mx-auto mb-10 max-w-2xl text-lg leading-relaxed text-muted-foreground">
+            Workflow-first interface primitives with premium visual identity.
+          </p>
+
+          <div className="flex flex-wrap justify-center gap-5">
+            <Button variant="premium" size="hero">
+              Launch Product
+              <Rocket />
+            </Button>
+
+            <Link href="/">
+              <Button variant="glass" size="hero">
+                <Home />
+                Back Home
+              </Button>
+            </Link>
+          </div>
+        </section>
+      </div>
+    </main>
+  );
+}
