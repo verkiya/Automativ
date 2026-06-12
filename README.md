@@ -244,6 +244,25 @@ This is a small implementation detail with a large UX impact that most tutorial 
 
 ---
 
+## Next.js Route Group Strategy
+
+<!-- 
+  Route Groups Strategy Explanation:
+  Next.js Route Groups (`(dashboard)`, `(editor)`, `(rest)`) are used to decouple layouts for 
+  paths that share the same base URL structure.
+  The workflows list (`/workflows`) and the individual workflow editor (`/workflows/[id]`) 
+  are separated into `(rest)` and `(editor)` groups. 
+  This means the `/workflows/[id]` editor page is a separate page that uses its own dedicated 
+  editor layout (a full-screen canvas without traditional navigation), while the main workflows 
+  page (`/workflows`) uses a completely different standard dashboard layout.
+  This strategy prevents the heavy dependencies and complex layout of the visual editor from 
+  polluting the lightweight dashboard routes.
+-->
+
+The application utilizes **Next.js Route Groups** (`(dashboard)`, `(editor)`, `(rest)`) to apply different layouts to pages that share a URL hierarchy. For example, `/workflows` (the list) and `/workflows/[id]` (the visual editor) live in different route groups. This allows the editor to use a specialized, full-screen canvas layout without inheriting the standard dashboard UI, preventing layout conflicts and keeping list routes lightweight.
+
+---
+
 ## Key Engineering Takeaways
 
 - Background job orchestration is the foundational pattern for reliable automation platforms

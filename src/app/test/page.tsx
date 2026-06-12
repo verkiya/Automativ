@@ -90,6 +90,17 @@ const variantGroups = [
       "cyberpunk",
     ] as const,
   },
+  {
+    title: "Sci-Fi & Special",
+    description: "Advanced interfaces with heavy glows and gradients.",
+    cardClass:
+      "bg-[linear-gradient(135deg,rgba(76,29,149,0.06),rgba(34,211,238,0.06))]",
+    variants: [
+      "neon",
+      "holographic",
+      "cosmic",
+    ] as const,
+  },
 ] as const;
 
 const sizes = ["xs", "sm", "default", "lg", "xl", "hero"] as const;
