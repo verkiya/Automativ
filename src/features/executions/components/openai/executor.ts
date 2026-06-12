@@ -6,6 +6,7 @@ import type { NodeExecutor } from "@/features/executions/types";
 import { openAiChannel } from "@/inngest/channels/openai";
 import prisma from "@/lib/db";
 import { decrypt } from "@/lib/encryption";
+import { OPENAI_MODEL } from "@/lib/ai-models";
 
 Handlebars.registerHelper("json", (context) => {
   const jsonString = JSON.stringify(context, null, 2);
@@ -96,7 +97,7 @@ export const openAiExecutor: NodeExecutor<OpenAiData> = async ({
 
   try {
     const { steps } = await step.ai.wrap("openai-generate-text", generateText, {
-      model: openai("gpt-5.4-mini"),
+      model: openai(OPENAI_MODEL),
       system: systemPrompt,
       prompt: userPrompt,
       experimental_telemetry: {
