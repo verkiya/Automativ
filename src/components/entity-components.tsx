@@ -52,27 +52,46 @@ export const EntityHeader = ({
   return (
     <div
       className="
-        flex
-        flex-col
-        gap-4
-        rounded-2xl
-        border
-        border-white/40
-        bg-white/50
-        p-5
-        backdrop-blur-xl
-        md:flex-row
-        md:items-center
-        md:justify-between
-      "
+  flex
+  flex-col
+  gap-4
+  rounded-3xl
+  border
+  border-violet-200/30
+  bg-gradient-to-br
+  from-white/90
+  via-violet-50/40
+  to-cyan-50/30
+  p-6
+  shadow-[0_10px_40px_rgba(109,40,217,0.06)]
+  backdrop-blur-2xl
+  md:flex-row
+  md:items-center
+  md:justify-between
+"
     >
       <div className="flex flex-col gap-1.5">
-        <h1 className="text-xl font-semibold tracking-[-0.03em] text-slate-900 md:text-2xl">
+        <h1
+          className="
+  text-xl
+  font-semibold
+  tracking-tight
+  text-slate-900
+  md:text-2xl
+"
+        >
           {title}
         </h1>
 
         {description && (
-          <p className="max-w-2xl text-sm leading-relaxed text-muted-foreground">
+          <p
+            className="
+  max-w-2xl
+  text-sm
+  leading-relaxed
+  text-slate-500
+"
+          >
             {description}
           </p>
         )}
@@ -82,16 +101,21 @@ export const EntityHeader = ({
         <Button
           disabled={isCreating || disabled}
           size="lg"
-          variant={isCreating ? "shimmer" : "gradient"}
+          variant={isCreating ? "glassPrimary" : "accent"}
+          className="w-40"
           onClick={onNew}
         >
-          <PlusIcon className="size-4" />
+          {isCreating ? (
+            <Loader2Icon className="size-4 animate-spin" />
+          ) : (
+            <PlusIcon className="size-4" />
+          )}
           {isCreating ? "Creating..." : newButtonLabel}
         </Button>
       )}
 
       {newButtonHref && !onNew && (
-        <Button size="lg" variant="accent" asChild>
+        <Button size="lg" variant="gradient" asChild>
           <Link href={newButtonHref} prefetch>
             <PlusIcon className="size-4" />
             {newButtonLabel}
@@ -114,8 +138,8 @@ export const EntityContainer = ({
   pagination,
 }: EntityContainerProps) => {
   return (
-    <div className="p-4 md:px-10 md:py-6 h-full">
-      <div className="mx-auto max-w-screen-xl w-full flex flex-col gap-y-8 h-full">
+    <div className="h-full p-6 md:px-10 md:py-8">
+      <div className="mx-auto flex h-full w-full max-w-screen-xl flex-col gap-y-10">
         {header}
         <div className="flex flex-col gap-y-4 h-full">
           {search}
@@ -138,10 +162,29 @@ export const EntitySearch = ({
   placeholder = "Search",
 }: EntitySearchProps) => {
   return (
-    <div className="relative ml-auto">
-      <SearchIcon className="size-3.5 absolute left-3 top-1/2 -translate-y-1/2 text-muted-foreground" />
+    <div className="relative ml-auto w-[240px]">
+      <div
+        className="
+      absolute
+      inset-0
+      rounded-xl
+      bg-gradient-to-r
+      from-violet-500/5
+      to-cyan-500/5
+    "
+      />
+      <SearchIcon className="pointer-events-none z-10 size-4 absolute left-3 top-1/2 -translate-y-1/2 text-violet-400" />
       <Input
-        className="max-w-[200px] bg-background shadow-none border-border pl-8"
+        className="
+  relative
+  w-full
+  border-violet-200/40
+  bg-white/80
+  pl-8
+  shadow-sm
+  backdrop-blur-xl
+  focus-visible:border-violet-300
+"
         placeholder={placeholder}
         value={value}
         onChange={(e) => onChange(e.target.value)}
@@ -170,7 +213,7 @@ export const EntityPagination = ({
       <div className="flex items-center justify-end space-x-2 py-2">
         <Button
           disabled={page === 1 || disabled}
-          variant="outline"
+          variant="glassPrimary"
           size="sm"
           onClick={() => onPageChange(Math.max(1, page - 1))}
         >
@@ -178,7 +221,7 @@ export const EntityPagination = ({
         </Button>
         <Button
           disabled={page === totalPages || totalPages === 0 || disabled}
-          variant="outline"
+          variant="glassPrimary"
           size="sm"
           onClick={() => onPageChange(Math.min(totalPages, page + 1))}
         >
@@ -197,32 +240,25 @@ interface LoadingViewProps extends StateViewProps {
 
 export const LoadingView = ({ message }: LoadingViewProps) => {
   return (
-    <div className="flex justify-center items-center h-full flex-1 flex-col gap-y-4">
-      <div className="relative w-12 h-12">
-        {/* Outer circle */}
+    <div className="flex justify-center items-center h-full flex-1 flex-col gap-y-6">
+      <div className="relative flex items-center justify-center size-14">
+        {/* Outer rotating ring */}
         <motion.div
-          className="absolute inset-0 rounded-full border-2 border-primary/30"
+          className="absolute inset-0 rounded-full border-t-2 border-r-2 border-violet-500/80"
           animate={{ rotate: 360 }}
-          transition={{
-            repeat: Infinity,
-            duration: 2,
-            ease: "linear",
-          }}
+          transition={{ duration: 1.5, repeat: Infinity, ease: "linear" }}
         />
-
-        {/* Inner circle */}
+        {/* Inner reverse rotating ring */}
         <motion.div
-          className="absolute inset-2 rounded-full border-2 border-primary border-t-transparent"
+          className="absolute inset-2 rounded-full border-b-2 border-l-2 border-cyan-500/80"
           animate={{ rotate: -360 }}
-          transition={{
-            repeat: Infinity,
-            duration: 1.2,
-            ease: "linear",
-          }}
+          transition={{ duration: 2, repeat: Infinity, ease: "linear" }}
         />
+        {/* Center glowing pulse */}
+        <div className="size-2 rounded-full bg-indigo-500 animate-pulse shadow-[0_0_15px_rgba(99,102,241,0.6)]" />
       </div>
 
-      {!!message && <p className="text-sm text-muted-foreground">{message}</p>}
+      {!!message && <p className="text-sm font-medium text-muted-foreground animate-pulse">{message}</p>}
     </div>
   );
 };
@@ -251,8 +287,25 @@ export const EmptyView = ({ message, onNew }: EmptyViewProps) => {
   return (
     <div className="flex flex-1 flex-col items-center justify-center h-full animate-in fade-in slide-in-from-bottom-2 duration-400">
       <div className="flex flex-col items-center gap-5 text-center max-w-xs">
-        <div className="animate-[float_3s_ease-in-out_infinite] w-14 h-14 rounded-2xl border border-dashed border-border bg-background flex items-center justify-center">
-          <PackageOpenIcon className="size-6 text-muted-foreground/50" />
+        <div
+          className="
+    animate-[float_3s_ease-in-out_infinite]
+    flex
+    h-16
+    w-16
+    items-center
+    justify-center
+    rounded-3xl
+    border
+    border-violet-200/30
+    bg-gradient-to-br
+    from-violet-50
+    via-white
+    to-cyan-50
+    shadow-sm
+  "
+        >
+          <PackageOpenIcon className="size-7 text-violet-500/70" />
         </div>
         <div className="flex flex-col gap-1.5">
           <p className="text-sm font-medium text-foreground">No items yet</p>
@@ -263,8 +316,8 @@ export const EmptyView = ({ message, onNew }: EmptyViewProps) => {
           )}
         </div>
         {!!onNew && (
-          <Button size="sm" variant="outline" onClick={onNew}>
-            <PlusIcon className="size-3.5" />
+          <Button size="sm" variant="accent" onClick={onNew}>
+            <PlusIcon className="size-4" />
             Add item
           </Button>
         )}
@@ -338,18 +391,22 @@ export const EntityItem = ({
     <Link href={href} prefetch>
       <Card
         className={cn(
-          "p-4 shadow-none hover:shadow cursor-pointer overflow-hidden transition-all duration-300 ease-in-out",
+          "group overflow-hidden rounded-2xl border border-white/40 bg-white/70 shadow-sm backdrop-blur-xl transition-all duration-300 hover:-translate-y-0.5 hover:border-violet-200/40 hover:shadow-[0_12px_30px_rgba(109,40,217,0.08)] hover:bg-gradient-to-r hover:from-violet-50/40 hover:via-white hover:to-cyan-50/30 focus-visible:ring-2 focus-visible:ring-violet-300/40 focus-visible:ring-offset-2",
           isRemoving && "scale-95 opacity-40 pointer-events-none blur-[1px]",
           className,
         )}
       >
-        <CardContent className="flex flex-row items-center justify-between p-0">
+        <CardContent className="flex flex-row items-center justify-between p-4">
           <div className="flex items-center gap-3">
-            {image}
+            {image && (
+              <div className="flex size-10 items-center justify-center rounded-xl bg-gradient-to-br from-violet-50 to-cyan-50">
+                {image}
+              </div>
+            )}
             <div>
               <CardTitle
                 className={cn(
-                  "text-base font-medium transition-colors duration-200",
+                  "text-base  font-medium  text-slate-900  transition-colors  duration-200  group-hover:text-violet-700  ",
                   isRemoving && "text-destructive/60",
                 )}
               >
@@ -372,8 +429,9 @@ export const EntityItem = ({
                 >
                   <DropdownMenuTrigger asChild>
                     <Button
-                      size="icon"
+                      size="icon-xs"
                       variant="ghost"
+                      className="rounded-xl hover:bg-violet-50 hover:text-violet-700"
                       onClick={(e) => e.stopPropagation()}
                     >
                       {isRemoving ? (
@@ -388,7 +446,12 @@ export const EntityItem = ({
                     onClick={(e) => e.stopPropagation()}
                   >
                     <DropdownMenuItem
-                      className="hover:cursor-pointer "
+                      className="
+    text-red-600
+    focus:text-red-600
+    focus:bg-red-50
+    cursor-pointer
+  "
                       onClick={handleRemove}
                     >
                       <TrashIcon className="size-4" />

@@ -25,9 +25,9 @@ const buttonVariants = cva(
       variant: {
         default: [
           "text-white",
-          "bg-gradient-to-r from-violet-600 to-indigo-600",
-          "shadow-lg shadow-violet-500/25",
-          "hover:shadow-xl hover:shadow-violet-500/40",
+          "bg-gradient-to-r from-[var(--brand-primary)] to-[var(--brand-secondary)]",
+          "shadow-lg shadow-[var(--brand-primary)]/25",
+          "hover:shadow-xl hover:shadow-[var(--brand-primary)]/40",
           "hover:scale-[1.05] hover:-translate-y-0.5",
           "active:scale-[0.985]",
           "border border-white/10",
@@ -35,9 +35,9 @@ const buttonVariants = cva(
 
         gradient: [
           "text-white",
-          "bg-gradient-to-r from-violet-500 via-indigo-500 to-cyan-500",
-          "shadow-md shadow-indigo-500/25",
-          "hover:shadow-md hover:shadow-cyan-500/35",
+          "bg-gradient-to-r from-[var(--brand-primary)] via-[var(--brand-secondary)] to-[var(--brand-cyan)]",
+          "shadow-md shadow-[var(--brand-secondary)]/25",
+          "hover:shadow-md hover:shadow-[var(--brand-cyan)]/35",
           "hover:scale-[1.05] hover:-translate-y-0.5",
           "active:scale-[0.985]",
           "border border-white/20",
@@ -58,10 +58,10 @@ const buttonVariants = cva(
 
         workflow: [
           "text-white",
-          "bg-gradient-to-r from-emerald-500 to-teal-500",
+          "bg-gradient-to-r from-[var(--brand-success)] to-[var(--brand-success-2)]",
           "border border-white/20",
-          "shadow-lg shadow-emerald-500/25",
-          "hover:scale-[1.05] hover:-translate-y-0.5 hover:shadow-emerald-500/40",
+          "shadow-lg shadow-[var(--brand-success)]/25",
+          "hover:scale-[1.05] hover:-translate-y-0.5 hover:shadow-[var(--brand-success)]/40",
           "active:scale-[0.985]",
         ].join(" "),
 
@@ -78,10 +78,10 @@ const buttonVariants = cva(
 
         premium: [
           "text-white",
-          "border border-fuchsia-300/30",
-          "bg-gradient-to-r from-fuchsia-500 via-purple-500 to-violet-500",
-          "shadow-lg shadow-fuchsia-500/25",
-          "hover:scale-[1.05] hover:-translate-y-0.5 hover:shadow-fuchsia-500/40",
+          "border border-[var(--brand-premium)]/30",
+          "bg-gradient-to-r from-[var(--brand-premium)] via-[var(--brand-primary)] to-[var(--brand-secondary)]",
+          "shadow-lg shadow-[var(--brand-premium)]/25",
+          "hover:scale-[1.05] hover:-translate-y-0.5 hover:shadow-[var(--brand-premium)]/40",
           "active:scale-[0.985]",
         ].join(" "),
 
@@ -129,24 +129,35 @@ const buttonVariants = cva(
           "active:scale-[0.985]",
         ].join(" "),
 
-        cyberpunk: [
-          "text-yellow-300",
-          "bg-zinc-900",
-          "border border-yellow-500/50",
-          "shadow-[4px_4px_0_rgba(234,179,8,0.5)]",
-          "hover:translate-x-[2px]",
-          "hover:translate-y-[2px]",
-          "hover:shadow-[2px_2px_0_rgba(234,179,8,0.5)]",
+        aurora: [
+          "text-white",
+          "border border-white/20",
+          "bg-gradient-to-r from-[var(--brand-primary)] via-[var(--brand-secondary)] to-[var(--brand-cyan)]",
+          "shadow-[0_8px_30px_rgba(109,40,217,0.22)]",
+          "hover:shadow-[0_12px_40px_rgba(109,40,217,0.3)]",
+          "hover:brightness-105",
+          "hover:-translate-y-0.5",
           "active:scale-[0.985]",
+        ].join(" "),
+
+        glassPrimary: [
+          "text-violet-700",
+          "border border-violet-200/50",
+          "bg-gradient-to-r from-white via-violet-50/70 to-cyan-50/60",
+          "backdrop-blur-2xl",
+          "shadow-[0_8px_24px_rgba(109,40,217,0.08)]",
+          "hover:border-violet-300/50",
+          "hover:shadow-[0_12px_30px_rgba(109,40,217,0.12)]",
+          "hover:-translate-y-0.5",
         ].join(" "),
 
         glass: [
           "text-foreground",
-          "border border-white/60",
-          "bg-white/40",
+          "border border-[var(--glass-border)]",
+          "bg-[image:var(--glass-bg)]",
           "backdrop-blur-xl",
-          "shadow-lg shadow-black/5",
-          "hover:bg-white/60",
+          "shadow-[0_8px_30px_var(--glass-shadow)]",
+          "hover:bg-[image:var(--glass-bg-hover)]",
           "hover:scale-[1.05] hover:-translate-y-0.5",
           "active:scale-[0.99]",
         ].join(" "),
@@ -167,11 +178,11 @@ const buttonVariants = cva(
 
         frost: [
           "text-foreground",
-          "border border-white/50",
-          "bg-[linear-gradient(135deg,rgba(255,255,255,0.75),rgba(245,248,255,0.42))]",
+          "border border-[var(--glass-border)]",
+          "bg-[image:var(--glass-bg)]",
           "backdrop-blur-3xl",
-          "shadow-xl shadow-indigo-500/5",
-          "hover:scale-[1.05] hover:-translate-y-0.5 hover:shadow-indigo-500/10",
+          "shadow-xl shadow-[var(--brand-primary)]/5",
+          "hover:scale-[1.05] hover:-translate-y-0.5 hover:shadow-[var(--brand-primary)]/10",
         ].join(" "),
 
         outline: [
@@ -267,14 +278,24 @@ const buttonVariants = cva(
           "hover:scale-[1.05] hover:-translate-y-0.5",
         ].join(" "),
 
-        neo: [
-          "text-foreground",
-          "bg-white",
-          "border-2 border-violet-500",
-          "shadow-[4px_4px_0px_rgba(139,92,246,1)]",
-          "hover:translate-x-[2px]",
-          "hover:translate-y-[2px]",
-          "hover:shadow-[2px_2px_0px_rgba(139,92,246,1)]",
+        signalSoft: [
+          "text-cyan-700",
+          "border border-cyan-200/50",
+          "bg-gradient-to-r from-cyan-50 to-sky-50",
+          "shadow-[0_4px_16px_rgba(8,145,178,0.08)]",
+          "hover:border-cyan-300",
+          "hover:bg-cyan-100/70",
+          "hover:-translate-y-0.5",
+        ].join(" "),
+
+        workflowSoft: [
+          "text-emerald-700",
+          "border border-emerald-200/50",
+          "bg-gradient-to-r from-emerald-50 to-teal-50",
+          "shadow-[0_6px_20px_rgba(5,150,105,0.08)]",
+          "hover:border-emerald-300",
+          "hover:bg-emerald-100/70",
+          "hover:-translate-y-0.5",
         ].join(" "),
 
         floating: [
@@ -336,37 +357,49 @@ const buttonVariants = cva(
           "hover:scale-[1.02]",
         ].join(" "),
 
-        neon: [
-          "text-cyan-300",
-          "border border-cyan-400/50",
-          "bg-cyan-950/40",
-          "backdrop-blur-md",
-          "shadow-[0_0_15px_rgba(34,211,238,0.3)]",
-          "hover:shadow-[0_0_25px_rgba(34,211,238,0.5)]",
-          "hover:bg-cyan-900/50",
-          "hover:scale-[1.05] hover:-translate-y-0.5",
-          "active:scale-[0.985]",
+        premiumSoft: [
+          "text-fuchsia-700",
+          "border border-fuchsia-200/50",
+          "bg-gradient-to-r from-fuchsia-50 via-white to-purple-50",
+          "shadow-[0_8px_24px_rgba(192,38,211,0.08)]",
+          "hover:border-fuchsia-300",
+          "hover:shadow-[0_10px_30px_rgba(192,38,211,0.12)]",
+          "hover:-translate-y-0.5",
         ].join(" "),
 
-        holographic: [
-          "text-indigo-900",
-          "border border-white/50",
-          "bg-gradient-to-tr from-pink-200/80 via-purple-200/80 to-cyan-200/80",
-          "backdrop-blur-lg",
-          "shadow-lg shadow-purple-500/20",
-          "hover:scale-[1.05] hover:-translate-y-0.5",
-          "hover:shadow-xl hover:shadow-cyan-500/30",
-          "active:scale-[0.985]",
+        dashboard: [
+          "text-slate-700",
+          "border border-slate-200/70",
+          "bg-white/90",
+          "backdrop-blur-xl",
+          "shadow-sm",
+          "hover:border-violet-200",
+          "hover:bg-violet-50/30",
+          "hover:text-violet-700",
+          "hover:-translate-y-0.5",
         ].join(" "),
 
-        cosmic: [
-          "text-white",
-          "bg-[linear-gradient(135deg,#0f172a_0%,#312e81_50%,#4c1d95_100%)]",
-          "border border-indigo-400/30",
-          "shadow-[0_0_20px_rgba(76,29,149,0.4)]",
-          "hover:shadow-[0_0_30px_rgba(76,29,149,0.6)]",
-          "hover:scale-[1.05] hover:-translate-y-0.5",
-          "hover:border-indigo-300/50",
+        ghostBrand: [
+          "text-slate-600",
+          "hover:bg-gradient-to-r",
+          "hover:from-violet-50",
+          "hover:to-cyan-50",
+          "hover:text-violet-700",
+          "hover:border-violet-200/30",
+        ].join(" "),
+
+        upgrade: [
+          "text-slate-700",
+          "border border-violet-200/40",
+          "bg-gradient-to-r",
+          "from-violet-50",
+          "via-white",
+          "to-cyan-50",
+          "shadow-[0_6px_24px_rgba(109,40,217,0.08)]",
+          "hover:border-violet-300/50",
+          "hover:shadow-[0_10px_30px_rgba(109,40,217,0.14)]",
+          "hover:-translate-y-0.5",
+          "active:scale-[0.985]",
         ].join(" "),
       },
 
@@ -379,7 +412,7 @@ const buttonVariants = cva(
         hero: "h-14 rounded-full px-10 text-base font-semibold tracking-tight",
 
         icon: "size-10 rounded-xl",
-        "icon-xs": "size-7 rounded-md",
+        "icon-xs": "size-4",
         "icon-sm": "size-8 rounded-lg",
         "icon-lg": "size-11 rounded-xl",
         "icon-xl": "size-12 rounded-2xl",

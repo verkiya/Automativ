@@ -26,12 +26,14 @@ const variantGroups = [
     cardClass:
       "bg-[linear-gradient(135deg,rgba(124,58,237,0.05),rgba(6,182,212,0.04))]",
     variants: [
+      "aurora",
       "default",
       "gradient",
       "shimmer",
       "workflow",
       "aiGlow",
       "premium",
+      "premiumSoft",
     ] as const,
   },
   {
@@ -40,6 +42,7 @@ const variantGroups = [
     cardClass:
       "bg-[linear-gradient(135deg,rgba(255,255,255,0.75),rgba(240,247,255,0.55))]",
     variants: [
+      "glassPrimary",
       "glass",
       "shimmerGlass",
       "frost",
@@ -53,6 +56,8 @@ const variantGroups = [
     cardClass:
       "bg-[linear-gradient(135deg,rgba(6,182,212,0.04),rgba(16,185,129,0.03))]",
     variants: [
+      "signalSoft",
+      "workflowSoft",
       "success",
       "destructive",
       "dangerGlass",
@@ -67,6 +72,8 @@ const variantGroups = [
     cardClass:
       "bg-[linear-gradient(135deg,rgba(99,102,241,0.04),rgba(255,255,255,0.55))]",
     variants: [
+      "dashboard",
+      "ghostBrand",
       "secondary",
       "outline",
       "subtle",
@@ -74,7 +81,6 @@ const variantGroups = [
       "ghost",
       "ghostSoft",
       "toolbar",
-      "neo",
     ] as const,
   },
   {
@@ -83,22 +89,11 @@ const variantGroups = [
     cardClass:
       "bg-[linear-gradient(135deg,rgba(6,182,212,0.04),rgba(217,70,239,0.04))]",
     variants: [
+      "upgrade",
       "brandCyan",
       "brandSuccess",
       "brandPremium",
       "brandDanger",
-      "cyberpunk",
-    ] as const,
-  },
-  {
-    title: "Sci-Fi & Special",
-    description: "Advanced interfaces with heavy glows and gradients.",
-    cardClass:
-      "bg-[linear-gradient(135deg,rgba(76,29,149,0.06),rgba(34,211,238,0.06))]",
-    variants: [
-      "neon",
-      "holographic",
-      "cosmic",
     ] as const,
   },
 ] as const;
@@ -237,8 +232,8 @@ export default function TestPage() {
               <Signal />
             </Button>
 
-            <Button variant="neo" size="lg">
-              Neo
+            <Button variant="aurora" size="lg">
+              Aurora
               <Bot />
             </Button>
           </div>
