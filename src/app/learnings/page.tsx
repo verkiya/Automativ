@@ -96,6 +96,16 @@ const capabilities = [
 export default function LearningsPage() {
   return (
     <main className="min-h-screen bg-background cursor-automativ">
+      {/* 
+        ROUTE GROUPS STRATEGY (Next.js):
+        The application utilizes Next.js Route Groups to manage different layouts for the same URL paths.
+        For instance, the workflows list (`/workflows`) and the individual workflow editor (`/workflows/[id]`) 
+        are separated into `(rest)` and `(editor)` groups respectively.
+        This allows the editor page to be a completely separate page utilizing a specialized full-screen 
+        layout without inheriting the standard dashboard layout (sidebar, headers) used by the main workflows page.
+        Decoupling these layouts ensures that the complex requirements of the React Flow canvas do not 
+        interfere with the lightweight list views.
+      */}
       <div className="absolute inset-0 -z-10 bg-[radial-gradient(circle_at_top_left,rgba(167,139,250,0.14),transparent_35%),radial-gradient(circle_at_top_right,rgba(99,102,241,0.10),transparent_30%),radial-gradient(circle_at_bottom_left,rgba(192,132,252,0.08),transparent_35%)]" />
 
       <div className="mx-auto max-w-7xl px-6 py-16 pb-40">

@@ -78,14 +78,21 @@ export const AppSidebar = () => {
               asChild
               tooltip="Automativ"
               className="
-                h-12
+                group
+                h-[52px]
                 rounded-2xl
-                px-3
+                px-2
                 transition-all
-                duration-200
-                hover:bg-gradient-to-r
-                hover:from-violet-500/8
-                hover:to-cyan-500/8
+                duration-300
+                scale-105
+                -translate-y-0.5
+                bg-gradient-to-r
+               from-violet-500/10
+                to-cyan-500/10
+                shadow-lg
+                shadow-violet-500/10
+                group-data-[collapsible=icon]:!p-0
+                group-data-[collapsible=icon]:!justify-center
               "
             >
               <Link
@@ -100,21 +107,20 @@ export const AppSidebar = () => {
                   group-data-[collapsible=icon]:gap-0
                 "
               >
-                <div className="flex h-9 w-9 shrink-0 items-center justify-center rounded-2xl bg-white shadow-md ring-1 ring-violet-200/40">
-                  <Image
-                    src="/logo.svg"
-                    alt="Automativ"
-                    width={30}
-                    height={30}
-                    priority
-                  />
-                </div>
+                <Image
+                  src="/logo.svg"
+                  alt="Automativ"
+                  width={40}
+                  height={40}
+                  priority
+                  className="shrink-0 transition-transform duration-300 scale-110"
+                />
 
                 <span
                   className={`
                     ${brandFont.className}
-                    text-[1rem]
-                    font-semibold
+                    text-3xl
+                    font-bold
                     tracking-[-0.035em]
                     text-slate-900
                     group-data-[collapsible=icon]:hidden
@@ -143,45 +149,34 @@ export const AppSidebar = () => {
                     <SidebarMenuButton
                       tooltip={item.title}
                       isActive={isActive}
-                      asChild
+                      onClick={() => {
+                        if (item.newTab) window.open(item.url, "_blank");
+                        else router.push(item.url);
+                      }}
                       className={`
+                        group
                         h-11
                         rounded-2xl
                         px-4
                         text-sm
                         font-medium
                         transition-all
-                        duration-200
+                        duration-300
                         ${
                           isActive
-                            ? "border border-violet-300/30 bg-gradient-to-r from-violet-500/12 via-indigo-500/8 to-cyan-500/10 text-primary shadow-sm"
-                            : "text-muted-foreground hover:bg-muted/60 hover:text-foreground"
+                            ? "border border-violet-300/30 bg-gradient-to-r from-violet-500/12 via-indigo-500/8 to-cyan-500/10 text-primary shadow-md scale-105 -translate-y-0.5"
+                            : "text-slate-600 hover:text-slate-900 hover:border-violet-200/40 hover:bg-gradient-to-r hover:from-violet-500/8 hover:via-indigo-500/6 hover:to-cyan-500/8 hover:shadow-lg hover:shadow-violet-500/5 hover:scale-105 hover:-translate-y-0.5"
                         }
                       `}
                     >
-                      <Link
-                        href={item.url}
-                        prefetch={!item.newTab}
-                        target={item.newTab ? "_blank" : undefined}
-                        rel={item.newTab ? "noopener noreferrer" : undefined}
-                        className="
-                          flex
-                          w-full
-                          items-center
-                          gap-3
-                          group-data-[collapsible=icon]:justify-center
-                          group-data-[collapsible=icon]:gap-0
-                        "
-                      >
+                      <div className="flex w-full items-center gap-3">
                         <item.icon
-                          className={`size-4 shrink-0 ${
-                            isActive ? "text-primary" : ""
+                          className={`size-4 shrink-0 transition-transform duration-300 group-hover:scale-110 ${
+                            isActive ? "text-primary scale-110" : ""
                           }`}
                         />
-                        <span className="group-data-[collapsible=icon]:hidden">
-                          {item.title}
-                        </span>
-                      </Link>
+                        <span>{item.title}</span>
+                      </div>
                     </SidebarMenuButton>
                   </SidebarMenuItem>
                 );
@@ -198,55 +193,56 @@ export const AppSidebar = () => {
               <SidebarMenuButton
                 tooltip="Upgrade to Pro"
                 className="
-                  relative
-                  isolate
-                  h-11
-                  overflow-hidden
-                  rounded-2xl
-                  border
-                  border-white/20
-                  bg-gradient-to-r
-                  from-violet-500
-                  via-indigo-500
-                  to-cyan-500
-                  px-4
-                  font-semibold
-                  !text-white
-                  shadow-lg
-                  shadow-violet-500/20
-                  transition-all
-                  duration-300
-                  hover:scale-[1.015]
-                  hover:shadow-xl
-                  hover:shadow-violet-500/30
-                  active:scale-[0.985]
-                  [&_svg]:!text-white
-                  [&_span]:!text-white
-                "
-                onClick={() => authClient.checkout({ slug: "automativ" })}
+    group
+    h-11
+    rounded-2xl
+    border
+    border-violet-200/40
+    bg-gradient-to-r
+    from-violet-50
+    via-white
+    to-cyan-50
+    px-4
+    text-slate-700
+    shadow-sm
+    transition-all
+    duration-300
+    hover:border-violet-300/50
+    hover:shadow-md
+    hover:shadow-violet-500/10
+    hover:-translate-y-0.5
+  "
+                onClick={() =>
+                  authClient.checkout({
+                    slug: process.env.NEXT_PUBLIC_POLAR_PRODUCT_ID_SLUG!,
+                  })
+                }
               >
-                <div
-                  className="
-                    pointer-events-none
-                    absolute
-                    inset-0
-                    z-0
-                    bg-gradient-to-r
-                    from-transparent
-                    via-white/20
-                    to-transparent
-                    translate-x-[-130%]
-                    transition-transform
-                    duration-700
-                    hover:translate-x-[130%]
-                  "
-                />
+                <div className="flex w-full items-center gap-3">
+                  <div
+                    className="
+        flex
+        size-6
+        items-center
+        justify-center
+        rounded-full
+        bg-gradient-to-br
+        from-violet-500/15
+        to-cyan-500/15
+      "
+                  >
+                    <StarIcon
+                      className="
+          size-3.5
+          text-violet-600
+          transition-transform
+          duration-300
+          group-hover:rotate-12
+        "
+                    />
+                  </div>
 
-                <div className="relative z-10 flex w-full items-center gap-3 group-data-[collapsible=icon]:justify-center group-data-[collapsible=icon]:gap-0">
-                  <StarIcon className="size-4 shrink-0 transition-transform duration-300 hover:rotate-12 hover:scale-110" />
-                  <span className="group-data-[collapsible=icon]:hidden">
-                    Upgrade to Pro
-                  </span>
+                  <span className="font-medium">Upgrade to Pro</span>
                 </div>
               </SidebarMenuButton>
             </SidebarMenuItem>
@@ -254,7 +250,19 @@ export const AppSidebar = () => {
 
           {isLoading && (
             <SidebarMenuItem>
-              <div className="h-11 animate-pulse rounded-2xl bg-muted/60" />
+              <div
+                className="
+      h-11
+      rounded-2xl
+      border
+      border-violet-100/40
+      bg-gradient-to-r
+      from-violet-50/60
+      via-white
+      to-cyan-50/60
+      animate-pulse
+    "
+              />
             </SidebarMenuItem>
           )}
 
@@ -262,21 +270,29 @@ export const AppSidebar = () => {
             <SidebarMenuButton
               tooltip="Billing Portal"
               className="
+                group
                 h-11
                 rounded-2xl
                 px-4
-                text-muted-foreground
+                text-slate-600
                 transition-all
-                hover:bg-muted/60
-                hover:text-foreground
+                duration-300
+                hover:text-slate-900
+                hover:border-violet-200/40
+                hover:bg-gradient-to-r
+                hover:from-violet-500/8
+                hover:via-indigo-500/6
+                hover:to-cyan-500/8
+                hover:shadow-lg
+                hover:shadow-violet-500/5
+                hover:scale-105
+                hover:-translate-y-0.5
               "
               onClick={() => authClient.customer.portal()}
             >
-              <div className="flex w-full items-center gap-3 group-data-[collapsible=icon]:justify-center group-data-[collapsible=icon]:gap-0">
-                <CreditCardIcon className="size-4 shrink-0" />
-                <span className="group-data-[collapsible=icon]:hidden">
-                  Billing Portal
-                </span>
+              <div className="flex w-full items-center gap-3">
+                <CreditCardIcon className="size-4 shrink-0 transition-transform duration-300 group-hover:scale-110 group-hover:text-primary" />
+                <span>Billing Portal</span>
               </div>
             </SidebarMenuButton>
           </SidebarMenuItem>
@@ -285,13 +301,21 @@ export const AppSidebar = () => {
             <SidebarMenuButton
               tooltip="Logout"
               className="
+                group
                 h-11
                 rounded-2xl
                 px-4
                 text-red-500
                 transition-all
+                duration-300
                 hover:bg-red-500/10
                 hover:text-red-600
+                hover:scale-105
+                hover:-translate-y-0.5
+                hover:shadow-lg
+                hover:shadow-red-500/10
+                active:scale-[0.985]
+                active:translate-y-0
               "
               onClick={() =>
                 authClient.signOut({
@@ -303,11 +327,9 @@ export const AppSidebar = () => {
                 })
               }
             >
-              <div className="flex w-full items-center gap-3 group-data-[collapsible=icon]:justify-center group-data-[collapsible=icon]:gap-0">
-                <LogOutIcon className="size-4 shrink-0" />
-                <span className="group-data-[collapsible=icon]:hidden">
-                  Logout
-                </span>
+              <div className="flex w-full items-center gap-3">
+                <LogOutIcon className="size-4 shrink-0 transition-transform duration-300 group-hover:scale-110" />
+                <span>Logout</span>
               </div>
             </SidebarMenuButton>
           </SidebarMenuItem>

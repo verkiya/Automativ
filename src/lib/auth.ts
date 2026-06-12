@@ -13,7 +13,6 @@ export const auth = betterAuth({
     process.env.NEXT_PUBLIC_APP_URL!,
     "https://automativ.vercel.app",
     "http://localhost:3000",
-    "https://hyperemetic-josefa-gloriously.ngrok-free.dev",
   ],
   emailAndPassword: {
     enabled: true,
@@ -38,7 +37,7 @@ export const auth = betterAuth({
           products: [
             {
               productId: process.env.POLAR_PRODUCT_ID!,
-              slug: process.env.POLAR_PRODUCT_ID_SLUG!,
+              slug: process.env.NEXT_PUBLIC_POLAR_PRODUCT_ID_SLUG!,
             },
           ],
           successUrl: process.env.POLAR_SUCCESS_URL,

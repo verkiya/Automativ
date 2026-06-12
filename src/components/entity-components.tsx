@@ -82,7 +82,7 @@ export const EntityHeader = ({
         <Button
           disabled={isCreating || disabled}
           size="lg"
-          variant={isCreating ? "loading" : "accent"}
+          variant={isCreating ? "shimmer" : "gradient"}
           onClick={onNew}
         >
           <PlusIcon className="size-4" />

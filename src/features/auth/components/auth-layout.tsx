@@ -88,8 +88,8 @@ function LearningsButton() {
     <Button
       asChild
       size="lg"
-      variant="glow"
-      className="fixed bottom-8 left-1/2 z-50 -translate-x-1/2 rounded-full  px-6 "
+      variant="outline"
+      className="fixed! bottom-8 left-1/2 z-50 -translate-x-1/2 rounded-full  px-6 "
     >
       <Link href="/learnings" prefetch>
         <span>What I Learned Building Automativ</span>
