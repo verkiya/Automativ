@@ -1,5 +1,6 @@
 import prisma from "@/lib/db";
-import { generateSlug } from "random-word-slugs";
+import { uniqueNamesGenerator, colors } from "unique-names-generator";
+
 import {
   createTRPCRouter,
   premiumProcedure,
@@ -11,6 +12,12 @@ import { NodeType } from "@/generated/prisma";
 import type { Node, Edge } from "@xyflow/react";
 import { inngest } from "@/inngest/client";
 import { sendWorkflowExecution } from "@/inngest/utils";
+import {
+  workflowPrefixes,
+  workflowQualifiers,
+  workflowSuffixes,
+} from "@/lib/dictionary";
+
 export const workflowsRouter = createTRPCRouter({
   execute: protectedProcedure
     .input(z.object({ id: z.string() }))
@@ -26,9 +33,18 @@ export const workflowsRouter = createTRPCRouter({
     }),
 
   create: premiumProcedure.mutation(({ ctx }) => {
+    const useQualifier = Math.random() > 0.5;
+
     return prisma.workflow.create({
       data: {
-        name: generateSlug(3),
+        name: uniqueNamesGenerator({
+          dictionaries: useQualifier
+            ? [workflowQualifiers, workflowPrefixes, workflowSuffixes]
+            : [workflowPrefixes, workflowSuffixes],
+          separator: " ",
+          style: "capital",
+          length: useQualifier ? 3 : 2,
+        }),
         userId: ctx.auth.user.id,
         nodes: {
           create: {

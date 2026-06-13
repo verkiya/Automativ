@@ -173,7 +173,7 @@ export const EntitySearch = ({
       to-cyan-500/5
     "
       />
-      <SearchIcon className="pointer-events-none z-10 size-4 absolute left-3 top-1/2 -translate-y-1/2 text-violet-400" />
+      <SearchIcon className="pointer-events-none z-10 size-4 absolute left-3 top-1/2 -translate-y-1/2 text-[#6d28d9]/50" />
       <Input
         className="
   relative
