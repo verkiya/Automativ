@@ -81,16 +81,38 @@
   --brand-premium: #c026d3;
   --brand-danger: #dc2626;
 
+  --gradient-brand: linear-gradient(
+    135deg,
+    #6d28d9 0%,
+    #4f46e5 35%,
+    #2563eb 70%,
+    #0891b2 100%
+  );
+
+  --gradient-soft: linear-gradient(
+    135deg,
+    rgba(109, 40, 217, 0.06),
+    rgba(79, 70, 229, 0.05),
+    rgba(37, 99, 235, 0.04),
+    rgba(8, 145, 178, 0.04)
+  );
+
+  --gradient-glass: linear-gradient(
+    135deg,
+    rgba(255, 255, 255, 0.9),
+    rgba(245, 248, 255, 0.72)
+  );
+
   /* ============================================================
      LIGHT THEME
   ============================================================ */
-  --background: oklch(0.99 0.002 280);
+  --background: oklch(0.985 0.006 280);
   --foreground: oklch(0.25 0.02 280);
 
-  --card: rgba(255, 255, 255, 1);
+  --card: rgba(255, 255, 255, 0.88);
   --card-foreground: oklch(0.25 0.02 280);
 
-  --popover: rgba(255, 255, 255, 1);
+  --popover: rgba(255, 255, 255, 0.9);
   --popover-foreground: oklch(0.25 0.02 280);
 
   --primary: oklch(0.3 0.02 280);
@@ -115,16 +137,16 @@
   /* ============================================================
      CHARTS
   ============================================================ */
-  --chart-1: oklch(0.68 0.18 295);
-  --chart-2: oklch(0.72 0.14 220);
-  --chart-3: oklch(0.62 0.12 250);
-  --chart-4: oklch(0.72 0.12 190);
-  --chart-5: oklch(0.52 0.16 300);
+  --chart-1: #6d28d9;
+  --chart-2: #4f46e5;
+  --chart-3: #2563eb;
+  --chart-4: #0891b2;
+  --chart-5: #059669;
 
   /* ============================================================
      SIDEBAR
   ============================================================ */
-  --sidebar: rgba(255, 255, 255, 0.78);
+  --sidebar: rgba(255, 255, 255, 0.84);
   --sidebar-foreground: oklch(0.24 0.025 280);
 
   --sidebar-primary: oklch(0.58 0.22 300);
@@ -157,10 +179,11 @@
   /* ============================================================
      BUTTON GLOWS
   ============================================================ */
-  --glow-primary: rgba(109, 40, 217, 0.06);
-  --glow-cyan: rgba(8, 145, 178, 0.06);
-  --glow-success: rgba(5, 150, 105, 0.06);
-  --glow-premium: rgba(192, 38, 211, 0.06);
+  --glow-primary: rgba(109, 40, 217, 0.12);
+  --glow-secondary: rgba(79, 70, 229, 0.10);
+  --glow-cyan: rgba(8, 145, 178, 0.10);
+  --glow-success: rgba(5, 150, 105, 0.10);
+  --glow-premium: rgba(192, 38, 211, 0.10);
 }
 
 @layer base {
@@ -181,8 +204,18 @@
     font-family: var(--font-sans);
     letter-spacing: -0.01em;
 
-    background-image: none;
-    background-color: var(--background);
+    background:
+      radial-gradient(
+        circle at top,
+        rgba(109, 40, 217, 0.06),
+        transparent 35%
+      ),
+      radial-gradient(
+        circle at right,
+        rgba(8, 145, 178, 0.04),
+        transparent 35%
+      ),
+      var(--background);
   }
 
   button:not([disabled]),
@@ -236,4 +269,35 @@
 .cursor-automativ a,
 .cursor-automativ [role="button"] {
   cursor: pointer;
+}
+
+@layer utilities {
+  .sidebar-hover {
+    background: linear-gradient(
+      90deg,
+      rgba(109, 40, 217, 0.08),
+      rgba(79, 70, 229, 0.06),
+      rgba(8, 145, 178, 0.05)
+    );
+  }
+
+  .sidebar-active {
+    background: linear-gradient(
+      90deg,
+      rgba(109, 40, 217, 0.14),
+      rgba(79, 70, 229, 0.10),
+      rgba(8, 145, 178, 0.08)
+    );
+  }
+  .toast-premium {
+    @apply !bg-[image:var(--glass-bg)] !text-[var(--brand-premium)] !border-[var(--brand-premium)]/30 !shadow-[0_8px_30px_var(--glow-premium)];
+  }
+
+  .toast-secondary {
+    @apply !bg-[image:var(--glass-bg)] !text-[var(--brand-secondary)] !border-[var(--brand-secondary)]/30 !shadow-[0_8px_30px_rgba(79,70,229,0.06)];
+  }
+
+  .toast-cyan {
+    @apply !bg-[image:var(--glass-bg)] !text-[var(--brand-cyan)] !border-[var(--brand-cyan)]/30 !shadow-[0_8px_30px_var(--glow-cyan)];
+  }
 }

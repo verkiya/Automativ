@@ -17,7 +17,7 @@ import {
 } from "lucide-react";
 
 import { Button } from "@/components/ui/button";
-import { toast } from "sonner";
+import { toast } from "@/components/ui/sonner";
 
 const variantGroups = [
   {
@@ -287,6 +287,18 @@ export default function TestPage() {
             <Button variant="secondary" onClick={() => toast.info("Info toast message")}>
               Info Toast
             </Button>
+            <Button variant="premium" onClick={() => toast("Upgraded to Pro!", { className: "toast-premium" })}>
+              Premium Toast
+            </Button>
+            <Button variant="ghostBrand" onClick={() => toast("File saved securely", { className: "toast-secondary" })}>
+              Secondary Toast
+            </Button>
+            <Button variant="brandCyan" onClick={() => toast("New message received", { className: "toast-cyan" })}>
+              Cyan Toast
+            </Button>
+            <Button variant="loading" onClick={() => toast.loading("Uploading your files...")}>
+              Loading Toast
+            </Button>
             <Button variant="aiGlow" onClick={() => toast("AI action started", {
               description: "Generating your workflow...",
               icon: <Wand2 className="size-4" />
@@ -324,3 +336,4 @@ export default function TestPage() {
     </main>
   );
 }
+

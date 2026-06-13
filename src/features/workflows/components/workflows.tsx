@@ -22,6 +22,7 @@ import { useEntitySearch } from "@/hooks/use-entity-search";
 import type { Workflow } from "@/generated/prisma";
 import { WorkflowIcon } from "lucide-react";
 import { formatDistanceToNow } from "date-fns";
+import { toast } from "@/components/ui/sonner";
 export const WorkflowsSearch = () => {
   const [params, setParams] = useWorkflowsParams();
   const { searchValue, onSearchChange } = useEntitySearch({
@@ -163,3 +164,4 @@ export const WorkflowItem = ({ data }: { data: Workflow }) => {
     />
   );
 };
+

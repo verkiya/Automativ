@@ -101,7 +101,7 @@ export const EntityHeader = ({
         <Button
           disabled={isCreating || disabled}
           size="lg"
-          variant={isCreating ? "glassPrimary" : "accent"}
+          variant={isCreating ? "shimmer" : "accent"}
           className="w-40"
           onClick={onNew}
         >

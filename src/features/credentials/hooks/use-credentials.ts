@@ -5,7 +5,7 @@ import {
   useQueryClient,
   useSuspenseQuery,
 } from "@tanstack/react-query";
-import { toast } from "sonner";
+import { toast } from "@/components/ui/sonner";
 import { useCredentialsParams } from "./use-credentials-params";
 import { CredentialType } from "@/generated/prisma";
 
@@ -103,3 +103,4 @@ export const useCredentialsByType = (type: CredentialType) => {
   const trpc = useTRPC();
   return useQuery(trpc.credentials.getByType.queryOptions({ type }));
 };
+

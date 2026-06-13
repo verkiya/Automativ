@@ -4,7 +4,7 @@ import { FlaskConicalIcon } from "lucide-react";
 import { useUpdateWorkflow } from "@/features/workflows/hooks/use-workflows";
 import { useAtomValue } from "jotai";
 import { editorAtom } from "../store/atoms";
-import { toast } from "sonner";
+import { toast } from "@/components/ui/sonner";
 export const ExecuteWorkflowButton = ({
   workflowId,
 }: {
@@ -51,3 +51,4 @@ export const ExecuteWorkflowButton = ({
     </Button>
   );
 };
+

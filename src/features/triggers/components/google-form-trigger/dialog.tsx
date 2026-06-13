@@ -12,7 +12,7 @@ import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { CopyIcon } from "lucide-react";
 import { useParams } from "next/navigation";
-import { toast } from "sonner";
+import { toast } from "@/components/ui/sonner";
 import { generateGoogleFormScript } from "./utils";
 
 interface Props {
@@ -168,3 +168,4 @@ export const GoogleFormTriggerDialog = ({ open, onOpenChange }: Props) => {
     </Dialog>
   );
 };
+
