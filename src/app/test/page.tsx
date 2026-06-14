@@ -24,7 +24,7 @@ const variantGroups = [
     title: "Primary Actions",
     description: "Core CTA buttons for launches, onboarding, workflows.",
     cardClass:
-      "bg-[linear-gradient(135deg,rgba(124,58,237,0.05),rgba(6,182,212,0.04))]",
+      "bg-[linear-gradient(135deg,rgba(37,99,235,0.05),rgba(6,182,212,0.04))]",
     variants: [
       "aurora",
       "default",
@@ -70,7 +70,7 @@ const variantGroups = [
     title: "Utilities",
     description: "Secondary actions and editor controls.",
     cardClass:
-      "bg-[linear-gradient(135deg,rgba(99,102,241,0.04),rgba(255,255,255,0.55))]",
+      "bg-[linear-gradient(135deg,rgba(37,99,235,0.04),rgba(255,255,255,0.55))]",
     variants: [
       "dashboard",
       "ghostBrand",
@@ -105,9 +105,9 @@ export default function TestPage() {
     <main className="relative min-h-screen overflow-hidden bg-background">
       {/* background glows */}
       <div className="pointer-events-none absolute inset-0">
-        <div className="absolute left-[-8%] top-[-8%] h-[480px] w-[480px] rounded-full bg-violet-500/10 blur-3xl" />
+        <div className="absolute left-[-8%] top-[-8%] h-[480px] w-[480px] rounded-full bg-blue-500/10 blur-3xl" />
         <div className="absolute right-[-8%] top-[6%] h-[420px] w-[420px] rounded-full bg-cyan-400/10 blur-3xl" />
-        <div className="absolute bottom-[-10%] left-1/2 h-[420px] w-[420px] -translate-x-1/2 rounded-full bg-indigo-400/8 blur-3xl" />
+        <div className="absolute bottom-[-10%] left-1/2 h-[420px] w-[420px] -translate-x-1/2 rounded-full bg-blue-400/8 blur-3xl" />
       </div>
 
       <div className="relative mx-auto max-w-7xl px-6 py-16">

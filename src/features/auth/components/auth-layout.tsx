@@ -45,7 +45,7 @@ const brandPills = [
   {
     name: "OpenAI",
     className:
-      "bg-gradient-to-r from-emerald-50 via-teal-50 to-cyan-50 text-emerald-700 border-emerald-200/70",
+      "bg-gradient-to-r from-sky-50 via-blue-50 to-cyan-50 text-blue-700 border-blue-200/70",
   },
   {
     name: "Anthropic",
@@ -60,12 +60,12 @@ const brandPills = [
   {
     name: "Slack",
     className:
-      "bg-gradient-to-r from-fuchsia-50 via-purple-50 to-indigo-50 text-purple-700 border-purple-200/70",
+      "bg-gradient-to-r from-blue-50 via-sky-50 to-cyan-50 text-blue-700 border-blue-200/70",
   },
   {
     name: "Stripe",
     className:
-      "bg-gradient-to-r from-indigo-50 via-violet-50 to-purple-50 text-indigo-700 border-indigo-200/70",
+      "bg-gradient-to-r from-sky-50 via-blue-50 to-cyan-50 text-blue-700 border-blue-200/70",
   },
   {
     name: "GitHub",
@@ -75,7 +75,7 @@ const brandPills = [
   {
     name: "Discord",
     className:
-      "bg-gradient-to-r from-indigo-50 via-violet-50 to-purple-50 text-indigo-700 border-indigo-200/70",
+      "bg-gradient-to-r from-sky-50 via-blue-50 to-cyan-50 text-blue-700 border-blue-200/70",
   },
   {
     name: "Vercel",
@@ -105,7 +105,7 @@ function BackgroundAnimation() {
         className="absolute top-[2%] right-[14%] h-[340px] w-[340px] rounded-full blur-3xl"
         style={{
           background:
-            "radial-gradient(circle, rgba(124,58,237,0.16), transparent 48%)",
+            "radial-gradient(circle, rgba(37,99,235,0.16), transparent 48%)",
         }}
         animate={{
           scale: [1, 1.08, 1],
@@ -255,8 +255,8 @@ function WorkflowPreview() {
           </p>
         </div>
 
-        <div className="flex items-center gap-2 rounded-full bg-emerald-50 px-3 py-1 text-[11px] font-medium text-emerald-700">
-          <span className="h-2 w-2 rounded-full bg-emerald-500 animate-pulse" />
+        <div className="flex items-center gap-2 rounded-full bg-blue-50 px-3 py-1 text-[11px] font-medium text-blue-700">
+          <span className="h-2 w-2 rounded-full bg-blue-500 animate-pulse" />
           Running
         </div>
       </div>
@@ -301,7 +301,7 @@ export default function AuthLayout({
               <br />
               Orchestrate agents.
               <br />
-              <span className="text-transparent bg-clip-text bg-gradient-to-r from-violet-600 via-indigo-600 to-cyan-500">
+              <span className="text-transparent bg-clip-text bg-gradient-to-r from-blue-600 via-sky-600 to-cyan-500">
                 Scale execution.
               </span>
             </h1>
@@ -329,7 +329,7 @@ export default function AuthLayout({
               <Feature
                 icon={<Workflow className="size-4" />}
                 title="Drag & Drop Workflows"
-                gradient="from-violet-500 to-fuchsia-500"
+                gradient="from-blue-500 to-sky-500"
               />
 
               <Feature
@@ -358,7 +358,7 @@ export default function AuthLayout({
 
         <div className="flex items-center justify-center px-4 py-4 md:px-10">
           <div className="relative w-full max-w-md">
-            <div className="absolute inset-0 rounded-[2rem] bg-gradient-to-br from-violet-500/30 via-indigo-500/20 to-cyan-500/30 blur-xl" />
+            <div className="absolute inset-0 rounded-[2rem] bg-gradient-to-br from-blue-500/30 via-sky-500/20 to-cyan-500/30 blur-xl" />
 
             <div className="relative rounded-[2rem] border border-white/50 bg-white/70 p-2 shadow-[0_25px_80px_-20px_rgba(99,102,241,0.25)] backdrop-blur-2xl md:p-6">
               <div className="pointer-events-none absolute inset-x-0 top-0 h-20 rounded-t-[2rem] bg-gradient-to-b from-white/40 to-transparent" />

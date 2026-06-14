@@ -46,13 +46,13 @@ export const UpgradeModal = ({
         className="
           overflow-hidden
           border
-          border-white/70
+          border-blue-200/50
           bg-gradient-to-br
           from-white
-          via-violet-50/70
+          via-blue-50/70
           to-cyan-50/60
           backdrop-blur-3xl
-          shadow-[0_25px_80px_rgba(99,102,241,0.10)]
+          shadow-[0_25px_80px_rgba(37,99,235,0.10)]
         "
       >
         {/* Top Accent */}
@@ -63,8 +63,8 @@ export const UpgradeModal = ({
             top-0
             h-px
             bg-gradient-to-r
-            from-violet-500
-            via-indigo-500
+            from-indigo-500
+            via-blue-500
             to-cyan-500
           "
         />
@@ -81,45 +81,28 @@ export const UpgradeModal = ({
             -translate-x-1/2
             rounded-full
             bg-gradient-to-r
-            from-violet-500/20
-            via-indigo-500/15
-            to-cyan-500/20
+            from-indigo-500/15
+            via-blue-500/15
+            to-cyan-500/15
             blur-3xl
           "
         />
 
         <AlertDialogHeader className="relative z-10 space-y-5">
-          <div
-            className="
-              flex
-              w-fit
-              items-center
-              gap-2
-              rounded-full
-              border
-              border-violet-200/50
-              bg-gradient-to-r
-              from-violet-50
-              via-fuchsia-50
-              to-cyan-50
-              px-3
-              py-1.5
-              text-xs
-              font-medium
-              text-violet-700
-              shadow-sm
-            "
-          >
-            ✦ Pro Feature
-          </div>
+          
 
           <div className="space-y-2">
             <AlertDialogTitle
               className="
+                bg-gradient-to-r
+                from-indigo-700
+                via-blue-600
+                to-cyan-600
+                bg-clip-text
                 text-2xl
                 font-bold
                 tracking-tight
-                text-slate-900
+                text-transparent
               "
             >
               Unlock Automativ Pro
@@ -140,12 +123,12 @@ export const UpgradeModal = ({
 
           <div className="space-y-3 pt-2">
             <div className="flex items-center gap-3 text-sm text-slate-700">
-              <div className="size-2 rounded-full bg-violet-500" />
+              <div className="size-2 rounded-full bg-indigo-500" />
               Premium AI Models
             </div>
 
             <div className="flex items-center gap-3 text-sm text-slate-700">
-              <div className="size-2 rounded-full bg-indigo-500" />
+              <div className="size-2 rounded-full bg-blue-500" />
               Unlimited Workflows
             </div>
 
@@ -155,7 +138,7 @@ export const UpgradeModal = ({
             </div>
 
             <div className="flex items-center gap-3 text-sm text-slate-700">
-              <div className="size-2 rounded-full bg-emerald-500" />
+              <div className="size-2 rounded-full bg-sky-500" />
               Future Pro Features
             </div>
           </div>
@@ -166,8 +149,8 @@ export const UpgradeModal = ({
             <Button
               variant="ghostSoft"
               className="
-                border-white/50
-                bg-white/50
+                border-blue-200/40
+                bg-white/60
                 backdrop-blur-md
               "
             >
@@ -182,7 +165,7 @@ export const UpgradeModal = ({
               onClick={handleUpgrade}
               className="
                 min-w-[180px]
-                shadow-[0_10px_35px_rgba(7, 6, 8, 0.2)]
+                shadow-[0_12px_35px_rgba(37,99,235,0.18)]
               "
             >
               {isLoading ? "Redirecting..." : "Upgrade to Pro"}

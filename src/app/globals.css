@@ -70,7 +70,7 @@
   /* ============================================================
      BRAND TOKENS
   ============================================================ */
-  --brand-primary: #6d28d9;
+  --brand-primary: #2563eb;
   --brand-secondary: #4f46e5;
   --brand-cyan: #0891b2;
   --brand-cyan-2: #2563eb;
@@ -78,23 +78,23 @@
   --brand-success: #059669;
   --brand-success-2: #16a34a;
 
-  --brand-premium: #c026d3;
+  --brand-premium: #d946ef;
   --brand-danger: #dc2626;
 
   --gradient-brand: linear-gradient(
     135deg,
-    #6d28d9 0%,
-    #4f46e5 35%,
-    #2563eb 70%,
-    #0891b2 100%
+    #4f46e5 0%,
+    #2563eb 35%,
+    #0891b2 75%,
+    #22d3ee 100%
   );
 
   --gradient-soft: linear-gradient(
     135deg,
-    rgba(109, 40, 217, 0.06),
-    rgba(79, 70, 229, 0.05),
-    rgba(37, 99, 235, 0.04),
-    rgba(8, 145, 178, 0.04)
+    rgba(37, 99, 235, 0.06),
+    rgba(59, 130, 246, 0.05),
+    rgba(8, 145, 178, 0.05),
+    rgba(34, 211, 238, 0.04)
   );
 
   --gradient-glass: linear-gradient(
@@ -137,10 +137,10 @@
   /* ============================================================
      CHARTS
   ============================================================ */
-  --chart-1: #6d28d9;
+  --chart-1: #2563eb;
   --chart-2: #4f46e5;
-  --chart-3: #2563eb;
-  --chart-4: #0891b2;
+  --chart-3: #0891b2;
+  --chart-4: #22d3ee;
   --chart-5: #059669;
 
   /* ============================================================
@@ -179,7 +179,7 @@
   /* ============================================================
      BUTTON GLOWS
   ============================================================ */
-  --glow-primary: rgba(109, 40, 217, 0.12);
+  --glow-primary: rgba(37, 99, 235, 0.12);
   --glow-secondary: rgba(79, 70, 229, 0.10);
   --glow-cyan: rgba(8, 145, 178, 0.10);
   --glow-success: rgba(5, 150, 105, 0.10);
@@ -207,12 +207,12 @@
     background:
       radial-gradient(
         circle at top,
-        rgba(109, 40, 217, 0.06),
+        rgba(37, 99, 235, 0.06),
         transparent 35%
       ),
       radial-gradient(
         circle at right,
-        rgba(8, 145, 178, 0.04),
+        rgba(8, 145, 178, 0.05),
         transparent 35%
       ),
       var(--background);
@@ -230,15 +230,15 @@
   }
 
   ::selection {
-    background: rgba(124, 58, 237, 0.18);
+    background: rgba(37, 99, 235, 0.18);
     color: inherit;
   }
 }
 
 .react-flow__node.selected #base-node {
   box-shadow:
-    0 0 0 2px rgba(124, 58, 237, 0.22),
-    0 14px 34px rgba(124, 58, 237, 0.12);
+    0 0 0 2px rgba(37, 99, 235, 0.22),
+    0 14px 34px rgba(37, 99, 235, 0.12);
 }
 
 ::-webkit-scrollbar {
@@ -251,12 +251,12 @@
 }
 
 ::-webkit-scrollbar-thumb {
-  background: rgba(124, 58, 237, 0.2);
+  background: rgba(37, 99, 235, 0.2);
   border-radius: 999px;
 }
 
 ::-webkit-scrollbar-thumb:hover {
-  background: rgba(124, 58, 237, 0.34);
+  background: rgba(37, 99, 235, 0.34);
 }
 /* Automativ custom cursor */
 .cursor-automativ {
@@ -275,8 +275,8 @@
   .sidebar-hover {
     background: linear-gradient(
       90deg,
-      rgba(109, 40, 217, 0.08),
-      rgba(79, 70, 229, 0.06),
+      rgba(37, 99, 235, 0.08),
+      rgba(59, 130, 246, 0.06),
       rgba(8, 145, 178, 0.05)
     );
   }
@@ -284,8 +284,8 @@
   .sidebar-active {
     background: linear-gradient(
       90deg,
-      rgba(109, 40, 217, 0.14),
-      rgba(79, 70, 229, 0.10),
+      rgba(37, 99, 235, 0.14),
+      rgba(59, 130, 246, 0.10),
       rgba(8, 145, 178, 0.08)
     );
   }

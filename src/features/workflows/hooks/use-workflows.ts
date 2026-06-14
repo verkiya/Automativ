@@ -43,7 +43,7 @@ export const useRemoveWorkflow = () => {
   return useMutation(
     trpc.workflows.remove.mutationOptions({
       onSuccess: (data) => {
-        toast.success(`Workflow "${data.name}" removed`);
+        toast.info(`Workflow "${data.name}" removed`);
         queryClient.invalidateQueries(trpc.workflows.getMany.queryOptions({}));
         queryClient.invalidateQueries(
           trpc.workflows.getOne.queryFilter({ id: data.id }),
@@ -52,6 +52,7 @@ export const useRemoveWorkflow = () => {
     }),
   );
 };
+
 // Hook to fetch a single workflow using suspense
 
 export const useSuspenseWorkflow = (id: string) => {
