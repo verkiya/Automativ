@@ -5,7 +5,7 @@ import {
   useSuspenseQuery,
 } from "@tanstack/react-query";
 import { useRouter } from "next/navigation";
-import { toast } from "sonner";
+import { toast } from "@/components/ui/sonner";
 import { useWorkflowsParams } from "./use-workflows-params";
 
 /**
@@ -25,7 +25,7 @@ export const useCreateWorkflow = () => {
   return useMutation(
     trpc.workflows.create.mutationOptions({
       onSuccess: (data) => {
-        toast.success(`Workflow "${data.name}" created`);
+        toast.loading(`Creating "${data.name}" workflow`,{duration:3000});
         queryClient.invalidateQueries(trpc.workflows.getMany.queryOptions({}));
       },
       onError: (error) => {
@@ -43,7 +43,7 @@ export const useRemoveWorkflow = () => {
   return useMutation(
     trpc.workflows.remove.mutationOptions({
       onSuccess: (data) => {
-        toast.success(`Workflow "${data.name}" removed`);
+        toast.info(`Workflow "${data.name}" removed`);
         queryClient.invalidateQueries(trpc.workflows.getMany.queryOptions({}));
         queryClient.invalidateQueries(
           trpc.workflows.getOne.queryFilter({ id: data.id }),
@@ -52,6 +52,7 @@ export const useRemoveWorkflow = () => {
     }),
   );
 };
+
 // Hook to fetch a single workflow using suspense
 
 export const useSuspenseWorkflow = (id: string) => {
@@ -114,3 +115,4 @@ export const useExecuteWorkflow = () => {
     }),
   );
 };
+

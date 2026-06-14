@@ -4,7 +4,7 @@ import Image from "next/image";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { useForm } from "react-hook-form";
-import { toast } from "sonner";
+import { toast } from "@/components/ui/sonner";
 import { z } from "zod";
 import { Button } from "@/components/ui/button";
 import {
@@ -191,3 +191,4 @@ export function LoginForm() {
     </div>
   );
 }
+

@@ -13,7 +13,7 @@ import {
 } from "./ui/sheet";
 import { NodeType } from "@/generated/prisma";
 import { Separator } from "./ui/separator";
-import { toast } from "sonner";
+import { toast } from "@/components/ui/sonner";
 export type NodeTypeOption = {
   type: NodeType;
   label: string;
@@ -209,3 +209,4 @@ export function NodeSelector({
     </Sheet>
   );
 }
+

@@ -87,10 +87,10 @@ export const AppSidebar = () => {
                 scale-105
                 -translate-y-0.5
                 bg-gradient-to-r
-               from-violet-500/10
+               from-blue-500/10
                 to-cyan-500/10
                 shadow-lg
-                shadow-violet-500/10
+                shadow-blue-500/10
                 group-data-[collapsible=icon]:!p-0
                 group-data-[collapsible=icon]:!justify-center
               "
@@ -164,8 +164,8 @@ export const AppSidebar = () => {
                         duration-300
                         ${
                           isActive
-                            ? "border border-violet-300/30 bg-gradient-to-r from-violet-500/12 via-indigo-500/8 to-cyan-500/10 text-primary shadow-md scale-105 -translate-y-0.5"
-                            : "text-slate-600 hover:text-slate-900 hover:border-violet-200/40 hover:bg-gradient-to-r hover:from-violet-500/8 hover:via-indigo-500/6 hover:to-cyan-500/8 hover:shadow-lg hover:shadow-violet-500/5 hover:scale-105 hover:-translate-y-0.5"
+                            ? "border border-blue-300/30 bg-gradient-to-r from-blue-500/12 via-blue-500/8 to-cyan-500/10 text-primary shadow-md scale-105 -translate-y-0.5"
+                            : "text-slate-600 hover:text-slate-900 hover:border-blue-200/40 hover:bg-gradient-to-r hover:from-blue-500/8 hover:via-blue-500/6 hover:to-cyan-500/8 hover:shadow-lg hover:shadow-blue-500/5 hover:scale-105 hover:-translate-y-0.5"
                         }
                       `}
                     >
@@ -192,26 +192,25 @@ export const AppSidebar = () => {
             <SidebarMenuItem>
               <SidebarMenuButton
                 tooltip="Upgrade to Pro"
-                className="
-    group
-    h-11
-    rounded-2xl
-    border
-    border-violet-200/40
-    bg-gradient-to-r
-    from-violet-50
-    via-white
-    to-cyan-50
-    px-4
-    text-slate-700
-    shadow-sm
-    transition-all
-    duration-300
-    hover:border-violet-300/50
-    hover:shadow-md
-    hover:shadow-violet-500/10
-    hover:-translate-y-0.5
-  "
+               className="
+  group
+  h-11
+  rounded-2xl
+  border
+  border-blue-200/50
+  bg-gradient-to-r
+  from-blue-50
+  via-sky-50
+  to-cyan-50
+  px-4
+  text-blue-800
+  shadow-[0_8px_24px_rgba(37,99,235,0.08)]
+  transition-all
+  duration-300
+  hover:border-blue-300
+  hover:shadow-[0_10px_30px_rgba(37,99,235,0.12)]
+  hover:-translate-y-0.5
+"
                 onClick={() =>
                   authClient.checkout({
                     slug: process.env.NEXT_PUBLIC_POLAR_PRODUCT_ID_SLUG!,
@@ -227,14 +226,14 @@ export const AppSidebar = () => {
         justify-center
         rounded-full
         bg-gradient-to-br
-        from-violet-500/15
-        to-cyan-500/15
+        from-[var(--brand-premium)]/15
+        to-[var(--brand-primary)]/15
       "
                   >
                     <StarIcon
                       className="
           size-3.5
-          text-violet-600
+          text-[var(--color-chart-1)]
           transition-transform
           duration-300
           group-hover:rotate-12
@@ -255,9 +254,9 @@ export const AppSidebar = () => {
       h-11
       rounded-2xl
       border
-      border-violet-100/40
+      border-blue-100/40
       bg-gradient-to-r
-      from-violet-50/60
+      from-blue-50/60
       via-white
       to-cyan-50/60
       animate-pulse
@@ -270,24 +269,24 @@ export const AppSidebar = () => {
             <SidebarMenuButton
               tooltip="Billing Portal"
               className="
-                group
-                h-11
-                rounded-2xl
-                px-4
-                text-slate-600
-                transition-all
-                duration-300
-                hover:text-slate-900
-                hover:border-violet-200/40
-                hover:bg-gradient-to-r
-                hover:from-violet-500/8
-                hover:via-indigo-500/6
-                hover:to-cyan-500/8
-                hover:shadow-lg
-                hover:shadow-violet-500/5
-                hover:scale-105
-                hover:-translate-y-0.5
-              "
+  group
+  h-11
+  rounded-2xl
+  px-4
+
+  border
+  border-blue-200/50
+  bg-gradient-to-r
+  from-blue-50
+  via-blue-50
+  to-cyan-50
+  shadow-[0_8px_24px_rgba(37,99,235,0.08)]
+  transition-all
+  duration-200
+  hover:border-blue-300
+  hover:shadow-[0_10px_30px_rgba(37,99,235,0.12)]
+  hover:-translate-y-0.5
+"
               onClick={() => authClient.customer.portal()}
             >
               <div className="flex w-full items-center gap-3">

@@ -57,13 +57,13 @@ export const EntityHeader = ({
   gap-4
   rounded-3xl
   border
-  border-violet-200/30
+  border-blue-200/30
   bg-gradient-to-br
   from-white/90
-  via-violet-50/40
+  via-blue-50/40
   to-cyan-50/30
   p-6
-  shadow-[0_10px_40px_rgba(109,40,217,0.06)]
+  shadow-[0_10px_40px_rgba(37,99,235,0.06)]
   backdrop-blur-2xl
   md:flex-row
   md:items-center
@@ -101,7 +101,7 @@ export const EntityHeader = ({
         <Button
           disabled={isCreating || disabled}
           size="lg"
-          variant={isCreating ? "glassPrimary" : "accent"}
+          variant={isCreating ? "shimmer" : "default"}
           className="w-40"
           onClick={onNew}
         >
@@ -169,21 +169,21 @@ export const EntitySearch = ({
       inset-0
       rounded-xl
       bg-gradient-to-r
-      from-violet-500/5
+      from-blue-500/5
       to-cyan-500/5
     "
       />
-      <SearchIcon className="pointer-events-none z-10 size-4 absolute left-3 top-1/2 -translate-y-1/2 text-violet-400" />
+      <SearchIcon className="pointer-events-none z-10 size-4 absolute left-3 top-1/2 -translate-y-1/2 text-blue-700/50" />
       <Input
         className="
   relative
   w-full
-  border-violet-200/40
+  border-blue-200/40
   bg-white/80
   pl-8
   shadow-sm
   backdrop-blur-xl
-  focus-visible:border-violet-300
+  focus-visible:border-blue-300
 "
         placeholder={placeholder}
         value={value}
@@ -244,7 +244,7 @@ export const LoadingView = ({ message }: LoadingViewProps) => {
       <div className="relative flex items-center justify-center size-14">
         {/* Outer rotating ring */}
         <motion.div
-          className="absolute inset-0 rounded-full border-t-2 border-r-2 border-violet-500/80"
+          className="absolute inset-0 rounded-full border-t-2 border-r-2 border-blue-500/80"
           animate={{ rotate: 360 }}
           transition={{ duration: 1.5, repeat: Infinity, ease: "linear" }}
         />
@@ -255,7 +255,7 @@ export const LoadingView = ({ message }: LoadingViewProps) => {
           transition={{ duration: 2, repeat: Infinity, ease: "linear" }}
         />
         {/* Center glowing pulse */}
-        <div className="size-2 rounded-full bg-indigo-500 animate-pulse shadow-[0_0_15px_rgba(99,102,241,0.6)]" />
+        <div className="size-2 rounded-full bg-blue-600 animate-pulse shadow-[0_0_15px_rgba(37,99,235,0.6)]" />
       </div>
 
       {!!message && <p className="text-sm font-medium text-muted-foreground animate-pulse">{message}</p>}
@@ -263,15 +263,38 @@ export const LoadingView = ({ message }: LoadingViewProps) => {
   );
 };
 
-export const ErrorView = ({ message }: LoadingViewProps) => {
+export const ErrorView = ({ message }: StateViewProps) => {
   return (
-    <div className="flex flex-1 flex-col items-center justify-center h-full gap-4">
-      <div className="flex items-center justify-center w-12 h-12 rounded-xl bg-destructive/10">
-        <AlertTriangleIcon className="size-5 text-destructive" />
-      </div>
-      <div className="flex flex-col items-center gap-1 text-center">
+    <div className="flex h-full flex-1 flex-col items-center justify-center gap-5 px-6">
+      <div
+  className="
+    flex size-14 items-center justify-center
+    rounded-2xl
+    border border-indigo-200/50
+    bg-gradient-to-br
+    from-indigo-50
+    via-blue-50
+    to-cyan-50
+    shadow-[0_10px_30px_rgba(79,70,229,0.08)]
+  "
+>
+  <AlertTriangleIcon className="size-6 text-indigo-500" />
+</div>
+
+      <div className="flex flex-col items-center gap-2 text-center">
+        <h3 className="text-sm font-semibold text-slate-800">
+          Something went wrong
+        </h3>
+
         {!!message && (
-          <p className="text-xs text-muted-foreground font-semibold max-w-xs">
+          <p
+            className="
+              max-w-sm
+              text-sm
+              leading-relaxed
+              text-slate-500
+            "
+          >
             {message}
           </p>
         )}
@@ -285,40 +308,129 @@ interface EmptyViewProps extends StateViewProps {
 }
 export const EmptyView = ({ message, onNew }: EmptyViewProps) => {
   return (
-    <div className="flex flex-1 flex-col items-center justify-center h-full animate-in fade-in slide-in-from-bottom-2 duration-400">
-      <div className="flex flex-col items-center gap-5 text-center max-w-xs">
+    <div
+      className="
+        flex h-full flex-1 flex-col items-center justify-center
+        animate-in fade-in slide-in-from-bottom-2 duration-500
+        px-6
+      "
+    >
+      <div className="relative flex max-w-sm flex-col items-center text-center">
+        {/* Ambient Glow */}
         <div
           className="
-    animate-[float_3s_ease-in-out_infinite]
-    flex
-    h-16
-    w-16
-    items-center
-    justify-center
-    rounded-3xl
-    border
-    border-violet-200/30
-    bg-gradient-to-br
-    from-violet-50
-    via-white
-    to-cyan-50
-    shadow-sm
-  "
-        >
-          <PackageOpenIcon className="size-7 text-violet-500/70" />
+            absolute
+            -top-10
+            h-40
+            w-40
+            rounded-full
+            bg-gradient-to-r
+            from-violet-400/15
+            via-blue-400/15
+            to-cyan-400/15
+            blur-3xl
+          "
+        />
+
+        {/* Floating Icon */}
+        <div className="relative mb-6">
+          {/* Orbital Ring */}
+          <div
+            className="
+              absolute inset-0
+              scale-125
+              rounded-full
+              border border-blue-200/40
+            "
+          />
+
+          <div
+            className="
+              absolute inset-0
+              scale-[1.45]
+              rounded-full
+              border border-cyan-200/30
+            "
+          />
+
+          {/* Floating Dots */}
+          <div className="absolute -left-3 top-3 size-2 rounded-full bg-violet-400/70" />
+          <div className="absolute -right-4 top-8 size-2 rounded-full bg-cyan-400/70" />
+          <div className="absolute bottom-0 left-0 size-2 rounded-full bg-blue-400/70" />
+
+          {/* Main Icon Container */}
+          <div
+            className="
+              relative
+              flex h-20 w-20 items-center justify-center
+              rounded-[28px]
+              border border-white/70
+              bg-gradient-to-br
+              from-white
+              via-blue-50
+              to-cyan-50
+              shadow-[0_20px_50px_rgba(79,70,229,0.12)]
+              backdrop-blur-xl
+              animate-[float_4s_ease-in-out_infinite]
+            "
+          >
+            <PackageOpenIcon
+              className="
+                size-10
+                text-foreground
+                bg-gradient-to-br
+                from-violet-500
+                via-blue-500
+                to-cyan-500
+                bg-clip-text
+              "
+            />
+          </div>
         </div>
-        <div className="flex flex-col gap-1.5">
-          <p className="text-sm font-medium text-foreground">No items yet</p>
-          {!!message && (
-            <p className="text-xs text-muted-foreground leading-relaxed">
-              {message}
-            </p>
-          )}
+
+        {/* Content */}
+        <div className="space-y-3">
+          <h3
+            className="
+              bg-gradient-to-r
+              from-violet-700
+              via-blue-600
+              to-cyan-600
+              bg-clip-text
+              text-xl
+              font-semibold
+              text-transparent
+            "
+          >
+            Nothing here yet
+          </h3>
+
+          <p
+            className="
+              max-w-xs
+              text-sm
+              leading-relaxed
+              text-slate-500
+            "
+          >
+            {message ||
+              "Create your first workflow and start building powerful automations."}
+          </p>
         </div>
+
+        {/* CTA */}
         {!!onNew && (
-          <Button size="sm" variant="accent" onClick={onNew}>
+          <Button
+            onClick={onNew}
+            variant="aurora"
+            className="
+              mt-7
+              min-w-[170px]
+              shadow-[0_12px_35px_rgba(79,70,229,0.18)]
+            "
+          >
             <PlusIcon className="size-4" />
-            Add item
+            Create Workflow
           </Button>
         )}
       </div>
@@ -348,7 +460,7 @@ export function EntityList<T>({
     );
   }
   return (
-    <div className={cn("flex flex-col gap-y-4", className)}>
+    <div className={cn("flex flex-col gap-y-2", className)}>
       {items.map((item, index) => (
         <div key={getKey ? getKey(item, index) : index}>
           {renderItem(item, index)}
@@ -391,7 +503,7 @@ export const EntityItem = ({
     <Link href={href} prefetch>
       <Card
         className={cn(
-          "group overflow-hidden rounded-2xl border border-white/40 bg-white/70 shadow-sm backdrop-blur-xl transition-all duration-300 hover:-translate-y-0.5 hover:border-violet-200/40 hover:shadow-[0_12px_30px_rgba(109,40,217,0.08)] hover:bg-gradient-to-r hover:from-violet-50/40 hover:via-white hover:to-cyan-50/30 focus-visible:ring-2 focus-visible:ring-violet-300/40 focus-visible:ring-offset-2",
+          "group overflow-hidden rounded-3xl border border-white/40 bg-white/70 shadow-sm backdrop-blur-xl transition-all duration-200 hover:-translate-y-0.5 hover:border-blue-200/40 hover:shadow-[0_12px_30px_rgba(37,99,235,0.08)] hover:bg-gradient-to-r hover:from-blue-50/40 hover:via-white hover:to-cyan-50/30 focus-visible:ring-2 focus-visible:ring-blue-300/40 focus-visible:ring-offset-2",
           isRemoving && "scale-95 opacity-40 pointer-events-none blur-[1px]",
           className,
         )}
@@ -399,14 +511,14 @@ export const EntityItem = ({
         <CardContent className="flex flex-row items-center justify-between p-4">
           <div className="flex items-center gap-3">
             {image && (
-              <div className="flex size-10 items-center justify-center rounded-xl bg-gradient-to-br from-violet-50 to-cyan-50">
+              <div className="flex size-10 items-center justify-center rounded-xl bg-gradient-to-br from-blue-50 to-cyan-50">
                 {image}
               </div>
             )}
             <div>
               <CardTitle
                 className={cn(
-                  "text-base  font-medium  text-slate-900  transition-colors  duration-200  group-hover:text-violet-700  ",
+                  "text-base  font-medium  text-slate-900  transition-colors  duration-200  group-hover:text-blue-700  ",
                   isRemoving && "text-destructive/60",
                 )}
               >
@@ -429,9 +541,9 @@ export const EntityItem = ({
                 >
                   <DropdownMenuTrigger asChild>
                     <Button
-                      size="icon-xs"
+                      size="icon-lg"
                       variant="ghost"
-                      className="rounded-xl hover:bg-violet-50 hover:text-violet-700"
+                      className="rounded-xl hover:bg-blue-50 hover:text-blue-700"
                       onClick={(e) => e.stopPropagation()}
                     >
                       {isRemoving ? (

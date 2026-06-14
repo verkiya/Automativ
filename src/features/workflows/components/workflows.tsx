@@ -20,8 +20,9 @@ import { useRouter } from "next/navigation";
 import { useWorkflowsParams } from "../hooks/use-workflows-params";
 import { useEntitySearch } from "@/hooks/use-entity-search";
 import type { Workflow } from "@/generated/prisma";
-import { WorkflowIcon } from "lucide-react";
+import { NetworkIcon, WaypointsIcon, WorkflowIcon } from "lucide-react";
 import { formatDistanceToNow } from "date-fns";
+import { toast } from "@/components/ui/sonner";
 export const WorkflowsSearch = () => {
   const [params, setParams] = useWorkflowsParams();
   const { searchValue, onSearchChange } = useEntitySearch({
@@ -32,12 +33,13 @@ export const WorkflowsSearch = () => {
     <EntitySearch
       value={searchValue}
       onChange={onSearchChange}
-      placeholder="Search workflows"
+      placeholder="Search Workflows"
     />
   );
 };
 export const WorkflowsList = () => {
   //throw new Error("test");
+  // Uncomment the line above to see the error state
   const workflows = useSuspenseWorkflows();
   return (
     <EntityList
@@ -108,7 +110,7 @@ export const WorkflowsLoading = () => {
   return <LoadingView message="Loading workflows..." />;
 };
 export const WorkflowsError = () => {
-  return <ErrorView message="Error loading workflows..." />;
+  return <ErrorView message="Error loading workflows :(" />;
 };
 export const WorkflowsEmpty = () => {
   const router = useRouter();
@@ -155,7 +157,7 @@ export const WorkflowItem = ({ data }: { data: Workflow }) => {
       }
       image={
         <div className="size-8 flex items-center justify-center">
-          <WorkflowIcon className="size-5 text-muted-foreground" />
+          <NetworkIcon className="size-6 text-muted-foreground" />
         </div>
       }
       onRemove={handleRemove}
@@ -163,3 +165,4 @@ export const WorkflowItem = ({ data }: { data: Workflow }) => {
     />
   );
 };
+

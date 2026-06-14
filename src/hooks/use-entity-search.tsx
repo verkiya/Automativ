@@ -11,7 +11,7 @@ export function useEntitySearch<
     search: string;
     page: number;
   },
->({ params, setParams, debounceMs = 500 }: UseEntitySearchProps<T>) {
+>({ params, setParams, debounceMs = 300 }: UseEntitySearchProps<T>) {
   const [localSearch, setLocalSearch] = useState(params.search);
   useEffect(() => {
     if (localSearch === "" && params.search !== "") {
