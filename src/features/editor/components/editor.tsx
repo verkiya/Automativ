@@ -88,7 +88,7 @@ export const Editor = ({ workflowId }: { workflowId: string }) => {
   );
 };
 export const EditorLoading = () => {
-  return <LoadingView message="Editor Coming Through..." />;
+  return <LoadingView message="Editor coming through..." />;
 };
 export const EditorError = () => {
   return <ErrorView message="Error loading editor" />;

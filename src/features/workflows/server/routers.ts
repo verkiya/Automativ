@@ -17,6 +17,7 @@ import {
   workflowQualifiers,
   workflowSuffixes,
 } from "@/lib/dictionary";
+import { TRPCError } from "@trpc/server";
 
 export const workflowsRouter = createTRPCRouter({
   execute: protectedProcedure
@@ -60,6 +61,10 @@ export const workflowsRouter = createTRPCRouter({
   remove: protectedProcedure
     .input(z.object({ id: z.string() }))
     .mutation(({ ctx, input }) => {
+    //   throw new TRPCError({
+    //   code: "INTERNAL_SERVER_ERROR",
+    //   message: "Testing remove workflow error",
+    // });
       return prisma.workflow.delete({
         where: {
           id: input.id,
