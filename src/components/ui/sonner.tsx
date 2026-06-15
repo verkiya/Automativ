@@ -40,7 +40,7 @@ const Toaster = ({ ...props }: ToasterProps) => {
       toastOptions={{
         classNames: {
           toast:
-            "group toast group-[.toaster]:bg-[image:var(--glass-bg)] group-[.toaster]:text-slate-900 group-[.toaster]:border-[var(--glass-border)] group-[.toaster]:shadow-[0_8px_30px_var(--glow-primary)] group-[.toaster]:backdrop-blur-2xl",
+            "group toast group-[.toaster]:bg-[image:var(--glass-bg)] group-[.toaster]:text-slate-900 group-[.toaster]:border-[var(--glass-border)] group-[.toaster]:shadow-[0_8px_30px_var(--glow-primary)]",
           title: "group-[.toast]:font-semibold group-[.toast]:text-slate-900",
           description: "group-[.toast]:text-slate-500",
           actionButton:

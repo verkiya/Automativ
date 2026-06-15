@@ -7,6 +7,7 @@ import {
 import { useRouter } from "next/navigation";
 import { toast } from "@/components/ui/sonner";
 import { useWorkflowsParams } from "./use-workflows-params";
+import { TRPCError } from "@trpc/server";
 
 /**
  * Hook to fetch all workflows using suspense
@@ -25,7 +26,7 @@ export const useCreateWorkflow = () => {
   return useMutation(
     trpc.workflows.create.mutationOptions({
       onSuccess: (data) => {
-        toast.loading(`Creating "${data.name}" workflow`,{duration:3000});
+        toast.loading(`Creating "${data.name}" workflow`, { duration: 3000 });
         queryClient.invalidateQueries(trpc.workflows.getMany.queryOptions({}));
       },
       onError: (error) => {
@@ -42,12 +43,16 @@ export const useRemoveWorkflow = () => {
   const queryClient = useQueryClient();
   return useMutation(
     trpc.workflows.remove.mutationOptions({
+
       onSuccess: (data) => {
-        toast.info(`Workflow "${data.name}" removed`);
+        toast.success(`Workflow "${data.name}" removed`);
         queryClient.invalidateQueries(trpc.workflows.getMany.queryOptions({}));
         queryClient.invalidateQueries(
           trpc.workflows.getOne.queryFilter({ id: data.id }),
         );
+      },
+      onError: (error) => {
+        toast.error(error.message || "Failed to remove workflow");
       },
     }),
   );
@@ -68,7 +73,7 @@ export const useUpdateWorkflowName = () => {
   return useMutation(
     trpc.workflows.updateName.mutationOptions({
       onSuccess: (data) => {
-        toast.success(`Workflow "${data.name}" updated`);
+        toast.info(`Workflow "${data.name}" updated`);
         queryClient.invalidateQueries(trpc.workflows.getMany.queryOptions({}));
         queryClient.invalidateQueries(
           trpc.workflows.getOne.queryOptions({ id: data.id }),
@@ -115,4 +120,3 @@ export const useExecuteWorkflow = () => {
     }),
   );
 };
-

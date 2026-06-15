@@ -47,7 +47,7 @@ export const Editor = ({ workflowId }: { workflowId: string }) => {
       setEdges((edgesSnapshot) => addEdge(params, edgesSnapshot)),
     [],
   );
-  //Use backspace or delete key to remove the selected items
+  //Use the delete key to remove the selected items
   const hasManualTrigger = useMemo(() => {
     return nodes.some((node) => node.type === NodeType.MANUAL_TRIGGER);
   }, [nodes]);
@@ -69,12 +69,26 @@ export const Editor = ({ workflowId }: { workflowId: string }) => {
         panOnDrag={[2]}
         selectionKeyCode={["Shift"]}
         multiSelectionKeyCode={["Control", "Meta"]}
-        deleteKeyCode={["Backspace", "Delete"]}
+        deleteKeyCode={["Delete"]}
         selectionOnDrag
       >
-        <Background />
+        <Background  gap={24}/>
+
         <Controls />
-        <MiniMap />
+        <MiniMap
+          pannable
+          zoomable
+          nodeColor={(node) => {
+            switch (node.type) {
+              case "trigger":
+                return "#2563eb";
+              case "action":
+                return "#0891b2";
+              default:
+                return "#64748b";
+            }
+          }}
+        />
         <Panel position="top-right">
           <AddNodeButton />
         </Panel>
@@ -88,7 +102,7 @@ export const Editor = ({ workflowId }: { workflowId: string }) => {
   );
 };
 export const EditorLoading = () => {
-  return <LoadingView message="Editor Coming Through..." />;
+  return <LoadingView message="Editor coming through..." />;
 };
 export const EditorError = () => {
   return <ErrorView message="Error loading editor" />;
