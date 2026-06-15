@@ -1,5 +1,5 @@
 import { type ReactNode } from "react";
-import { LoaderCircle } from "lucide-react";
+import { Loader2 } from "lucide-react";
 
 import { cn } from "@/lib/utils";
 
@@ -21,13 +21,41 @@ export const SpinnerLoadingIndicator = ({
 }) => {
   return (
     <div className="relative">
-      <StatusBorder className="border-blue-700/40">{children}</StatusBorder>
+      <StatusBorder className="border-sky-400/40">
+        {children}
+      </StatusBorder>
 
-      <div className="bg-background/50 absolute inset-0 z-50 rounded-[9px] backdrop-blur-xs" />
+      <div className="absolute inset-0 z-50 rounded-xl bg-white/40 backdrop-blur-md" />
+
       <div className="absolute inset-0 z-50">
-        <span className="absolute top-[calc(50%-1.25rem)] left-[calc(50%-1.25rem)] inline-block h-10 w-10 animate-ping rounded-full bg-blue-700/20" />
+        <span
+          className="
+            absolute
+            left-1/2
+            top-1/2
+            inline-block
+            h-10
+            w-10
+            -translate-x-1/2
+            -translate-y-1/2
+            rounded-full
+            bg-sky-500/10
+            animate-[pulse_2.5s_ease-in-out_infinite]
+          "
+        />
 
-        <LoaderCircle className="absolute top-[calc(50%-0.75rem)] left-[calc(50%-0.75rem)] size-6 animate-spin text-blue-700" />
+        <Loader2
+          className="
+            absolute
+            left-1/2
+            top-1/2
+            size-2
+            -translate-x-1/2
+            -translate-y-1/2
+            animate-spin
+            text-sky-600
+          "
+        />
       </div>
     </div>
   );
@@ -42,33 +70,46 @@ export const BorderLoadingIndicator = ({
 }) => {
   return (
     <>
-      <div className="absolute -top-[2px] -left-[2px] h-[calc(100%+4px)] w-[calc(100%+4px)]">
+      <div className="absolute -left-[2px] -top-[2px] h-[calc(100%+4px)] w-[calc(100%+4px)]">
         <style>
           {`
-        @keyframes spin {
-          from { transform: translate(-50%, -50%) rotate(0deg); }
-          to { transform: translate(-50%, -50%) rotate(360deg); }
-        }
-        .spinner {
-          animation: spin 2s linear infinite;
-          position: absolute;
-          left: 50%;
-          top: 50%;
-          width: 140%;
-          aspect-ratio: 1;
-          transform-origin: center;
-        }
-      `}
+            @keyframes automativ-spin {
+              from {
+                transform: translate(-50%, -50%) rotate(0deg);
+              }
+              to {
+                transform: translate(-50%, -50%) rotate(360deg);
+              }
+            }
+
+            .automativ-spinner {
+              animation: automativ-spin 4s linear infinite;
+              position: absolute;
+              left: 50%;
+              top: 50%;
+              width: 140%;
+              aspect-ratio: 1;
+              transform-origin: center;
+            }
+          `}
         </style>
+
         <div
           className={cn(
-            "absolute inset-0 overflow-hidden rounded-sm",
+            "absolute inset-0 overflow-hidden rounded-xl",
             className,
           )}
         >
-          <div className="spinner rounded-full bg-[conic-gradient(from_0deg_at_50%_50%,rgba(42,67,233,0.5)_0deg,rgba(42,138,246,0)_360deg)]" />
+          <div
+            className="
+              automativ-spinner
+              rounded-full
+              bg-[conic-gradient(from_0deg_at_50%_50%,rgba(37,99,235,0.65)_0deg,rgba(8,145,178,0.45)_120deg,rgba(37,99,235,0)_360deg)]
+            "
+          />
         </div>
       </div>
+
       {children}
     </>
   );
@@ -85,10 +126,11 @@ const StatusBorder = ({
     <>
       <div
         className={cn(
-          "absolute -top-[2px] -left-[2px] h-[calc(100%+4px)] w-[calc(100%+4px)] rounded-md border-3",
+          "absolute -left-[2px] -top-[2px] h-[calc(100%+4px)] w-[calc(100%+4px)] rounded-xl border-[3px]",
           className,
         )}
       />
+
       {children}
     </>
   );
@@ -104,28 +146,47 @@ export const NodeStatusIndicator = ({
     case "loading":
       switch (variant) {
         case "overlay":
-          return <SpinnerLoadingIndicator>{children}</SpinnerLoadingIndicator>;
+          return (
+            <SpinnerLoadingIndicator>
+              {children}
+            </SpinnerLoadingIndicator>
+          );
+
         case "border":
           return (
             <BorderLoadingIndicator className={className}>
               {children}
             </BorderLoadingIndicator>
           );
+
         default:
           return <>{children}</>;
       }
+
     case "success":
       return (
-        <StatusBorder className={cn("border-emerald-600", className)}>
+        <StatusBorder
+          className={cn(
+            "border-emerald-400 shadow-[0_0_20px_rgba(16,185,129,0.15)]",
+            className,
+          )}
+        >
           {children}
         </StatusBorder>
       );
+
     case "error":
       return (
-        <StatusBorder className={cn("border-red-400", className)}>
+        <StatusBorder
+          className={cn(
+            "border-rose-400 shadow-[0_0_20px_rgba(244,63,94,0.12)]",
+            className,
+          )}
+        >
           {children}
         </StatusBorder>
       );
+
     default:
       return <>{children}</>;
   }

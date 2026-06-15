@@ -1,38 +1,116 @@
-import type { ComponentProps, HTMLAttributes } from "react";
+import type { ComponentProps, ReactNode } from "react";
+import {
+  CheckCircle2Icon,
+  Loader2Icon,
+  XCircleIcon,
+} from "lucide-react";
 
 import { cn } from "@/lib/utils";
 import { NodeStatus } from "./node-status-indicator";
-import { CheckCircle2Icon, Loader2Icon, XCircleIcon } from "lucide-react";
+
 type BaseNodeProps = ComponentProps<"div"> & {
   status?: NodeStatus;
 };
-export function BaseNode({ className, status, ...props }: BaseNodeProps) {
+
+export function BaseNode({
+  className,
+  status,
+  ...props
+}: BaseNodeProps) {
   return (
     <div
       className={cn(
-        "bg-card text-card-foreground relative rounded-md border border-muted-foreground",
-        "hover:bg-accent/10",
-        // React Flow displays node elements inside of a `NodeWrapper` component,
-        // which compiles down to a div with the class `react-flow__node`.
-        // When a node is selected, the class `selected` is added to the
-        // `react-flow__node` element. This allows us to style the node when it
-        // is selected, using Tailwind's `&` selector.
-        "[.react-flow\\_\\_node.selected_&]:border-muted-foreground",
-        "[.react-flow\\_\\_node.selected_&]:shadow-lg",
+        `
+        relative
+        rounded-2xl
+        border
+        border-white/60
+        bg-white/85
+        text-card-foreground
+        backdrop-blur-xl
+        shadow-[0_8px_24px_rgba(37,99,235,0.06)]
+        transition-all
+        duration-300
+hover:scale-[0.95]
+
+ease-in-out
+hover:bg-[linear-gradient(135deg,rgba(255,255,255,0.92),rgba(240,249,255,0.9))]
+        [.react-flow__node.selected_&]:border-sky-300
+        [.react-flow__node.selected_&]:shadow-[0_0_0_2px_rgba(56,189,248,0.15),0_12px_36px_rgba(37,99,235,0.12)]
+        `,
         className,
       )}
       tabIndex={0}
       {...props}
     >
       {props.children}
+
       {status === "error" && (
-        <XCircleIcon className="absolute right-0.5 bottom-0.5 size-2 text-red-700 stroke-3" />
+        <div
+          className="
+            absolute
+            right-2
+            top-2
+            flex
+            size-3
+            items-center
+            justify-center
+            rounded-full
+            bg-rose-50
+            text-rose-500
+            shadow-sm
+            animate-in
+            fade-in
+            zoom-in-75
+            duration-200
+          "
+        >
+          <XCircleIcon className="size-2" />
+        </div>
       )}
+
       {status === "success" && (
-        <CheckCircle2Icon className="absolute right-0.5 bottom-0.5 size-2 text-green-700 stroke-3" />
+        <div
+          className="
+            absolute
+            right-2
+            top-2
+            flex
+            size-3
+            items-center
+            justify-center
+            rounded-full
+            bg-emerald-50
+            text-emerald-500
+            shadow-sm
+            animate-in
+            fade-in
+            zoom-in-75
+            duration-300
+          "
+        >
+          <CheckCircle2Icon className="size-2" />
+        </div>
       )}
+
       {status === "loading" && (
-        <Loader2Icon className="absolute -right-0.5 -bottom-0.5 size-2 text-blue-700 stroke-3 animate-spin" />
+        <div
+          className="
+            absolute
+            right-2
+            top-2
+            flex
+            size-3
+            items-center
+            justify-center
+            rounded-full
+            bg-sky-50
+            text-sky-500
+            shadow-sm
+          "
+        >
+          <Loader2Icon className="size-2 animate-spin" />
+        </div>
       )}
     </div>
   );
@@ -50,9 +128,17 @@ export function BaseNodeHeader({
     <header
       {...props}
       className={cn(
-        "mx-0 my-0 -mb-1 flex flex-row items-center justify-between gap-2 px-3 py-2",
-        // Remove or modify these classes if you modify the padding in the
-        // `<BaseNode />` component.
+        `
+        flex
+        items-center
+        justify-between
+        gap-2
+        px-4
+        py-3
+
+        border-b
+        border-sky-100/50
+        `,
         className,
       )}
     />
@@ -70,7 +156,16 @@ export function BaseNodeHeaderTitle({
   return (
     <h3
       data-slot="base-node-title"
-      className={cn("user-select-none flex-1 font-semibold", className)}
+      className={cn(
+        `
+        flex-1
+        select-none
+        font-semibold
+        tracking-tight
+        text-slate-800
+        `,
+        className,
+      )}
       {...props}
     />
   );
@@ -83,18 +178,46 @@ export function BaseNodeContent({
   return (
     <div
       data-slot="base-node-content"
-      className={cn("flex flex-col gap-y-2 p-3", className)}
+      className={cn(
+        `
+        flex
+        flex-col
+        gap-y-3
+        p-4
+        `,
+        className,
+      )}
       {...props}
     />
   );
 }
 
-export function BaseNodeFooter({ className, ...props }: ComponentProps<"div">) {
+export function BaseNodeFooter({
+  className,
+  ...props
+}: ComponentProps<"div">) {
   return (
     <div
       data-slot="base-node-footer"
       className={cn(
-        "flex flex-col items-center gap-y-2 border-t px-3 pt-2 pb-3",
+        `
+        flex
+        flex-col
+        items-center
+        gap-y-2
+
+        border-t
+        border-sky-100/50
+
+        bg-gradient-to-r
+        from-sky-50/30
+        via-white/20
+        to-cyan-50/30
+
+        px-4
+        pb-4
+        pt-3
+        `,
         className,
       )}
       {...props}
