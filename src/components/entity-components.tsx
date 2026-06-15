@@ -59,12 +59,11 @@ export const EntityHeader = ({
   border
   border-blue-200/30
   bg-gradient-to-br
-  from-white/90
-  via-blue-50/40
-  to-cyan-50/30
+  from-white/95
+  via-blue-50/90
+  to-cyan-50/80
   p-6
   shadow-[0_10px_40px_rgba(37,99,235,0.06)]
-  backdrop-blur-2xl
   md:flex-row
   md:items-center
   md:justify-between
@@ -179,10 +178,9 @@ export const EntitySearch = ({
   relative
   w-full
   border-blue-200/40
-  bg-white/80
+  bg-white/95
   pl-8
   shadow-sm
-  backdrop-blur-xl
   focus-visible:border-blue-300
 "
         placeholder={placeholder}
@@ -370,7 +368,6 @@ export const EmptyView = ({ message, onNew }: EmptyViewProps) => {
               via-blue-50
               to-cyan-50
               shadow-[0_20px_50px_rgba(79,70,229,0.12)]
-              backdrop-blur-xl
               animate-[float_4s_ease-in-out_infinite]
             "
           >
@@ -503,7 +500,7 @@ export const EntityItem = ({
     <Link href={href} prefetch>
       <Card
         className={cn(
-          "group overflow-hidden rounded-3xl border border-white/40 bg-white/70 shadow-sm backdrop-blur-xl transition-all duration-200 hover:-translate-y-0.5 hover:border-blue-200/40 hover:shadow-[0_12px_30px_rgba(37,99,235,0.08)] hover:bg-gradient-to-r hover:from-blue-50/40 hover:via-white hover:to-cyan-50/30 focus-visible:ring-2 focus-visible:ring-blue-300/40 focus-visible:ring-offset-2",
+          "group overflow-hidden rounded-3xl border border-white/40 bg-white/95 shadow-sm transition-all duration-200 hover:-translate-y-0.5 hover:border-blue-200/40 hover:shadow-[0_12px_30px_rgba(37,99,235,0.08)] hover:bg-gradient-to-r hover:from-blue-50/90 hover:via-white hover:to-cyan-50/80 focus-visible:ring-2 focus-visible:ring-blue-300/40 focus-visible:ring-offset-2",
           isRemoving && "scale-95 opacity-40 pointer-events-none blur-[1px]",
           className,
         )}

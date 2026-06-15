@@ -72,7 +72,7 @@ export const Editor = ({ workflowId }: { workflowId: string }) => {
         deleteKeyCode={["Delete"]}
         selectionOnDrag
       >
-        <Background />
+        <Background  gap={24}/>
 
         <Controls />
         <MiniMap

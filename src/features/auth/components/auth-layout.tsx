@@ -185,7 +185,7 @@ function BackgroundAnimation() {
       {nodes.map((node, i) => (
         <motion.div
           key={node.id}
-          className="absolute flex h-12 w-12  items-center justify-center rounded-2xl border border-white/50 bg-white/70 shadow-xl backdrop-blur-xl"
+          className="absolute flex h-12 w-12  items-center justify-center rounded-2xl border border-white/50 bg-white/95 shadow-xl"
           style={{
             left: `${node.x}%`,
             top: `${node.y}%`,
@@ -231,7 +231,7 @@ function Feature({
         scale: 1.02,
       }}
       transition={{ duration: 0.18 }}
-      className="flex items-center gap-3 rounded-3xl border border-white/70 bg-white/75 px-4 py-3 shadow-lg backdrop-blur-xl hover:bg-white/90"
+      className="flex items-center gap-3 rounded-3xl border border-white/70 bg-white/95 px-4 py-3 shadow-lg hover:bg-white"
     >
       <div
         className={`flex h-10 w-10 items-center justify-center rounded-2xl bg-gradient-to-br ${gradient} text-white shadow-md`}
@@ -246,7 +246,7 @@ function Feature({
 
 function WorkflowPreview() {
   return (
-    <div className="mt-7 rounded-3xl border border-white/60 bg-white/65 p-4 shadow-2xl backdrop-blur-2xl">
+    <div className="mt-7 rounded-3xl border border-white/60 bg-white/95 p-4 shadow-2xl">
       <div className="mb-3 flex items-center justify-between">
         <div>
           <p className="text-sm font-semibold">Workflow Execution</p>
@@ -314,7 +314,7 @@ export default function AuthLayout({
                   key={brand.name}
                   className={cn(
                     "rounded-full border px-3 py-1.5 text-sm font-medium",
-                    "backdrop-blur-sm",
+                    "bg-white/50",
                     "transition-all duration-200",
                     "hover:scale-105 hover:shadow-md",
                     brand.className,
@@ -360,7 +360,7 @@ export default function AuthLayout({
           <div className="relative w-full max-w-md">
             <div className="absolute inset-0 rounded-[2rem] bg-gradient-to-br from-blue-500/30 via-sky-500/20 to-cyan-500/30 blur-xl" />
 
-            <div className="relative rounded-[2rem] border border-white/50 bg-white/70 p-2 shadow-[0_25px_80px_-20px_rgba(99,102,241,0.25)] backdrop-blur-2xl md:p-6">
+            <div className="relative rounded-[2rem] border border-white/50 bg-white/95 p-2 shadow-[0_25px_80px_-20px_rgba(99,102,241,0.25)] md:p-6">
               <div className="pointer-events-none absolute inset-x-0 top-0 h-20 rounded-t-[2rem] bg-gradient-to-b from-white/40 to-transparent" />
               <div className="pointer-events-none absolute inset-2 rounded-[1.65rem] border border-white/20" />
 

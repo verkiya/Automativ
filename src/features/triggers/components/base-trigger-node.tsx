@@ -51,6 +51,7 @@ export const BaseTriggerNode = memo(
       <WorkflowNode
         name={name}
         description={description}
+
         onDelete={handleDelete}
         onSettings={onSettings}
       >
@@ -62,7 +63,7 @@ export const BaseTriggerNode = memo(
           <BaseNode
             status={status}
             onDoubleClick={onDoubleClick}
-            className="rounded-l-2xl relative group"
+            className="rounded-l-2xl relative group "
           >
             <BaseNodeContent>
               {typeof Icon === "string" ? (

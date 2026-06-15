@@ -1,9 +1,5 @@
 import type { ComponentProps, ReactNode } from "react";
-import {
-  CheckCircle2Icon,
-  Loader2Icon,
-  XCircleIcon,
-} from "lucide-react";
+import { CheckCircle2Icon, Loader2Icon, XCircleIcon } from "lucide-react";
 
 import { cn } from "@/lib/utils";
 import { NodeStatus } from "./node-status-indicator";
@@ -12,11 +8,7 @@ type BaseNodeProps = ComponentProps<"div"> & {
   status?: NodeStatus;
 };
 
-export function BaseNode({
-  className,
-  status,
-  ...props
-}: BaseNodeProps) {
+export function BaseNode({ className, status, ...props }: BaseNodeProps) {
   return (
     <div
       className={cn(
@@ -24,17 +16,17 @@ export function BaseNode({
         relative
         rounded-2xl
         border
-        border-white/60
-        bg-white/85
+
+       bg-white/95
+border-white/60
         text-card-foreground
-        backdrop-blur-xl
         shadow-[0_8px_24px_rgba(37,99,235,0.06)]
         transition-all
         duration-300
-hover:scale-[0.95]
+will-change-transform hover:scale-[1.01]
 
-ease-in-out
-hover:bg-[linear-gradient(135deg,rgba(255,255,255,0.92),rgba(240,249,255,0.9))]
+ease-in-out hover:ring-[0.5px]
+hover:ring-primary
         [.react-flow__node.selected_&]:border-sky-300
         [.react-flow__node.selected_&]:shadow-[0_0_0_2px_rgba(56,189,248,0.15),0_12px_36px_rgba(37,99,235,0.12)]
         `,
@@ -192,10 +184,7 @@ export function BaseNodeContent({
   );
 }
 
-export function BaseNodeFooter({
-  className,
-  ...props
-}: ComponentProps<"div">) {
+export function BaseNodeFooter({ className, ...props }: ComponentProps<"div">) {
   return (
     <div
       data-slot="base-node-footer"

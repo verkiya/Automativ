@@ -112,10 +112,10 @@ export default function TestPage() {
 
       <div className="relative mx-auto max-w-7xl px-6 py-16">
         {/* HERO */}
-        <section className="mb-20 rounded-[2rem] border border-white/50 bg-card/80 p-10 shadow-2xl backdrop-blur-2xl">
+        <section className="mb-20 rounded-[2rem] border border-white/50 bg-card/95 p-10 shadow-2xl">
           <div className="mb-10 flex flex-col gap-6 lg:flex-row lg:items-center lg:justify-between">
             <div className="max-w-3xl">
-              <div className="mb-5 inline-flex items-center gap-2 rounded-full border border-white/50 bg-white/70 px-4 py-2 backdrop-blur-xl">
+              <div className="mb-5 inline-flex items-center gap-2 rounded-full border border-white/50 bg-white/95 px-4 py-2">
                 <Sparkles className="size-4 text-primary" />
                 <span className="text-sm text-muted-foreground">
                   Automativ Design System
@@ -168,7 +168,7 @@ export default function TestPage() {
               {group.variants.map((variant) => (
                 <div
                   key={variant}
-                  className={`rounded-3xl border border-white/50 p-6 shadow-xl backdrop-blur-2xl ${group.cardClass}`}
+                  className={`rounded-3xl border border-white/50 p-6 shadow-xl ${group.cardClass}`}
                 >
                   <div className="mb-5 flex items-center justify-between">
                     <span className="rounded-full bg-white/70 px-3 py-1 font-mono text-xs text-muted-foreground">
@@ -189,7 +189,7 @@ export default function TestPage() {
         ))}
 
         {/* SIZE */}
-        <section className="mb-20 rounded-[2rem] border border-white/50 bg-card/80 p-10 shadow-2xl backdrop-blur-2xl">
+        <section className="mb-20 rounded-[2rem] border border-white/50 bg-card/95 p-10 shadow-2xl">
           <h2 className="mb-3 text-3xl font-bold">Sizing Scale</h2>
           <p className="mb-10 text-muted-foreground">
             Responsive sizing system for every interface surface.
@@ -205,7 +205,7 @@ export default function TestPage() {
         </section>
 
         {/* EFFECTS */}
-        <section className="mb-20 rounded-[2rem] border border-white/50 bg-card/80 p-10 shadow-2xl backdrop-blur-2xl">
+        <section className="mb-20 rounded-[2rem] border border-white/50 bg-card/95 p-10 shadow-2xl">
           <h2 className="mb-3 text-3xl font-bold">Effects</h2>
           <p className="mb-10 text-muted-foreground">
             Motion and interaction states.
@@ -240,7 +240,7 @@ export default function TestPage() {
         </section>
 
         {/* LOADING */}
-        <section className="mb-20 rounded-[2rem] border border-white/50 bg-card/80 p-10 shadow-2xl backdrop-blur-2xl">
+        <section className="mb-20 rounded-[2rem] border border-white/50 bg-card/95 p-10 shadow-2xl">
           <h2 className="mb-3 text-3xl font-bold">Loading States</h2>
           <p className="mb-10 text-muted-foreground">
             Async feedback patterns.
@@ -265,7 +265,7 @@ export default function TestPage() {
         </section>
 
         {/* TOASTS */}
-        <section className="mb-20 rounded-[2rem] border border-white/50 bg-card/80 p-10 shadow-2xl backdrop-blur-2xl">
+        <section className="mb-20 rounded-[2rem] border border-white/50 bg-card/95 p-10 shadow-2xl">
           <h2 className="mb-3 text-3xl font-bold">Toasts</h2>
           <p className="mb-10 text-muted-foreground">
             Notification styles using sonner.
@@ -309,7 +309,7 @@ export default function TestPage() {
         </section>
 
         {/* FOOTER */}
-        <section className="rounded-[2rem] border border-white/50 bg-card/80 p-14 text-center shadow-2xl backdrop-blur-2xl">
+        <section className="rounded-[2rem] border border-white/50 bg-card/95 p-14 text-center shadow-2xl">
           <h2 className="mb-4 text-4xl font-bold">
             Built for AI-native products
           </h2>

@@ -45,7 +45,7 @@ export const useRemoveWorkflow = () => {
     trpc.workflows.remove.mutationOptions({
 
       onSuccess: (data) => {
-        toast.info(`Workflow "${data.name}" removed`);
+        toast.success(`Workflow "${data.name}" removed`);
         queryClient.invalidateQueries(trpc.workflows.getMany.queryOptions({}));
         queryClient.invalidateQueries(
           trpc.workflows.getOne.queryFilter({ id: data.id }),

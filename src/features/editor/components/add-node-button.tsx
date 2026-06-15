@@ -10,7 +10,7 @@ export const AddNodeButton = memo(() => {
       <Button
         onClick={() => setSelectorOpen(true)}
         size="icon"
-        variant="accent"
+        variant="brandCyan"
 
       >
         <PlusIcon className="size-5"/>

@@ -49,9 +49,8 @@ export const UpgradeModal = ({
           border-blue-200/50
           bg-gradient-to-br
           from-white
-          via-blue-50/70
-          to-cyan-50/60
-          backdrop-blur-3xl
+          via-blue-50/95
+          to-cyan-50/90
           shadow-[0_25px_80px_rgba(37,99,235,0.10)]
         "
       >
@@ -150,8 +149,7 @@ export const UpgradeModal = ({
               variant="ghostSoft"
               className="
                 border-blue-200/40
-                bg-white/60
-                backdrop-blur-md
+                bg-white/95
               "
             >
               Maybe Later

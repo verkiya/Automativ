@@ -96,14 +96,14 @@ const capabilities = [
 export default function LearningsPage() {
   return (
     <main className="min-h-screen bg-background cursor-automativ">
-      {/* 
+      {/*
         ROUTE GROUPS STRATEGY (Next.js):
         The application utilizes Next.js Route Groups to manage different layouts for the same URL paths.
-        For instance, the workflows list (`/workflows`) and the individual workflow editor (`/workflows/[id]`) 
+        For instance, the workflows list (`/workflows`) and the individual workflow editor (`/workflows/[id]`)
         are separated into `(rest)` and `(editor)` groups respectively.
-        This allows the editor page to be a completely separate page utilizing a specialized full-screen 
+        This allows the editor page to be a completely separate page utilizing a specialized full-screen
         layout without inheriting the standard dashboard layout (sidebar, headers) used by the main workflows page.
-        Decoupling these layouts ensures that the complex requirements of the React Flow canvas do not 
+        Decoupling these layouts ensures that the complex requirements of the React Flow canvas do not
         interfere with the lightweight list views.
       */}
       <div className="absolute inset-0 -z-10 bg-[radial-gradient(circle_at_top_left,rgba(167,139,250,0.14),transparent_35%),radial-gradient(circle_at_top_right,rgba(99,102,241,0.10),transparent_30%),radial-gradient(circle_at_bottom_left,rgba(192,132,252,0.08),transparent_35%)]" />
@@ -111,7 +111,7 @@ export default function LearningsPage() {
       <div className="mx-auto max-w-7xl px-6 py-16 pb-40">
         {/* HERO */}
         <section className="mb-20 text-center">
-          <div className="mb-5 inline-flex items-center gap-2 rounded-full border border-border/60 bg-card/70 px-5 py-2 shadow-md backdrop-blur-xl">
+          <div className="mb-5 inline-flex items-center gap-2 rounded-full border border-border/60 bg-card/95 px-5 py-2 shadow-md">
             <Sparkles className="size-4 text-primary" />
             <span className="text-sm text-muted-foreground">
               Automativ System Architecture
@@ -143,7 +143,7 @@ export default function LearningsPage() {
         </section>
 
         {/* CORE VISION */}
-        <section className="mb-16 rounded-3xl border border-border/60 bg-card/60 p-10 shadow-2xl backdrop-blur-2xl">
+        <section className="mb-16 rounded-3xl border border-border/60 bg-card/95 p-10 shadow-2xl">
           <div className="grid gap-10 lg:grid-cols-2">
             <div>
               <h2 className="mb-5 text-3xl font-semibold">
@@ -176,7 +176,7 @@ export default function LearningsPage() {
               </div>
             </div>
 
-            <div className="rounded-2xl border border-border/60 bg-background/40 p-8 backdrop-blur-xl">
+            <div className="rounded-2xl border border-border/60 bg-background/95 p-8">
               <h3 className="mb-6 text-xl font-semibold">
                 Key Product Characteristics
               </h3>
@@ -212,7 +212,7 @@ export default function LearningsPage() {
               return (
                 <div
                   key={pillar.title}
-                  className="rounded-2xl border border-border/60 bg-card/60 p-6 shadow-lg backdrop-blur-xl"
+                  className="rounded-2xl border border-border/60 bg-card/95 p-6 shadow-lg"
                 >
                   <div className="mb-5 flex size-12 items-center justify-center rounded-2xl bg-primary/10">
                     <Icon className="size-6 text-primary" />
@@ -230,7 +230,7 @@ export default function LearningsPage() {
         </section>
 
         {/* STACK */}
-        <section className="mb-16 rounded-3xl border border-border/60 bg-card/60 p-10 shadow-xl backdrop-blur-xl">
+        <section className="mb-16 rounded-3xl border border-border/60 bg-card/95 p-10 shadow-xl">
           <div className="grid gap-10 lg:grid-cols-2">
             <div>
               <h2 className="mb-6 text-3xl font-semibold">Technology Stack</h2>
@@ -246,7 +246,7 @@ export default function LearningsPage() {
               {stack.map((item) => (
                 <div
                   key={item}
-                  className="rounded-full border border-border/60 bg-background/70 px-4 py-2 text-sm shadow-sm backdrop-blur-md"
+                  className="rounded-full border border-border/60 bg-background/95 px-4 py-2 text-sm shadow-sm"
                 >
                   {item}
                 </div>
@@ -261,7 +261,7 @@ export default function LearningsPage() {
             Architecture Execution Flow
           </h2>
 
-          <div className="rounded-3xl border border-border/60 bg-card/60 p-10 shadow-xl backdrop-blur-xl">
+          <div className="rounded-3xl border border-border/60 bg-card/95 p-10 shadow-xl">
             <div className="grid gap-6 md:grid-cols-5">
               {[
                 { icon: Layers3, label: "Frontend UI" },
@@ -294,14 +294,14 @@ export default function LearningsPage() {
         </section>
 
         {/* CAPABILITIES */}
-        <section className="mb-16 rounded-3xl border border-border/60 bg-card/60 p-10 shadow-xl backdrop-blur-xl">
+        <section className="mb-16 rounded-3xl border border-border/60 bg-card/95 p-10 shadow-xl">
           <h2 className="mb-8 text-3xl font-semibold">Platform Capabilities</h2>
 
           <div className="grid gap-4 md:grid-cols-2 xl:grid-cols-3">
             {capabilities.map((item) => (
               <div
                 key={item}
-                className="flex items-center gap-3 rounded-2xl border border-border/50 bg-background/50 p-4 backdrop-blur-md"
+                className="flex items-center gap-3 rounded-2xl border border-border/50 bg-background/95 p-4"
               >
                 <CheckCircle2 className="size-5 text-primary" />
                 <span>{item}</span>
@@ -311,7 +311,7 @@ export default function LearningsPage() {
         </section>
 
         {/* FUTURE */}
-        <section className="rounded-3xl border border-border/60 bg-card/60 p-10 shadow-xl backdrop-blur-xl">
+        <section className="rounded-3xl border border-border/60 bg-card/95 p-10 shadow-xl">
           <h2 className="mb-6 text-3xl font-semibold">Long-Term Direction</h2>
 
           <p className="mb-8 max-w-5xl leading-relaxed text-muted-foreground">
@@ -341,7 +341,7 @@ export default function LearningsPage() {
       </div>
 
       {/* STICKY HOME */}
-      <div className="fixed bottom-0 left-0 right-0 z-50 border-t border-border/60 bg-background/70 p-5 backdrop-blur-2xl">
+      <div className="fixed bottom-0 left-0 right-0 z-50 border-t border-border/60 bg-background/95 p-5">
         <div className="mx-auto flex max-w-7xl justify-center">
           <Link href="/">
             <Button variant="shimmer" size="hero">
