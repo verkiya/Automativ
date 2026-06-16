@@ -23,10 +23,10 @@ border-white/60
         shadow-[0_8px_24px_rgba(37,99,235,0.06)]
         transition-all
         duration-300
-will-change-transform hover:scale-[1.01]
+will-change-transform hover:scale-[0.97]
 
-ease-in-out hover:ring-[0.5px]
-hover:ring-primary
+ease-in-out ring-[0.5px]
+ring-primary
         [.react-flow__node.selected_&]:border-sky-300
         [.react-flow__node.selected_&]:shadow-[0_0_0_2px_rgba(56,189,248,0.15),0_12px_36px_rgba(37,99,235,0.12)]
         `,
@@ -96,8 +96,8 @@ hover:ring-primary
             items-center
             justify-center
             rounded-full
-            bg-sky-50
-            text-sky-500
+            bg-yellow-50
+            text-yellow-500
             shadow-sm
           "
         >

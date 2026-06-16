@@ -21,11 +21,11 @@ export const SpinnerLoadingIndicator = ({
 }) => {
   return (
     <div className="relative">
-      <StatusBorder className="border-sky-400/40">
+      <StatusBorder className="border-yellow-400/40">
         {children}
       </StatusBorder>
 
-      <div className="absolute inset-0 z-50 rounded-xl bg-white/40 backdrop-blur-md" />
+      <div className="absolute inset-0 z-50 rounded-xl bg-white/40 " />
 
       <div className="absolute inset-0 z-50">
         <span
@@ -39,7 +39,7 @@ export const SpinnerLoadingIndicator = ({
             -translate-x-1/2
             -translate-y-1/2
             rounded-full
-            bg-sky-500/10
+            bg-yellow-500/10
             animate-[pulse_2.5s_ease-in-out_infinite]
           "
         />
@@ -53,7 +53,7 @@ export const SpinnerLoadingIndicator = ({
             -translate-x-1/2
             -translate-y-1/2
             animate-spin
-            text-sky-600
+            text-yellow-500
           "
         />
       </div>
@@ -104,7 +104,7 @@ export const BorderLoadingIndicator = ({
             className="
               automativ-spinner
               rounded-full
-              bg-[conic-gradient(from_0deg_at_50%_50%,rgba(37,99,235,0.65)_0deg,rgba(8,145,178,0.45)_120deg,rgba(37,99,235,0)_360deg)]
+             bg-[conic-gradient(from_0deg_at_50%_50%,rgba(234,179,8,0.55)_0deg,rgba(253,224,71,0.40)_120deg,rgba(234,179,8,0)_360deg)]
             "
           />
         </div>

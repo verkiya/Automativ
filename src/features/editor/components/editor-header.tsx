@@ -1,7 +1,7 @@
 "use client";
 import { Button } from "@/components/ui/button";
 import { SidebarTrigger } from "@/components/ui/sidebar";
-import { Loader2Icon, SaveIcon } from "lucide-react";
+import { Loader2Icon, SaveIcon, TrashIcon } from "lucide-react";
 import {
   Breadcrumb,
   BreadcrumbItem,
@@ -59,7 +59,7 @@ export const EditorSaveButton = ({ workflowId }: { workflowId: string }) => {
     <div className="ml-auto flex space-x-2">
       <Button
         size="default"
-        variant="success"
+        variant="workflowSoft"
         onClick={handleSave}
         disabled={saveWorkflow.isPending}
         className="
@@ -91,7 +91,9 @@ export const EditorSaveButton = ({ workflowId }: { workflowId: string }) => {
             Deleting...
           </>
         ) : (
-          "Delete"
+          <>
+            <TrashIcon className="size-4" /> Delete
+          </>
         )}
       </Button>
     </div>
@@ -247,140 +249,139 @@ mr-2
           <CircleHelpIcon className="size-4" />
         </Button>
       </div>{" "}
-     <Dialog open={open} onOpenChange={setOpen}>
-  <DialogContent
-    className="
+      <Dialog open={open} onOpenChange={setOpen}>
+        <DialogContent
+          className="
       border-white/70
       bg-white/95
       shadow-[0_25px_80px_rgba(37,99,235,0.10)]
     "
-  >
-    <DialogHeader>
-      <DialogTitle className="text-lg font-semibold text-slate-900">
-        Workflow Canvas Guide
-      </DialogTitle>
-    </DialogHeader>
+        >
+          <DialogHeader>
+            <DialogTitle className="text-lg font-semibold text-slate-900">
+              Workflow Canvas Guide
+            </DialogTitle>
+          </DialogHeader>
 
-    <div className="space-y-3">
+          <div className="space-y-3">
+            {/* Navigation */}
+            <div className="space-y-3">
+              <p className="text-xs font-semibold uppercase tracking-wide text-slate-500">
+                Navigation & Movement
+              </p>
 
-      {/* Navigation */}
-      <div className="space-y-3">
-        <p className="text-xs font-semibold uppercase tracking-wide text-slate-500">
-          Navigation & Movement
-        </p>
+              <div className="space-y-3 text-sm text-slate-600">
+                <div className="flex items-center gap-3">
+                  <MoveIcon className="size-4 shrink-0 text-sky-600" />
+                  <span>Right-click and drag to move around the canvas</span>
+                </div>
 
-        <div className="space-y-3 text-sm text-slate-600">
-          <div className="flex items-center gap-3">
-            <MoveIcon className="size-4 shrink-0 text-sky-600" />
-            <span>Right-click and drag to move around the canvas</span>
-          </div>
+                <div className="flex items-center gap-3">
+                  <kbd className="rounded-lg border border-slate-200 bg-white px-2 py-1 text-xs font-medium shadow-sm">
+                    Scroll
+                  </kbd>
+                  <span>Scroll vertically through the canvas</span>
+                </div>
 
-          <div className="flex items-center gap-3">
-            <kbd className="rounded-lg border border-slate-200 bg-white px-2 py-1 text-xs font-medium shadow-sm">
-              Scroll
-            </kbd>
-            <span>Scroll vertically through the canvas</span>
-          </div>
+                <div className="flex items-center gap-3">
+                  <kbd className="rounded-lg border border-slate-200 bg-white px-2 py-1 text-xs font-medium shadow-sm">
+                    Ctrl
+                  </kbd>
+                  <span>Hold and scroll to zoom in and out</span>
+                </div>
+              </div>
+            </div>
 
-          <div className="flex items-center gap-3">
-            <kbd className="rounded-lg border border-slate-200 bg-white px-2 py-1 text-xs font-medium shadow-sm">
-              Ctrl
-            </kbd>
-            <span>Hold and scroll to zoom in and out</span>
-          </div>
-        </div>
-      </div>
+            <div className="h-px bg-gradient-to-r from-transparent via-slate-200 to-transparent" />
 
-      <div className="h-px bg-gradient-to-r from-transparent via-slate-200 to-transparent" />
+           {/* Selection */}
+<div className="space-y-3">
+  <p className="text-xs font-semibold uppercase tracking-wide text-slate-500">
+    Selection & Editing
+  </p>
 
-      {/* Selection */}
-      <div className="space-y-3">
-        <p className="text-xs font-semibold uppercase tracking-wide text-slate-500">
-          Selection & Editing
-        </p>
+  <div className="space-y-3 text-sm text-slate-600">
+    <div className="flex items-center gap-3">
+      <MousePointer2Icon className="size-4 shrink-0 text-sky-600" />
+      <span>Drag nodes to reposition them</span>
+    </div>
 
-        <div className="space-y-3 text-sm text-slate-600">
-          <div className="flex items-center gap-3">
-            <MousePointer2Icon className="size-4 shrink-0 text-sky-600" />
-            <span>Drag nodes to reposition them</span>
-          </div>
+    <div className="flex items-center gap-3">
+      <MousePointer2Icon className="size-4 shrink-0 text-sky-600" />
+      <span>Click a connection line to select it</span>
+    </div>
 
-          <div className="flex items-center gap-3">
-            <kbd className="rounded-lg border border-slate-200 bg-white px-2 py-1 text-xs font-medium shadow-sm">
-              Shift
-            </kbd>
-            <span>Drag to create a selection box</span>
-          </div>
+    <div className="flex items-center gap-3">
+      <kbd className="rounded-lg border border-slate-200 bg-white px-2 py-1 text-xs font-medium shadow-sm">
+        Shift
+      </kbd>
+      <span>Drag to create a selection box</span>
+    </div>
 
-          <div className="flex items-center gap-3">
-            <kbd className="rounded-lg border border-slate-200 bg-white px-2 py-1 text-xs font-medium shadow-sm">
-              Ctrl
-            </kbd>
-            <span>Select multiple nodes on Windows/Linux</span>
-          </div>
-
-          <div className="flex items-center gap-3">
-            <kbd className="rounded-lg border border-slate-200 bg-white px-2 py-1 text-xs font-medium shadow-sm">
-              ⌘
-            </kbd>
-            <span>Select multiple nodes on macOS</span>
-          </div>
-
-          <div className="flex items-center gap-3">
-            <kbd className="rounded-lg border border-slate-200 bg-white px-2 py-1 text-xs font-medium shadow-sm">
-              Del
-            </kbd>
-            <span>Delete selected nodes or connections</span>
-          </div>
-        </div>
-      </div>
-
-      <div className="h-px bg-gradient-to-r from-transparent via-slate-200 to-transparent" />
-
-      {/* Workflow Building */}
-      <div className="space-y-2">
-        <p className="text-xs font-semibold uppercase tracking-wide text-slate-500">
-          Workflow Building
-        </p>
-
-        <div className="rounded-2xl border border-sky-100 bg-gradient-to-r from-sky-50 via-white to-cyan-50 p-4">
-          <ul className="space-y-2 text-sm text-slate-600">
-            <li>• Drag from one node handle to another to create a connection</li>
-            <li>• Use the minimap to navigate large workflows quickly</li>
-            <li>• Connect triggers to actions to build execution chains</li>
-          </ul>
-        </div>
-      </div>
+    <div className="flex items-center gap-3">
+      <kbd className="rounded-lg border border-slate-200 bg-white px-2 py-1 text-xs font-medium shadow-sm">
+        Ctrl
+      </kbd>or<kbd className="rounded-lg border border-slate-200 bg-white px-2 py-1 text-xs font-medium shadow-sm">
+        ⌘
+      </kbd>
+      <span>Select multiple nodes on Windows/Linux/macOS</span>
+    </div>
 
 
+    <div className="flex items-center gap-3">
+      <kbd className="rounded-lg border border-slate-200 bg-white px-2 py-1 text-xs font-medium shadow-sm">
+        Del
+      </kbd>
+      <span>Delete selected nodes or connections</span>
+    </div>
+  </div>
+</div>
 
-      {/* Node Configuration */}
-      <div className="space-y-3">
-        <p className="text-xs font-semibold uppercase tracking-wide text-slate-500">
-          Node Configuration
-        </p>
+            <div className="h-px bg-gradient-to-r from-transparent via-slate-200 to-transparent" />
 
-        <div className="rounded-2xl border border-indigo-100 bg-gradient-to-r from-indigo-50 via-white to-sky-50 p-4">
-          <ul className="space-y-2 text-sm text-slate-600">
-            <li>
-              ✏️ Double-click a node to open its configuration form
-            </li>
+            {/* Workflow Building */}
+            <div className="space-y-2">
+              <p className="text-xs font-semibold uppercase tracking-wide text-slate-500">
+                Workflow Building
+              </p>
 
-            <li>
-              📝 Configure prompts, API settings, inputs, outputs and node-specific options
-            </li>
+              <div className="rounded-2xl border border-sky-100 bg-gradient-to-r from-sky-50 via-white to-cyan-50 p-4">
+                <ul className="space-y-2 text-sm text-slate-600">
+                  <li>
+                    • Drag from one node handle to another to create a
+                    connection
+                  </li>
+                  <li>• Use the minimap to navigate large workflows quickly</li>
+                  <li>
+                    • Connect triggers to actions to build execution chains
+                  </li>
+                </ul>
+              </div>
+            </div>
 
-            <li>
-              ⚙️ Each node type has its own configuration panel
-            </li>
-          </ul>
-        </div>
-      </div>
+            {/* Node Configuration */}
+            <div className="space-y-3">
+              <p className="text-xs font-semibold uppercase tracking-wide text-slate-500">
+                Node Configuration
+              </p>
 
+              <div className="rounded-2xl border border-indigo-100 bg-gradient-to-r from-indigo-50 via-white to-sky-50 p-4">
+                <ul className="space-y-2 text-sm text-slate-600">
+                  <li>✏️ Double-click a node to open its configuration form</li>
 
-      {/* Save Reminder */}
-      <div
-        className="
+                  <li>
+                    📝 Configure prompts, API settings, inputs, outputs and
+                    node-specific options
+                  </li>
+
+                  <li>⚙️ Each node type has its own configuration panel</li>
+                </ul>
+              </div>
+            </div>
+
+            {/* Save Reminder */}
+            <div
+              className="
           rounded-2xl
           border
           border-sky-200/50
@@ -391,23 +392,23 @@ mr-2
           p-4
           shadow-[0_8px_24px_rgba(37,99,235,0.08)]
         "
-      >
-        <p className="text-sm font-semibold text-sky-800">
-          💾 Save Workflow
-        </p>
+            >
+              <p className="text-sm font-semibold text-sky-800">
+                💾 Save Workflow
+              </p>
 
-        <p className="mt-1 text-sm text-slate-600">
-          Changes on the canvas remain local until you click
-          <span className="font-semibold text-sky-700">
-            {" "}Save Workflow
-          </span>.
-          Save after adding, removing, connecting, or configuring nodes.
-        </p>
-      </div>
-
-    </div>
-  </DialogContent>
-</Dialog>
+              <p className="mt-1 text-sm text-slate-600">
+                Changes on the canvas remain local until you click
+                <span className="font-semibold text-sky-700">
+                  {" "}
+                  Save Workflow
+                </span>
+                . Save after adding, removing, connecting, or configuring nodes.
+              </p>
+            </div>
+          </div>
+        </DialogContent>
+      </Dialog>
     </header>
   );
 };

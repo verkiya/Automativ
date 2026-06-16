@@ -112,7 +112,7 @@ export const useExecuteWorkflow = () => {
   return useMutation(
     trpc.workflows.execute.mutationOptions({
       onSuccess: (data) => {
-        toast.success(`Workflow "${data.name}" executed`);
+        toast.loading(`Executing "${data.name}" workflow`);
       },
       onError: (error) => {
         toast.error(`Failed to execute workflow: ${error.message}`);

@@ -26,6 +26,7 @@ import {
   SelectValue,
 } from "@/components/ui/select";
 import { Textarea } from "@/components/ui/textarea";
+import { GlobeIcon } from "lucide-react";
 import z from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
@@ -92,119 +93,232 @@ export const HttpRequestDialog = ({
 
   return (
     <Dialog open={open} onOpenChange={onOpenChange}>
-      <DialogContent>
-        <DialogHeader>
-          <DialogTitle>HTTP Request</DialogTitle>
-          <DialogDescription>
-            Configure settings for this node.
-          </DialogDescription>
+      <DialogContent
+        className="
+          border-white/70
+          bg-[linear-gradient(180deg,rgba(255,255,255,0.98),rgba(248,250,252,0.96))]
+        "
+      >
+        <DialogHeader className="space-y-2">
+
+
+
+
+          <div>
+            <DialogTitle className="text-xl flex  justify-center font-semibold text-slate-900">
+              HTTP Request  <GlobeIcon className="size-5 mt-1 ml-1 text-sky-600" />
+            </DialogTitle>
+
+            <DialogDescription className="mt-1 flex justify-center text-slate-500">
+              Configure an API request and expose the response as a workflow
+              variable.
+            </DialogDescription>
+          </div>
         </DialogHeader>
 
         <Form {...form}>
           <form
             onSubmit={form.handleSubmit(handleSubmit)}
-            className="space-y-8 mt-4"
+            className="mt-2"
           >
-            <FormField
-              control={form.control}
-              name="variableName"
-              render={({ field }) => (
-                <FormItem>
-                  <FormLabel>Variable Name</FormLabel>
-                  <FormControl>
-                    <Input placeholder="myApiCall" {...field} />
-                  </FormControl>
-                  <FormDescription>
-                    Use this name to reference output:
-                    <span className="ml-1 inline-flex items-center font-mono text-xs px-1.5 py-0.5 rounded bg-muted border border-border text-primary hover:bg-accent/30 transition-colors">
-                      {`{{${watchVariableName}.httpResponse.data}}`}
-                    </span>
-                  </FormDescription>
-                  <FormMessage />
-                </FormItem>
-              )}
-            />
+            <div
+              className="
+                rounded-3xl
+                border
+                border-sky-100/60
+                bg-white
+                p-5
+                shadow-[0_8px_24px_rgba(37,99,235,0.04)]
+              "
+            >
+              <div className="space-y-4">
+                <FormField
+                  control={form.control}
+                  name="variableName"
+                  render={({ field }) => (
+                    <FormItem>
+                      <FormLabel>Variable Name</FormLabel>
 
-            <FormField
-              control={form.control}
-              name="method"
-              render={({ field }) => (
-                <FormItem>
-                  <FormLabel>Method</FormLabel>
-                  <Select
-                    onValueChange={field.onChange}
-                    defaultValue={field.value}
-                  >
-                    <FormControl>
-                      <SelectTrigger className="w-full">
-                        <SelectValue placeholder="Select a method" />
-                      </SelectTrigger>
-                    </FormControl>
-                    <SelectContent>
-                      <SelectItem value="GET">GET</SelectItem>
-                      <SelectItem value="POST">POST</SelectItem>
-                      <SelectItem value="PUT">PUT</SelectItem>
-                      <SelectItem value="PATCH">PATCH</SelectItem>
-                      <SelectItem value="DELETE">DELETE</SelectItem>
-                    </SelectContent>
-                  </Select>
-                  <FormDescription>
-                    Choose the HTTP method for this request.
-                  </FormDescription>
-                  <FormMessage />
-                </FormItem>
-              )}
-            />
+                      <FormControl>
+                        <Input
+                          placeholder="myApiCall"
+                          className="
+                            border-sky-100/80
+                            bg-white
+                            shadow-sm
+                            focus-visible:border-sky-300
+                          "
+                          {...field}
+                        />
+                      </FormControl>
 
-            <FormField
-              control={form.control}
-              name="endpoint"
-              render={({ field }) => (
-                <FormItem>
-                  <FormLabel>Endpoint URL</FormLabel>
-                  <FormControl>
-                    <Input
-                      placeholder="https://api.example.com/users/{{variable}}"
-                      {...field}
-                    />
-                  </FormControl>
-                  <FormDescription>
-                    Supports {"{{variables}}"} and {"{{json variable}}"} for
-                    dynamic values.
-                  </FormDescription>
-                  <FormMessage />
-                </FormItem>
-              )}
-            />
+                      <FormDescription className="space-y-2">
+                        <span className="block">
+                          Reference the response anywhere in your workflow:
+                        </span>
 
-            {showBodyField && (
-              <FormField
-                control={form.control}
-                name="body"
-                render={({ field }) => (
-                  <FormItem>
-                    <FormLabel>Request Body</FormLabel>
-                    <FormControl>
-                      <Textarea
-                        placeholder={
-                          '{\n  "id": "{{variable.id}}",\n  "data": "{{json variable}}"\n}'
-                        }
-                        className="min-h-[120px] font-mono text-sm"
-                        {...field}
-                      />
-                    </FormControl>
-                    <FormDescription>
-                      JSON body with template variables.
-                    </FormDescription>
-                    <FormMessage />
-                  </FormItem>
+                        <code
+                          className="
+                            inline-flex
+                            rounded-xl
+                            border
+                            border-sky-200/60
+                            bg-gradient-to-r
+                            from-sky-50
+                            via-white
+                            to-cyan-50
+                            px-3
+                            py-1.5
+                            font-mono
+                            text-xs
+                            text-sky-800
+                          "
+                        >
+                          {`{{${watchVariableName}.httpResponse.data}}`}
+                        </code>
+                      </FormDescription>
+
+                      <FormMessage />
+                    </FormItem>
+                  )}
+                />
+
+                <FormField
+                  control={form.control}
+                  name="method"
+                  render={({ field }) => (
+                    <FormItem
+                      className="
+                        rounded-2xl
+                        border
+                        border-sky-100/70
+                        p-4
+                      "
+                    >
+                      <FormLabel>Method</FormLabel>
+
+                      <Select
+                        onValueChange={field.onChange}
+                        defaultValue={field.value}
+                      >
+                        <FormControl>
+                          <SelectTrigger
+                            className="
+                              w-full
+                              border-sky-200/60
+                              bg-gradient-to-r
+                              from-sky-50
+                              via-white
+                              to-cyan-50
+                            "
+                          >
+                            <SelectValue placeholder="Select a method" />
+                          </SelectTrigger>
+                        </FormControl>
+
+                        <SelectContent>
+                          <SelectItem value="GET">GET</SelectItem>
+                          <SelectItem value="POST">POST</SelectItem>
+                          <SelectItem value="PUT">PUT</SelectItem>
+                          <SelectItem value="PATCH">PATCH</SelectItem>
+                          <SelectItem value="DELETE">DELETE</SelectItem>
+                        </SelectContent>
+                      </Select>
+
+                      <FormDescription>
+                        Choose the HTTP method for this request.
+                      </FormDescription>
+
+                      <FormMessage />
+                    </FormItem>
+                  )}
+                />
+
+                <FormField
+                  control={form.control}
+                  name="endpoint"
+                  render={({ field }) => (
+                    <FormItem>
+                      <FormLabel>Endpoint URL</FormLabel>
+
+                      <FormControl>
+                        <Input
+                          placeholder="https://api.example.com/users/{{variable}}"
+                          className="
+                            border-sky-100/80
+                            bg-white
+                            shadow-sm
+                            focus-visible:border-sky-300
+                          "
+                          {...field}
+                        />
+                      </FormControl>
+
+                      <FormDescription>
+                        Static URL or use {"{{variables}}"} for simple values or {"{{json variable}}"} to stringify objects
+                      </FormDescription>
+
+                      <FormMessage />
+                    </FormItem>
+                  )}
+                />
+
+                {showBodyField && (
+                  <FormField
+                    control={form.control}
+                    name="body"
+                    render={({ field }) => (
+                      <FormItem
+                        className="
+                          rounded-2xl
+                          border
+                          border-sky-100/70
+                          bg-sky-50/20
+                          p-4
+                        "
+                      >
+                        <FormLabel>Request Body</FormLabel>
+
+                        <FormControl>
+                          <Textarea
+                            placeholder={
+                        '{\n  "userId": "{{httpResponse.data.id}}",\n  "name": "{{httpResponse.data.name}}",\n  "items": "{{httpResponse.data.items}}"\n}'
+                      }
+                            className="
+                              min-h-[140px]
+                              border-sky-100
+                              bg-white
+                              font-mono
+                              text-sm
+                              shadow-sm
+                            "
+                            {...field}
+                          />
+                        </FormControl>
+
+                        <FormDescription>
+                          JSON with template variables. Use {"{{variables}}"} for simple values or {"{{json variable}}"} to stringify objects
+                        </FormDescription>
+
+                        <FormMessage />
+                      </FormItem>
+                    )}
+                  />
                 )}
-              />
-            )}
+              </div>
+            </div>
 
-            <DialogFooter className="mb-1 -mt-6">
-              <Button type="submit" className="w-full rounded-md">
-                Save
+            <DialogFooter className="mt-6">
+              <Button
+                type="submit"
+                variant="workflow"
+                className="
+                  h-11
+                  w-full
+                  rounded-2xl
+                "
+              >
+                Save Configuration
               </Button>
             </DialogFooter>
           </form>
