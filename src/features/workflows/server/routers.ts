@@ -115,7 +115,7 @@ export const workflowsRouter = createTRPCRouter({
       };
     }),
   update: protectedProcedure
-    .input(
+    .input(// this is react flow editor's edge and node input, later we convert it to DB compatible data types
       z.object({
         id: z.string(),
         nodes: z.array(
@@ -147,7 +147,7 @@ export const workflowsRouter = createTRPCRouter({
         await tx.node.deleteMany({
           where: { workflowId: id },
         });
-        //Create new nodes
+        //Create new nodes which are compatible with our database
         await tx.node.createMany({
           data: nodes.map((node) => ({
             id: node.id,
