@@ -419,15 +419,15 @@ export const EmptyView = ({ message, onNew }: EmptyViewProps) => {
         {!!onNew && (
           <Button
             onClick={onNew}
-            variant="aurora"
+            variant="shimmer"
             className="
               mt-7
-              min-w-[170px]
+              w-[110px]
               shadow-[0_12px_35px_rgba(79,70,229,0.18)]
             "
           >
             <PlusIcon className="size-4" />
-            Create Workflow
+            Create
           </Button>
         )}
       </div>

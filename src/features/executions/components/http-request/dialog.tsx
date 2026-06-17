@@ -26,11 +26,11 @@ import {
   SelectValue,
 } from "@/components/ui/select";
 import { Textarea } from "@/components/ui/textarea";
-import { GlobeIcon } from "lucide-react";
+import { CheckIcon, CopyIcon, GlobeIcon } from "lucide-react";
 import z from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
-import { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { Button } from "@/components/ui/button";
 
 const formSchema = z.object({
@@ -85,7 +85,22 @@ export const HttpRequestDialog = ({
   const watchVariableName = form.watch("variableName") || "myApiCall";
   const watchMethod = form.watch("method");
   const showBodyField = ["POST", "PUT", "PATCH"].includes(watchMethod);
+  const [copied, setCopied] = useState(false);
 
+  const variableReference = `{{${watchVariableName}.httpResponse.data}}`;
+
+  const handleCopy = async (e: React.MouseEvent<HTMLButtonElement>) => {
+    e.preventDefault();
+    e.stopPropagation();
+
+    await navigator.clipboard.writeText(variableReference);
+
+    setCopied(true);
+
+    setTimeout(() => {
+      setCopied(false);
+    }, 2000);
+  };
   const handleSubmit = (values: z.infer<typeof formSchema>) => {
     onSubmit(values);
     onOpenChange(false);
@@ -100,13 +115,10 @@ export const HttpRequestDialog = ({
         "
       >
         <DialogHeader className="space-y-2">
-
-
-
-
           <div>
             <DialogTitle className="text-xl flex  justify-center font-semibold text-slate-900">
-              HTTP Request  <GlobeIcon className="size-5 mt-1 ml-1 text-sky-600" />
+              HTTP Request{" "}
+              <GlobeIcon className="size-5 mt-1 ml-1 text-sky-600" />
             </DialogTitle>
 
             <DialogDescription className="mt-1 flex justify-center text-slate-500">
@@ -117,10 +129,7 @@ export const HttpRequestDialog = ({
         </DialogHeader>
 
         <Form {...form}>
-          <form
-            onSubmit={form.handleSubmit(handleSubmit)}
-            className="mt-2"
-          >
+          <form onSubmit={form.handleSubmit(handleSubmit)} className="mt-2">
             <div
               className="
                 rounded-3xl
@@ -128,6 +137,7 @@ export const HttpRequestDialog = ({
                 border-sky-100/60
                 bg-white
                 p-5
+                overflow-auto
                 shadow-[0_8px_24px_rgba(37,99,235,0.04)]
               "
             >
@@ -153,31 +163,51 @@ export const HttpRequestDialog = ({
                       </FormControl>
 
                       <FormDescription className="space-y-2">
-                        <span className="block">
-                          Reference the response anywhere in your workflow:
-                        </span>
-
-                        <code
-                          className="
-                            inline-flex
-                            rounded-xl
-                            border
-                            border-sky-200/60
-                            bg-gradient-to-r
-                            from-sky-50
-                            via-white
-                            to-cyan-50
-                            px-3
-                            py-1.5
-                            font-mono
-                            text-xs
-                            text-sky-800
-                          "
-                        >
-                          {`{{${watchVariableName}.httpResponse.data}}`}
-                        </code>
+                        Use this variable name to reference the result in other
+                        nodes:
                       </FormDescription>
+                      <div className="flex items-start gap-2 mt-2">
+                        <div
+                          className="
+      inline-flex
+      max-w-full
+      rounded-xl
+      border
+      border-sky-200/60
+      bg-gradient-to-r
+      from-sky-50
+      via-white
+      to-cyan-50
+      px-3
+      py-1.5
+    "
+                        >
+                          <code
+                            className="
+        break-all
+        font-mono
+        text-xs
+        text-sky-800
+      "
+                          >
+                            {variableReference}
+                          </code>
+                        </div>
 
+                        <Button
+                          type="button"
+                          size="icon-sm"
+                          onClick={handleCopy}
+                          variant="workflowSoft"
+                          className="shrink-0"
+                        >
+                          {copied ? (
+                            <CheckIcon className="size-3 text-emerald-500" />
+                          ) : (
+                            <CopyIcon className="size-3" />
+                          )}
+                        </Button>
+                      </div>
                       <FormMessage />
                     </FormItem>
                   )}
@@ -255,7 +285,8 @@ export const HttpRequestDialog = ({
                       </FormControl>
 
                       <FormDescription>
-                        Static URL or use {"{{variables}}"} for simple values or {"{{json variable}}"} to stringify objects
+                        Static URL or use {"{{variables}}"} for simple values or{" "}
+                        {"{{json variable}}"} to stringify objects
                       </FormDescription>
 
                       <FormMessage />
@@ -277,13 +308,13 @@ export const HttpRequestDialog = ({
                           p-4
                         "
                       >
-                        <FormLabel>Request Body</FormLabel>
+                        <FormLabel>Request Body (Supports JSON with template variables)</FormLabel>
 
                         <FormControl>
                           <Textarea
                             placeholder={
-                        '{\n  "userId": "{{httpResponse.data.id}}",\n  "name": "{{httpResponse.data.name}}",\n  "items": "{{httpResponse.data.items}}"\n}'
-                      }
+                              '{\n  "userId": "{{httpResponse.data.id}}",\n  "name": "{{httpResponse.data.name}}",\n  "items": "{{httpResponse.data.items}}"\n}'
+                            }
                             className="
                               min-h-[140px]
                               border-sky-100
@@ -296,9 +327,15 @@ export const HttpRequestDialog = ({
                           />
                         </FormControl>
 
-                        <FormDescription>
-                          JSON with template variables. Use {"{{variables}}"} for simple values or {"{{json variable}}"} to stringify objects
-                        </FormDescription>
+               <FormDescription>
+  <span className="block">
+    Use {"{{variables}}"} or {"{{json variable}}"} to stringify objects. "json" is a reserved keyword; use before the variable.
+  </span>
+
+  <span className="mt-1 block">
+    Empty request body passes an empty object {"{}"} by default.
+  </span>
+</FormDescription>
 
                         <FormMessage />
                       </FormItem>
