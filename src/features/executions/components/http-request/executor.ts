@@ -51,16 +51,9 @@ export const httpRequestExecutor: NodeExecutor<HttpRequestData> = async ({
       const endpoint = Handlebars.compile(data.endpoint, { noEscape: true })(
         context,
       );
-      try {
-        if (!endpoint || typeof endpoint !== "string") {
-          throw new Error(
-            "Endpoint template must resolve to a non-empty string",
-          );
-        }
-      } catch (error) {
+      if (!endpoint || typeof endpoint !== "string") {
         throw new NonRetriableError(
-          "Failed to resolve endpoint template",
-          error,
+          "Endpoint template must resolve to a non-empty string",
         );
       }
       console.log(chalk.bgGreenBright.bold("ENDPOINT ->"), endpoint);
