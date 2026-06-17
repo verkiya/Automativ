@@ -163,15 +163,12 @@ export const HttpRequestDialog = ({
                       </FormControl>
 
                       <FormDescription className="space-y-2">
-                        <div>
-                          {" "}
-                          <span className="block">
-                            Use this variable name to reference the result in
-                            other nodes:
-                          </span>
-                          <div className="flex items-start gap-2 mt-2">
-                            <div
-                              className="
+                        Use this variable name to reference the result in other
+                        nodes:
+                      </FormDescription>
+                      <div className="flex items-start gap-2 mt-2">
+                        <div
+                          className="
       inline-flex
       max-w-full
       rounded-xl
@@ -184,36 +181,33 @@ export const HttpRequestDialog = ({
       px-3
       py-1.5
     "
-                            >
-                              <code
-                                className="
+                        >
+                          <code
+                            className="
         break-all
         font-mono
         text-xs
         text-sky-800
       "
-                              >
-                                {variableReference}
-                              </code>
-                            </div>
-
-                            <Button
-                              type="button"
-                              size="icon-sm"
-                              onClick={handleCopy}
-                              variant="workflowSoft"
-                              className="shrink-0"
-                            >
-                              {copied ? (
-                                <CheckIcon className="size-3 text-emerald-500" />
-                              ) : (
-                                <CopyIcon className="size-3" />
-                              )}
-                            </Button>
-                          </div>
+                          >
+                            {variableReference}
+                          </code>
                         </div>
-                      </FormDescription>
 
+                        <Button
+                          type="button"
+                          size="icon-sm"
+                          onClick={handleCopy}
+                          variant="workflowSoft"
+                          className="shrink-0"
+                        >
+                          {copied ? (
+                            <CheckIcon className="size-3 text-emerald-500" />
+                          ) : (
+                            <CopyIcon className="size-3" />
+                          )}
+                        </Button>
+                      </div>
                       <FormMessage />
                     </FormItem>
                   )}
@@ -314,7 +308,7 @@ export const HttpRequestDialog = ({
                           p-4
                         "
                       >
-                        <FormLabel>Request Body</FormLabel>
+                        <FormLabel>Request Body (Supports JSON with template variables)</FormLabel>
 
                         <FormControl>
                           <Textarea
@@ -333,11 +327,15 @@ export const HttpRequestDialog = ({
                           />
                         </FormControl>
 
-                        <FormDescription>
-                          JSON with template variables. Use {"{{variables}}"}{" "}
-                          for simple values or {"{{json variable}}"} to
-                          stringify objects
-                        </FormDescription>
+               <FormDescription>
+  <span className="block">
+    Use {"{{variables}}"} or {"{{json variable}}"} to stringify objects. "json" is a reserved keyword; use before the variable.
+  </span>
+
+  <span className="mt-1 block">
+    Empty request body passes an empty object {"{}"} by default.
+  </span>
+</FormDescription>
 
                         <FormMessage />
                       </FormItem>

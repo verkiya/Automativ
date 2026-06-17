@@ -1,5 +1,7 @@
 import Handlebars from "handlebars";
 import { NonRetriableError } from "inngest";
+import chalk from "chalk";
+
 import ky, { type Options as KyOptions } from "ky";
 import type { NodeExecutor } from "@/features/executions/types";
 import { httpRequestChannel } from "@/inngest/channels/http-request";
@@ -11,9 +13,9 @@ Handlebars.registerHelper("json", (context) => {
 });
 
 type HttpRequestData = {
-  variableName?: string;
-  endpoint?: string;
-  method?: "GET" | "POST" | "PUT" | "PATCH" | "DELETE";
+  variableName: string;
+  endpoint: string;
+  method: "GET" | "POST" | "PUT" | "PATCH" | "DELETE";
   body?: string;
 };
 
@@ -46,10 +48,23 @@ export const httpRequestExecutor: NodeExecutor<HttpRequestData> = async ({
   try {
     const result = await step.run(`http-request-${nodeId}`, async () => {
       // ✅ noEscape: true prevents & = ? from being HTML-encoded in URLs
-      const endpoint = Handlebars.compile(data.endpoint!, { noEscape: true })(
+      const endpoint = Handlebars.compile(data.endpoint, { noEscape: true })(
         context,
       );
-      const method = data.method!;
+      try {
+        if (!endpoint || typeof endpoint !== "string") {
+          throw new Error(
+            "Endpoint template must resolve to a non-empty string",
+          );
+        }
+      } catch (error) {
+        throw new NonRetriableError(
+          "Failed to resolve endpoint template",
+          error,
+        );
+      }
+      console.log(chalk.bgGreenBright.bold("ENDPOINT ->"), endpoint);
+      const method = data.method;
       const options: KyOptions = { method };
 
       if (["POST", "PUT", "PATCH"].includes(method)) {
