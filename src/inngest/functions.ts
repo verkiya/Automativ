@@ -17,7 +17,7 @@ import { slackChannel } from "./channels/slack";
 export const executeWorkflow = inngest.createFunction(
   {
     id: "execute-workflow",
-    retries: process.env.NODE_ENV === "production" ? 1 : 0, // Can change it in production, though best to not retry, since if it failed, it's probably not going
+    retries: process.env.NODE_ENV === "production" ? 1 : 0, // Can change it in production, though best to not retry, since if it failed, it's probably not going to succeed
     onFailure: async ({ event, step }) => {
       return prisma.execution.update({
         where: { inngestEventId: event.data.event.id },
@@ -48,7 +48,7 @@ export const executeWorkflow = inngest.createFunction(
     const workflowId = event.data.workflowId;
 
     if (!inngestEventId || !workflowId) {
-      throw new NonRetriableError("Event ID or workflow ID is missing");
+      throw new NonRetriableError("Event ID or Workflow ID is missing");
     }
 
     await step.run("create-execution", async () => {
@@ -83,7 +83,7 @@ export const executeWorkflow = inngest.createFunction(
       return workflow.userId;
     });
 
-    // Initialize context with any initial data from the trigger
+    // Initialize context with any initial data or payloads from webhooks from the triggers feeding that data
     let context = event.data.initialData || {};
 
     // Execute each node
