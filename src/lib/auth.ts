@@ -1,6 +1,8 @@
 import { checkout, polar, portal } from "@polar-sh/better-auth";
 import { betterAuth } from "better-auth";
 import { prismaAdapter } from "better-auth/adapters/prisma";
+import { dash } from "@better-auth/infra";
+
 // If your Prisma file is located elsewhere, you can change the path
 import { PrismaClient } from "@/generated/prisma/client";
 import { polarClient } from "./polar";
@@ -13,6 +15,7 @@ export const auth = betterAuth({
     process.env.NEXT_PUBLIC_APP_URL!,
     "https://automativ.vercel.app",
     "http://localhost:3000",
+    process.env.NGROK_URL!,
   ],
   emailAndPassword: {
     enabled: true,
@@ -46,5 +49,6 @@ export const auth = betterAuth({
         portal(),
       ],
     }),
+    dash(),
   ],
 });

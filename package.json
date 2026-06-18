@@ -4,17 +4,15 @@
   "private": true,
   "scripts": {
     "dev": "dotenv -- concurrently -n NEXT,INNGEST,NGROK -c blue,magenta,yellow \"cross-env next dev --turbopack\" \"npm run inngest:dev\" \"npm run ngrok:dev\"",
-    "build": "next build --turbopack",
+    "build": "next build",
     "start": "next start",
     "predev": "prisma generate",
     "prebuild": "prisma generate",
     "postinstall": "prisma generate",
     "lint": "biome check",
-    "ngrok:dev:win": "powershell -Command \"$env:NGROK_URL = (Select-String -Path .env -Pattern 'NGROK_URL=(.*)' | ForEach-Object { $_.Matches.Groups[1].Value }); ngrok http --url=$env:NGROK_URL 3000\"",
-    "ngrok:dev:unix": "sh -c 'export $(cat .env | grep NGROK_URL); ngrok http --url=$NGROK_URL 3000'",
-    "ngrok:dev": "node -e \"process.platform === 'win32' ? require('child_process').execSync('npm run ngrok:dev:win', {stdio: 'inherit'}) : require('child_process').execSync('npm run ngrok:dev:unix', {stdio: 'inherit'})\"",
+    "format": "biome format --write",
     "inngest:dev": "inngest-cli dev",
-    "format": "biome format --write"
+    "ngrok:dev": "dotenv -- node -e \"const url=(process.env.NGROK_URL||'').trim(); if(!url){console.error('NGROK_URL missing'); process.exit(1);} require('child_process').spawnSync('ngrok',['http',`--url=${url}`,'3000'],{stdio:'inherit',shell:true});\""
   },
   "overrides": {
     "import-in-the-middle": "3.0.0"
@@ -24,6 +22,8 @@
     "@ai-sdk/google": "^2.0.74",
     "@ai-sdk/openai": "^2.0.106",
     "@base-ui/react": "^1.5.0",
+    "@better-auth/infra": "^0.2.14",
+    "@better-auth/sso": "^1.6.19",
     "@hookform/resolvers": "^5.4.0",
     "@inngest/realtime": "^0.4.7",
     "@paralleldrive/cuid2": "^2.3.1",

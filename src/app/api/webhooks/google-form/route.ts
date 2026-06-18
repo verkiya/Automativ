@@ -10,7 +10,7 @@ export async function POST(request: NextRequest) {
           success: false,
           error: "Missing required query parameter: workflowId",
         },
-        { status: 400 },
+        { status: 400 }, // 400 means a user error
       );
     }
     const body = await request.json();

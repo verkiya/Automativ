@@ -1,9 +1,12 @@
 import { withSentryConfig } from "@sentry/nextjs";
 import type { NextConfig } from "next";
 
+const ngrokHost = process.env.NGROK_URL?.trim();
+
 const nextConfig: NextConfig = {
   devIndicators: false,
-  /* config options here */
+
+  allowedDevOrigins: ["*.ngrok-free.dev"],
   async redirects() {
     return [
       {
@@ -14,7 +17,6 @@ const nextConfig: NextConfig = {
     ];
   },
 };
-
 export default withSentryConfig(nextConfig, {
   // For all available options, see:
   // https://www.npmjs.com/package/@sentry/webpack-plugin#options
