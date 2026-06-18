@@ -13,9 +13,9 @@ Handlebars.registerHelper("json", (context) => {
 });
 
 type HttpRequestData = {
-  variableName: string;
-  endpoint: string;
-  method: "GET" | "POST" | "PUT" | "PATCH" | "DELETE";
+  variableName?: string;
+  endpoint?: string;
+  method?: "GET" | "POST" | "PUT" | "PATCH" | "DELETE";
   body?: string;
 };
 
@@ -48,7 +48,7 @@ export const httpRequestExecutor: NodeExecutor<HttpRequestData> = async ({
   try {
     const result = await step.run(`http-request-${nodeId}`, async () => {
       // ✅ noEscape: true prevents & = ? from being HTML-encoded in URLs
-      const endpoint = Handlebars.compile(data.endpoint, { noEscape: true })(
+      const endpoint = Handlebars.compile(data.endpoint!, { noEscape: true })(
         context,
       );
       if (!endpoint || typeof endpoint !== "string") {
@@ -60,7 +60,7 @@ export const httpRequestExecutor: NodeExecutor<HttpRequestData> = async ({
       const method = data.method;
       const options: KyOptions = { method };
 
-      if (["POST", "PUT", "PATCH"].includes(method)) {
+      if (["POST", "PUT", "PATCH"].includes(method!)) {
         // ✅ same fix for body — JSON values like strings/URLs would also get escaped
         const resolved = Handlebars.compile(data.body || "{}", {
           noEscape: true,
@@ -68,6 +68,13 @@ export const httpRequestExecutor: NodeExecutor<HttpRequestData> = async ({
         JSON.parse(resolved);
         options.body = resolved;
         options.headers = { "Content-Type": "application/json" };
+      }
+      try {
+        new URL(endpoint);
+      } catch {
+        throw new NonRetriableError(
+          `Endpoint must resolve to a valid URL. Got: ${endpoint}`,
+        );
       }
       const response = await ky(endpoint, {
         ...options,
