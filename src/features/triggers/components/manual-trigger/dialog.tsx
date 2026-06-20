@@ -7,6 +7,8 @@ import {
   DialogHeader,
   DialogTitle,
 } from "@/components/ui/dialog";
+import { MousePointerIcon } from "lucide-react";
+import Image from "next/image";
 
 interface Props {
   open: boolean;
@@ -27,7 +29,8 @@ export const ManualTriggerDialog = ({
         "
       >
         <DialogHeader>
-          <DialogTitle className="text-lg font-semibold text-slate-900">
+        <DialogTitle className="flex items-center gap-2">
+          <MousePointerIcon height={18} width={18} />
             Manual Trigger
           </DialogTitle>
 

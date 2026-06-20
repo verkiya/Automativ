@@ -443,7 +443,20 @@ const buttonVariants = cva(
           "hover:text-blue-700",
           "hover:border-blue-200/30",
         ].join(" "),
+        addNode: [
+          "text-sky-700",
+          "border border-2 border-sky-300",
+          "bg-white",
 
+          "hover:bg-sky-50",
+          "hover:border-sky-400",
+
+          "hover:scale-[1.08]",
+          "active:scale-[0.98]",
+
+          "shadow-sm",
+          "hover:shadow-md",
+        ].join(" "),
         upgrade: [
           "text-sky-800",
           "border border-sky-200/40",

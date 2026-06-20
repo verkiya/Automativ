@@ -63,7 +63,7 @@ export const Editor = ({ workflowId }: { workflowId: string }) => {
         onConnect={onConnect}
         fitView
         onInit={setEditor}
-        snapGrid={[10, 10]}
+        snapGrid={[25, 25]}
         snapToGrid
         panOnScroll
         panOnDrag={[2]}
@@ -72,7 +72,7 @@ export const Editor = ({ workflowId }: { workflowId: string }) => {
         deleteKeyCode={["Delete"]}
         selectionOnDrag
       >
-        <Background  gap={24}/>
+        <Background  gap={25}/>
 
         <Controls />
         <MiniMap

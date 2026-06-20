@@ -12,6 +12,7 @@ import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { toast } from "@/components/ui/sonner";
 import { CheckIcon, CopyIcon } from "lucide-react";
+import Image from "next/image";
 import { useParams } from "next/navigation";
 import { useState } from "react";
 
@@ -103,7 +104,8 @@ export const StripeTriggerDialog = ({ open, onOpenChange }: Props) => {
         "
       >
         <DialogHeader className="space-y-1">
-          <DialogTitle className="text-lg font-semibold">
+          <DialogTitle className="flex items-center gap-2">
+             <Image src="/stripe.svg" alt="Stripe" width={18} height={18} />
             Stripe Trigger
           </DialogTitle>
 
