@@ -35,6 +35,7 @@ export const CredentialsSearch = () => {
       value={searchValue}
       onChange={onSearchChange}
       placeholder="Search credentials"
+
     />
   );
 };
@@ -58,7 +59,7 @@ export const CredentialsHeader = ({ disabled }: { disabled?: boolean }) => {
       title="Credentials"
       description="Create and manage your credentials"
       newButtonHref="/credentials/new"
-      newButtonLabel="New credential"
+      newButtonLabel="New Credential"
       disabled={disabled}
     />
   );
@@ -99,7 +100,7 @@ export const CredentialsLoading = () => {
 };
 
 export const CredentialsError = () => {
-  return <ErrorView message="Error loading credentials" />;
+  return <ErrorView message="Oops! We couldn't load your credentials 🙈" />;
 };
 
 export const CredentialsEmpty = () => {
