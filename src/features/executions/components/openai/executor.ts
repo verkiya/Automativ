@@ -6,7 +6,6 @@ import type { NodeExecutor } from "@/features/executions/types";
 import { openAiChannel } from "@/inngest/channels/openai";
 import prisma from "@/lib/db";
 import { decrypt } from "@/lib/encryption";
-import { OPENAI_MODEL } from "@/lib/ai-models";
 
 Handlebars.registerHelper("json", (context) => {
   const jsonString = JSON.stringify(context, null, 2);
@@ -15,14 +14,14 @@ Handlebars.registerHelper("json", (context) => {
   return safeString;
 });
 
-type OpenAiData = {
+type OpenAIData = {
   variableName?: string;
   credentialId?: string;
   systemPrompt?: string;
   userPrompt?: string;
 };
 
-export const openAiExecutor: NodeExecutor<OpenAiData> = async ({
+export const openAiExecutor: NodeExecutor<OpenAIData> = async ({
   data,
   nodeId,
   userId,
@@ -44,7 +43,7 @@ export const openAiExecutor: NodeExecutor<OpenAiData> = async ({
         status: "error",
       }),
     );
-    throw new NonRetriableError("OpenAi node: Variable name is missing");
+    throw new NonRetriableError("OpenAI node: Variable name is missing");
   }
 
   if (!data.credentialId) {
@@ -64,7 +63,7 @@ export const openAiExecutor: NodeExecutor<OpenAiData> = async ({
         status: "error",
       }),
     );
-    throw new NonRetriableError("OpenAi node: User prompt is missing");
+    throw new NonRetriableError("OpenAI node: User prompt is missing");
   }
 
   const systemPrompt = data.systemPrompt
@@ -97,7 +96,7 @@ export const openAiExecutor: NodeExecutor<OpenAiData> = async ({
 
   try {
     const { steps } = await step.ai.wrap("openai-generate-text", generateText, {
-      model: openai(OPENAI_MODEL),
+      model: openai("gpt-5.4-mini"),
       system: systemPrompt,
       prompt: userPrompt,
       experimental_telemetry: {

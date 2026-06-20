@@ -28,25 +28,27 @@ export const httpRequestExecutor: NodeExecutor<HttpRequestData> = async ({
 }) => {
   await publish(httpRequestChannel().status({ nodeId, status: "loading" }));
 
-  if (!data.endpoint) {
-    await publish(httpRequestChannel().status({ nodeId, status: "error" }));
-    throw new NonRetriableError("HTTP Request node: No endpoint configured");
-  }
-
-  if (!data.variableName) {
-    await publish(httpRequestChannel().status({ nodeId, status: "error" }));
-    throw new NonRetriableError(
-      "HTTP Request node: Variable name not configured",
-    );
-  }
-
-  if (!data.method) {
-    await publish(httpRequestChannel().status({ nodeId, status: "error" }));
-    throw new NonRetriableError("HTTP Request node: Method not configured");
-  }
-
   try {
     const result = await step.run(`http-request-${nodeId}`, async () => {
+      if (!data.endpoint) {
+        await publish(httpRequestChannel().status({ nodeId, status: "error" }));
+        throw new NonRetriableError(
+          "HTTP Request node: No endpoint configured",
+        );
+      }
+
+      if (!data.variableName) {
+        await publish(httpRequestChannel().status({ nodeId, status: "error" }));
+        throw new NonRetriableError(
+          "HTTP Request node: Variable name not configured",
+        );
+      }
+
+      if (!data.method) {
+        await publish(httpRequestChannel().status({ nodeId, status: "error" }));
+        throw new NonRetriableError("HTTP Request node: Method not configured");
+      }
+
       // ✅ noEscape: true prevents & = ? from being HTML-encoded in URLs
       const endpoint = Handlebars.compile(data.endpoint!, { noEscape: true })(
         context,
@@ -60,7 +62,7 @@ export const httpRequestExecutor: NodeExecutor<HttpRequestData> = async ({
       const method = data.method;
       const options: KyOptions = { method };
 
-      if (["POST", "PUT", "PATCH"].includes(method!)) {
+      if (["POST", "PUT", "PATCH"].includes(method)) {
         // ✅ same fix for body — JSON values like strings/URLs would also get escaped
         const resolved = Handlebars.compile(data.body || "{}", {
           noEscape: true,

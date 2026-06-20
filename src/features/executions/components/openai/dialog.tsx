@@ -48,16 +48,16 @@ const formSchema = z.object({
   userPrompt: z.string().min(1, "User prompt is required"),
 });
 
-export type OpenAiFormValues = z.infer<typeof formSchema>;
+export type OpenAIFormValues = z.infer<typeof formSchema>;
 
 interface Props {
   open: boolean;
   onOpenChange: (open: boolean) => void;
   onSubmit: (values: z.infer<typeof formSchema>) => void;
-  defaultValues?: Partial<OpenAiFormValues>;
+  defaultValues?: Partial<OpenAIFormValues>;
 }
 
-export const OpenAiDialog = ({
+export const OpenAIDialog = ({
   open,
   onOpenChange,
   onSubmit,
@@ -88,7 +88,7 @@ export const OpenAiDialog = ({
     }
   }, [open, defaultValues, form]);
 
-  const watchVariableName = form.watch("variableName") || "myOpenAi";
+  const watchVariableName = form.watch("variableName") || "myOpenAI";
 
   const handleSubmit = (values: z.infer<typeof formSchema>) => {
     onSubmit(values);
@@ -97,118 +97,255 @@ export const OpenAiDialog = ({
 
   return (
     <Dialog open={open} onOpenChange={onOpenChange}>
-      <DialogContent>
-        <DialogHeader>
-          <DialogTitle>OpenAI Configuration</DialogTitle>
+      <DialogContent
+        className="
+    sm:max-w-lg
+
+    [&>button]:transition-all
+    [&>button]:duration-200
+    [&>button]:ease-out
+    [&>button]:rounded-md
+    [&>button]:p-1
+    [&>button]:hover:bg-muted
+    [&>button]:hover:scale-110
+    [&>button]:active:scale-95
+  "
+      >
+        <DialogHeader className="space-y-1">
+          <DialogTitle className="flex items-center gap-2">
+            <Image src="/openai.svg" alt="OpenAI" width={18} height={18} />
+            OpenAI Configuration
+          </DialogTitle>
+
           <DialogDescription>
-            Configure the AI model and prompts for this node.
+            Configure prompts and credentials for this OpenAI node.
           </DialogDescription>
         </DialogHeader>
         <Form {...form}>
           <form
             onSubmit={form.handleSubmit(handleSubmit)}
-            className="space-y-8 mt-4"
+            className="space-y-2"
           >
-            <FormField
-              control={form.control}
-              name="variableName"
-              render={({ field }) => (
-                <FormItem>
-                  <FormLabel>Variable Name</FormLabel>
-                  <FormControl>
-                    <Input placeholder="myOpenAi" {...field} />
-                  </FormControl>
-                  <FormDescription>
-                    Use this name to reference the result in other nodes:{" "}
-                    {`{{${watchVariableName}.text}}`}
-                  </FormDescription>
-                  <FormMessage />
-                </FormItem>
-              )}
-            />
+            <div
+              className="
+                rounded-xl
+                border
+                border-sky-200/50
+                bg-gradient-to-r
+                from-sky-50
+                via-white
+                to-cyan-50
+                p-4
+              "
+            >
+              <FormField
+                control={form.control}
+                name="variableName"
+                render={({ field }) => (
+                  <FormItem>
+                    <FormLabel>Variable Name</FormLabel>
 
-            <FormField
-              control={form.control}
-              name="credentialId"
-              render={({ field }) => (
-                <FormItem>
-                  <FormLabel>OpenAI Credential</FormLabel>
-                  <Select
-                    onValueChange={field.onChange}
-                    defaultValue={field.value}
-                    disabled={isLoadingCredentials || !credentials?.length}
-                  >
                     <FormControl>
-                      <SelectTrigger className="w-full">
-                        <SelectValue placeholder="Select a credential" />
-                      </SelectTrigger>
+                      <Input
+                        placeholder="myOpenAI"
+                        className="
+                          border-sky-200/50
+                        "
+                        {...field}
+                      />
                     </FormControl>
-                    <SelectContent>
-                      {credentials?.map((credential) => (
-                        <SelectItem key={credential.id} value={credential.id}>
-                          <div className="flex items-center gap-2">
-                            <Image
-                              src="/openai.svg"
-                              alt="OpenAI"
-                              width={16}
-                              height={16}
-                            />
-                            {credential.name}
-                          </div>
-                        </SelectItem>
-                      ))}
-                    </SelectContent>
-                  </Select>
-                  <FormMessage />
-                </FormItem>
-              )}
-            />
 
-            <FormField
-              control={form.control}
-              name="systemPrompt"
-              render={({ field }) => (
-                <FormItem>
-                  <FormLabel>System Prompt (Optional)</FormLabel>
-                  <FormControl>
-                    <Textarea
-                      placeholder="You are a helpful assistant."
-                      className="min-h-[80px] font-mono text-sm"
-                      {...field}
-                    />
-                  </FormControl>
-                  <FormDescription>
-                    Sets the behavior of the assistant. Use {"{{variables}}"}{" "}
-                    for simple values or {"{{json variable}}"} to stringify
-                    objects
-                  </FormDescription>
-                  <FormMessage />
-                </FormItem>
-              )}
-            />
-            <FormField
-              control={form.control}
-              name="userPrompt"
-              render={({ field }) => (
-                <FormItem>
-                  <FormLabel>User Prompt</FormLabel>
-                  <FormControl>
-                    <Textarea
-                      placeholder="Summarize this text: {{json httpResponse.data}}"
-                      className="min-h-[120px] font-mono text-sm"
-                      {...field}
-                    />
-                  </FormControl>
-                  <FormDescription>
-                    The prompt to send to the AI. Use {"{{variables}}"} for
-                    simple values or {"{{json variable}}"} to stringify objects
-                  </FormDescription>
-                  <FormMessage />
-                </FormItem>
-              )}
-            />
-            <DialogFooter className="mt-4">
-              <Button type="submit">Save</Button>
+                    <FormDescription className="space-y-2">
+                      <span>
+                        Use this variable to reference AI output:
+                      </span>
+
+                      <code
+                        className="
+                          inline-flex
+                          rounded-lg
+                          border
+                          border-sky-200
+                          bg-sky-50
+                          px-2 ml-1
+                          py-1.5
+                          font-mono
+                          text-xs
+                          text-sky-800
+                        "
+                      >
+                        {`{{${watchVariableName}.text}}`}
+                      </code>
+                    </FormDescription>
+
+                    <FormMessage />
+                  </FormItem>
+                )}
+              />
+            </div>
+
+            <div
+              className="
+                rounded-xl
+                border
+                border-emerald-200/40
+                bg-gradient-to-r
+                from-emerald-50/60
+                via-white
+                to-green-50/40
+                p-4
+              "
+            >
+              <FormField
+                control={form.control}
+                name="credentialId"
+                render={({ field }) => (
+                  <FormItem>
+                    <FormLabel>OpenAI Credential</FormLabel>
+
+                    <Select
+                      onValueChange={field.onChange}
+                      defaultValue={field.value}
+                      disabled={
+                        isLoadingCredentials ||
+                        !credentials?.length
+                      }
+                    >
+                      <FormControl>
+                        <SelectTrigger className="w-full bg-white">
+                          <SelectValue placeholder="Select a credential" />
+                        </SelectTrigger>
+                      </FormControl>
+
+                      <SelectContent>
+                        {credentials?.map((credential) => (
+                          <SelectItem
+                            key={credential.id}
+                            value={credential.id}
+                          >
+                            <div className="flex items-center gap-2">
+                              <Image
+                                src="/openai.svg"
+                                alt="OpenAI"
+                                width={16}
+                                height={16}
+                              />
+                              {credential.name}
+                            </div>
+                          </SelectItem>
+                        ))}
+                      </SelectContent>
+                    </Select>
+
+                    <FormMessage />
+                  </FormItem>
+                )}
+              />
+            </div>
+
+            <div
+              className="
+                rounded-xl
+                border
+                border-violet-200/40
+                bg-gradient-to-r
+                from-violet-50/50
+                via-white
+                to-fuchsia-50/40
+                p-4
+              "
+            >
+              <FormField
+                control={form.control}
+                name="systemPrompt"
+                render={({ field }) => (
+                  <FormItem>
+                    <FormLabel>
+                      System Prompt (Optional)
+                    </FormLabel>
+
+                    <FormControl>
+                      <Textarea
+                        placeholder="You are a helpful assistant."
+                        className="
+                          h-[80px]
+                          max-h-[120px]
+                          font-mono
+                          text-sm
+                          bg-white
+                        "
+                        {...field}
+                      />
+                    </FormControl>
+
+                    <FormDescription>
+                      Supports variables like
+                      {" {{variable}} "}
+                      and objects using
+                      {" {{json variable}}"}.
+                    </FormDescription>
+
+                    <FormMessage />
+                  </FormItem>
+                )}
+              />
+            </div>
+
+            <div
+              className="
+                rounded-xl
+                border
+                border-sky-200/40
+                bg-gradient-to-r
+                from-sky-50/50
+                via-white
+                to-cyan-50/40
+                p-4
+              "
+            >
+              <FormField
+                control={form.control}
+                name="userPrompt"
+                render={({ field }) => (
+                  <FormItem>
+                    <FormLabel>User Prompt</FormLabel>
+
+                    <FormControl>
+                      <Textarea
+                        placeholder="Summarize this text: {{json httpResponse.data}}"
+                        className="
+                          h-[80px]
+                          max-h-[120px]
+                          font-mono
+                          text-sm
+                          bg-white
+                        "
+                        {...field}
+                      />
+                    </FormControl>
+
+                    <FormDescription>
+                      The prompt sent to OpenAI. Use
+                      {" {{variables}} "}
+                      for simple values or
+                      {" {{json variable}} "}
+                      to stringify objects.
+                    </FormDescription>
+
+                    <FormMessage />
+                  </FormItem>
+                )}
+              />
+            </div>
+
+            <DialogFooter className="pt-2">
+              <Button
+                type="submit"
+                variant="workflow"
+                className="w-full"
+              >
+                Save Configuration
+              </Button>
             </DialogFooter>
           </form>
         </Form>

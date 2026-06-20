@@ -31,7 +31,7 @@ const buttonVariants = cva(
           "to-[var(--brand-cyan)]",
           "shadow-[0_8px_24px_rgba(37,99,235,0.18)]",
           "hover:shadow-[0_12px_34px_rgba(37,99,235,0.26)]",
-          "hover:-translate-y-0.5",
+          "hover:scale-[1.05]",
           "hover:brightness-105",
           "active:scale-[0.985]",
         ].join(" "),
@@ -44,7 +44,7 @@ const buttonVariants = cva(
           "to-teal-600",
           "shadow-[0_8px_24px_rgba(16,185,129,0.22)]",
           "hover:shadow-[0_12px_34px_rgba(16,185,129,0.32)]",
-          "hover:-translate-y-0.5",
+          "hover:scale-[1.05]",
           "hover:brightness-105",
           "active:scale-[0.985]",
         ].join(" "),
@@ -58,7 +58,7 @@ const buttonVariants = cva(
           "shadow-[0_8px_24px_rgba(16,185,129,0.08)]",
           "hover:border-emerald-300",
           "hover:shadow-[0_10px_30px_rgba(16,185,129,0.14)]",
-          "hover:-translate-y-0.5",
+          "hover:scale-[1.05]",
         ].join(" "),
         info: [
           "text-amber-800",
@@ -70,7 +70,7 @@ const buttonVariants = cva(
           "shadow-[0_8px_24px_rgba(245,158,11,0.08)]",
           "hover:border-amber-300",
           "hover:shadow-[0_10px_30px_rgba(245,158,11,0.14)]",
-          "hover:-translate-y-0.5",
+          "hover:scale-[1.05]",
         ].join(" "),
         warning: [
           "text-amber-900",
@@ -82,14 +82,14 @@ const buttonVariants = cva(
           "shadow-[0_8px_24px_rgba(245,158,11,0.10)]",
           "border-amber-400",
           "hover:shadow-[0_10px_30px_rgba(245,158,11,0.18)]",
-          "hover:-translate-y-0.5",
+          "hover:scale-[1.05]",
         ].join(" "),
         gradient: [
           "text-white",
           "bg-gradient-to-r from-[var(--brand-primary)] via-[var(--brand-secondary)] to-[var(--brand-cyan)]",
           "shadow-md shadow-[var(--brand-secondary)]/25",
           "hover:shadow-md hover:shadow-[var(--brand-cyan)]/35",
-          "hover:scale-[1.05] hover:-translate-y-0.5",
+          "hover:scale-[1.05]",
           "active:scale-[0.985]",
           "ring-1 ring-inset ring-white/20",
         ].join(" "),
@@ -98,7 +98,7 @@ const buttonVariants = cva(
           "text-white",
           "bg-gradient-to-r from-[var(--brand-primary)] to-[var(--brand-secondary)]",
           "shadow-lg shadow-[var(--brand-primary)]/20",
-          "hover:scale-[1.05] hover:-translate-y-0.5",
+          "hover:scale-[1.05] ",
           "hover:shadow-[var(--brand-primary)]/35",
           "active:scale-[0.985]",
           "before:absolute before:inset-0 before:-translate-x-full before:rounded-[inherit]",
@@ -118,7 +118,7 @@ const buttonVariants = cva(
           "ring-1 ring-inset ring-white/15",
           "shadow-[0_8px_24px_rgba(37,99,235,0.22)]",
           "hover:shadow-[0_12px_32px_rgba(37,99,235,0.30)]",
-          "hover:-translate-y-0.5",
+          "hover:scale-[1.05]",
         ].join(" "),
 
         aiGlow: [
@@ -131,7 +131,7 @@ const buttonVariants = cva(
           "shadow-[0_0_24px_rgba(8,145,178,0.15)]",
           "hover:shadow-[0_0_34px_rgba(8,145,178,0.22)]",
           "hover:border-cyan-300",
-          "hover:-translate-y-0.5",
+          "hover:scale-[1.05]",
         ].join(" "),
 
         premium: [
@@ -140,7 +140,7 @@ const buttonVariants = cva(
           "bg-[image:var(--gradient-brand)]",
           "shadow-[0_8px_28px_rgba(109,40,217,0.20)]",
           "hover:shadow-[0_12px_40px_rgba(109,40,217,0.30)]",
-          "hover:-translate-y-0.5",
+          "hover:scale-[1.05]",
           "hover:brightness-105",
           "active:scale-[0.985]",
         ].join(" "),
@@ -151,7 +151,7 @@ const buttonVariants = cva(
           "ring-1 ring-inset ring-white/15",
           "shadow-[0_8px_24px_rgba(8,145,178,0.20)]",
           "hover:shadow-[0_12px_32px_rgba(8,145,178,0.30)]",
-          "hover:scale-[1.05] hover:-translate-y-0.5",
+          "hover:scale-[1.05]",
           "active:scale-[0.985]",
         ].join(" "),
 
@@ -161,7 +161,7 @@ const buttonVariants = cva(
           "ring-1 ring-inset ring-white/15",
           "shadow-[0_8px_24px_rgba(5,150,105,0.20)]",
           "hover:shadow-[0_12px_32px_rgba(5,150,105,0.30)]",
-          "hover:scale-[1.05] hover:-translate-y-0.5",
+          "hover:scale-[1.05]",
           "active:scale-[0.985]",
         ].join(" "),
 
@@ -174,7 +174,7 @@ const buttonVariants = cva(
           "to-[var(--brand-cyan-2)]",
           "shadow-[0_8px_24px_rgba(109,40,217,0.18)]",
           "hover:shadow-[0_12px_32px_rgba(109,40,217,0.28)]",
-          "hover:-translate-y-0.5",
+          "hover:scale-[1.05]",
         ].join(" "),
 
         brandDanger: [
@@ -184,7 +184,7 @@ const buttonVariants = cva(
           "shadow-lg shadow-red-500/20",
           "hover:bg-red-500",
           "hover:shadow-red-500/30",
-          "hover:scale-[1.05] hover:-translate-y-0.5",
+          "hover:scale-[1.05]",
           "active:scale-[0.985]",
         ].join(" "),
 
@@ -194,8 +194,8 @@ const buttonVariants = cva(
           "bg-[image:var(--gradient-brand)]",
           "shadow-[0_8px_30px_rgba(79,70,229,0.22)]",
           "hover:shadow-[0_12px_40px_rgba(37,99,235,0.30)]",
+          "hover:scale-[1.05]",
           "hover:brightness-105",
-          "hover:-translate-y-0.5",
           "active:scale-[0.985]",
         ].join(" "),
 
@@ -209,7 +209,7 @@ const buttonVariants = cva(
           "shadow-[0_8px_24px_rgba(37,99,235,0.08)]",
           "hover:border-sky-300/50",
           "hover:shadow-[0_12px_30px_rgba(37,99,235,0.12)]",
-          "hover:-translate-y-0.5",
+          "hover:scale-[1.05]",
         ].join(" "),
 
         glass: [
@@ -218,7 +218,7 @@ const buttonVariants = cva(
           "bg-[image:var(--glass-bg)]",
           "shadow-[0_8px_30px_var(--glass-shadow)]",
           "hover:bg-[image:var(--glass-bg-hover)]",
-          "hover:scale-[1.05] hover:-translate-y-0.5",
+          "hover:scale-[1.05]",
           "active:scale-[0.99]",
         ].join(" "),
 
@@ -227,7 +227,7 @@ const buttonVariants = cva(
           "border border-white/60",
           "bg-white/80",
           "shadow-lg shadow-black/5",
-          "hover:scale-[1.05] hover:-translate-y-0.5",
+          "hover:scale-[1.05]",
           "before:absolute before:inset-0 before:-translate-x-full before:rounded-[inherit]",
           "before:bg-gradient-to-r before:from-transparent before:via-white/40 before:to-transparent",
           "before:transition-transform before:duration-1000",
@@ -240,7 +240,7 @@ const buttonVariants = cva(
           "border border-[var(--glass-border)]",
           "bg-[image:var(--glass-bg)]",
           "shadow-xl shadow-[var(--brand-primary)]/5",
-          "hover:scale-[1.05] hover:-translate-y-0.5 hover:shadow-[var(--brand-primary)]/10",
+          "hover:scale-[1.05] hover:shadow-[var(--brand-primary)]/10",
         ].join(" "),
 
         outline: [
@@ -251,7 +251,7 @@ const buttonVariants = cva(
           "hover:bg-blue-50/80",
           "hover:border-blue-400",
           "hover:text-primary",
-          "hover:scale-[1.05] hover:-translate-y-0.5 hover:shadow-md",
+          "hover:scale-[1.05] hover:shadow-md",
           "transition-all",
         ].join(" "),
 
@@ -263,7 +263,7 @@ const buttonVariants = cva(
           "hover:bg-blue-50",
           "hover:border-blue-300",
           "hover:text-blue-700",
-          "hover:scale-[1.05] hover:-translate-y-0.5 hover:shadow-md",
+          "hover:scale-[1.05] hover:shadow-md",
           "active:scale-[0.985]",
         ].join(" "),
 
@@ -272,7 +272,7 @@ const buttonVariants = cva(
           "text-muted-foreground",
           "hover:bg-slate-200/80",
           "hover:text-foreground",
-          "hover:scale-[1.05] hover:-translate-y-0.5",
+          "hover:scale-[1.05]",
         ].join(" "),
         accent: [
           "text-white",
@@ -283,8 +283,8 @@ const buttonVariants = cva(
           "to-[var(--brand-cyan)]",
           "shadow-[0_8px_28px_rgba(79,70,229,0.18)]",
           "hover:shadow-[0_12px_38px_rgba(79,70,229,0.28)]",
+          "hover:scale-[1.05]",
           "hover:brightness-105",
-          "hover:-translate-y-0.5",
           "active:scale-[0.985]",
         ].join(" "),
 
@@ -294,7 +294,7 @@ const buttonVariants = cva(
           "border border-emerald-300",
           "shadow-sm",
           "hover:bg-emerald-200/80",
-          "hover:scale-[1.05] hover:-translate-y-0.5 hover:shadow-md",
+          "hover:scale-[1.05] hover:shadow-md",
         ].join(" "),
 
         destructive: [
@@ -303,7 +303,7 @@ const buttonVariants = cva(
           "border border-red-300",
           "shadow-sm",
           "hover:bg-red-100/90",
-          "hover:scale-[1.05] hover:-translate-y-0.5 hover:shadow-md",
+          "hover:scale-[1.05] hover:shadow-md",
         ].join(" "),
 
         dangerGlass: [
@@ -312,7 +312,7 @@ const buttonVariants = cva(
           "bg-red-50/90",
           "shadow-[0_8px_20px_rgba(239,68,68,0.08)]",
           "hover:bg-red-100/80",
-          "hover:scale-[1.05] hover:-translate-y-0.5",
+          "hover:scale-[1.05]",
         ].join(" "),
 
         glow: [
@@ -322,7 +322,7 @@ const buttonVariants = cva(
           "shadow-[0_0_24px_rgba(37,99,235,0.14)]",
           "hover:bg-gradient-to-r hover:from-blue-100 hover:to-cyan-100",
           "hover:shadow-[0_0_34px_rgba(37,99,235,0.20)]",
-          "hover:scale-[1.05] hover:-translate-y-0.5",
+          "hover:scale-[1.05]",
         ].join(" "),
 
         signal: [
@@ -331,7 +331,7 @@ const buttonVariants = cva(
           "bg-gradient-to-r from-cyan-50 via-sky-50 to-blue-50",
           "shadow-[0_0_15px_rgba(6,182,212,0.15)]",
           "hover:shadow-[0_0_25px_rgba(6,182,212,0.25)]",
-          "hover:scale-[1.05] hover:-translate-y-0.5",
+          "hover:scale-[1.05]",
         ].join(" "),
 
         signalSoft: [
@@ -341,7 +341,7 @@ const buttonVariants = cva(
           "shadow-[0_4px_16px_rgba(8,145,178,0.08)]",
           "hover:border-cyan-300",
           "hover:bg-cyan-100/70",
-          "hover:-translate-y-0.5",
+          "hover:scale-[1.05]",
         ].join(" "),
 
         workflowSoft: [
@@ -353,7 +353,7 @@ const buttonVariants = cva(
           "to-cyan-50",
           "shadow-[0_6px_20px_rgba(37,99,235,0.08)]",
           "hover:border-sky-300",
-          "hover:-translate-y-0.5",
+          "hover:scale-[1.05]",
         ].join(" "),
 
         floating: [
@@ -362,7 +362,7 @@ const buttonVariants = cva(
           "border border-white/60",
           "bg-white/95",
           "shadow-xl shadow-blue-500/10",
-          "hover:scale-[1.1] hover:-translate-y-1 hover:shadow-2xl hover:shadow-blue-500/20",
+          "hover:scale-[1.1] hover:shadow-2xl hover:shadow-blue-500/20",
           "active:scale-[0.95]",
         ].join(" "),
 
@@ -422,6 +422,7 @@ const buttonVariants = cva(
           "shadow-[0_8px_24px_rgba(37,99,235,0.08)]",
           "hover:border-sky-300",
           "hover:shadow-[0_10px_30px_rgba(37,99,235,0.12)]",
+          "hover:scale-[1.05]",
         ].join(" "),
 
         dashboard: [
@@ -432,7 +433,7 @@ const buttonVariants = cva(
           "hover:border-blue-200",
           "hover:bg-blue-50/30",
           "hover:text-blue-700",
-          "hover:-translate-y-0.5",
+          "hover:scale-[1.05]",
         ].join(" "),
 
         ghostBrand: [
@@ -443,7 +444,20 @@ const buttonVariants = cva(
           "hover:text-blue-700",
           "hover:border-blue-200/30",
         ].join(" "),
+        addNode: [
+          "text-sky-700",
+          "border border-2 border-sky-300",
+          "bg-white",
 
+          "hover:bg-sky-50",
+          "hover:border-sky-400",
+
+          "hover:scale-[1.08]",
+          "active:scale-[0.98]",
+
+          "shadow-sm",
+          "hover:shadow-md",
+        ].join(" "),
         upgrade: [
           "text-sky-800",
           "border border-sky-200/40",
@@ -454,7 +468,7 @@ const buttonVariants = cva(
           "shadow-[0_6px_24px_rgba(37,99,235,0.08)]",
           "hover:border-sky-300/50",
           "hover:shadow-[0_10px_30px_rgba(37,99,235,0.14)]",
-          "hover:-translate-y-0.5",
+          "hover:scale-[1.05]",
           "active:scale-[0.985]",
         ].join(" "),
       },

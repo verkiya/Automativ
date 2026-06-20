@@ -3,21 +3,21 @@
 import { useReactFlow, type Node, type NodeProps } from "@xyflow/react";
 import { memo, useState } from "react";
 import { BaseExecutionNode } from "../base-execution-node";
-import { OpenAiDialog, OpenAiFormValues } from "./dialog";
+import { OpenAIDialog, OpenAIFormValues } from "./dialog";
 import { useNodeStatus } from "../../hooks/use-node-status";
-import { fetchOpenAiRealtimeToken } from "./actions";
+import { fetchOpenAIRealtimeToken } from "./actions";
 import { OPENAI_CHANNEL_NAME } from "@/inngest/channels/openai";
 
-type OpenAiNodeData = {
+type OpenAINodeData = {
   variableName?: string;
   credentialId?: string;
   systemPrompt?: string;
   userPrompt?: string;
 };
 
-type OpenAiNodeType = Node<OpenAiNodeData>;
+type OpenAINodeType = Node<OpenAINodeData>;
 
-export const OpenAiNode = memo((props: NodeProps<OpenAiNodeType>) => {
+export const OpenAINode = memo((props: NodeProps<OpenAINodeType>) => {
   const [dialogOpen, setDialogOpen] = useState(false);
   const { setNodes } = useReactFlow();
 
@@ -25,12 +25,12 @@ export const OpenAiNode = memo((props: NodeProps<OpenAiNodeType>) => {
     nodeId: props.id,
     channel: OPENAI_CHANNEL_NAME,
     topic: "status",
-    refreshToken: fetchOpenAiRealtimeToken,
+    refreshToken: fetchOpenAIRealtimeToken,
   });
 
   const handleOpenSettings = () => setDialogOpen(true);
 
-  const handleSubmit = (values: OpenAiFormValues) => {
+  const handleSubmit = (values: OpenAIFormValues) => {
     setNodes((nodes) =>
       nodes.map((node) => {
         if (node.id === props.id) {
@@ -54,7 +54,7 @@ export const OpenAiNode = memo((props: NodeProps<OpenAiNodeType>) => {
 
   return (
     <>
-      <OpenAiDialog
+      <OpenAIDialog
         open={dialogOpen}
         onOpenChange={setDialogOpen}
         onSubmit={handleSubmit}
@@ -64,7 +64,7 @@ export const OpenAiNode = memo((props: NodeProps<OpenAiNodeType>) => {
         {...props}
         id={props.id}
         icon="/openai.svg"
-        name="OpenAi"
+        name="OpenAI"
         status={nodeStatus}
         description={description}
         onSettings={handleOpenSettings}
@@ -74,4 +74,4 @@ export const OpenAiNode = memo((props: NodeProps<OpenAiNodeType>) => {
   );
 });
 
-OpenAiNode.displayName = "OpenAiNode";
+OpenAINode.displayName = "OpenAINode";

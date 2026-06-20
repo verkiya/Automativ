@@ -6,7 +6,6 @@ import type { NodeExecutor } from "@/features/executions/types";
 import { anthropicChannel } from "@/inngest/channels/anthropic";
 import prisma from "@/lib/db";
 import { decrypt } from "@/lib/encryption";
-import { ANTHROPIC_MODEL } from "@/lib/ai-models";
 
 Handlebars.registerHelper("json", (context) => {
   const jsonString = JSON.stringify(context, null, 2);
@@ -100,7 +99,7 @@ export const anthropicExecutor: NodeExecutor<AnthropicData> = async ({
       "anthropic-generate-text",
       generateText,
       {
-        model: anthropic(ANTHROPIC_MODEL),
+        model: anthropic("claude-haiku-4-5"),
         system: systemPrompt,
         prompt: userPrompt,
         experimental_telemetry: {

@@ -116,12 +116,11 @@ export const HttpRequestDialog = ({
       >
         <DialogHeader className="space-y-2">
           <div>
-            <DialogTitle className="text-xl flex  justify-center font-semibold text-slate-900">
-              HTTP Request{" "}
-              <GlobeIcon className="size-5 mt-1 ml-1 text-sky-600" />
+            <DialogTitle className="flex items-center gap-2">
+              <GlobeIcon width={18} height={18} /> HTTP Request{" "}
             </DialogTitle>
 
-            <DialogDescription className="mt-1 flex justify-center text-slate-500">
+            <DialogDescription className="mt-2 flex  text-slate-500">
               Configure an API request and expose the response as a workflow
               variable.
             </DialogDescription>
@@ -308,7 +307,9 @@ export const HttpRequestDialog = ({
                           p-4
                         "
                       >
-                        <FormLabel>Request Body (Supports JSON with template variables)</FormLabel>
+                        <FormLabel>
+                          Request Body (Supports JSON with template variables)
+                        </FormLabel>
 
                         <FormControl>
                           <Textarea
@@ -316,8 +317,9 @@ export const HttpRequestDialog = ({
                               '{\n  "userId": "{{httpResponse.data.id}}",\n  "name": "{{httpResponse.data.name}}",\n  "items": "{{httpResponse.data.items}}"\n}'
                             }
                             className="
-                              min-h-[140px]
+                              min-h-[160px]
                               border-sky-100
+                              max-h-[175px]
                               bg-white
                               font-mono
                               text-sm
@@ -327,15 +329,18 @@ export const HttpRequestDialog = ({
                           />
                         </FormControl>
 
-               <FormDescription>
-  <span className="block">
-    Use {"{{variables}}"} or {"{{json variable}}"} to stringify objects. "json" is a reserved keyword; use before the variable.
-  </span>
+                        <FormDescription>
+                          <span className="block">
+                            Use {"{{variables}}"} or {"{{json variable}}"} to
+                            stringify objects. "json" is a reserved keyword; use
+                            before the variable.
+                          </span>
 
-  <span className="mt-1 block">
-    Empty request body passes an empty object {"{}"} by default.
-  </span>
-</FormDescription>
+                          <span className="mt-1 block">
+                            Empty request body passes an empty object {"{}"} by
+                            default.
+                          </span>
+                        </FormDescription>
 
                         <FormMessage />
                       </FormItem>

@@ -6,6 +6,8 @@ import type { NodeExecutor } from "@/features/executions/types";
 import { geminiChannel } from "@/inngest/channels/gemini";
 import prisma from "@/lib/db";
 import { decrypt } from "@/lib/encryption";
+import { selectGeminiModel } from "./model-selector";
+import chalk from "chalk";
 
 Handlebars.registerHelper("json", (context) => {
   const jsonString = JSON.stringify(context, null, 2);
@@ -93,10 +95,15 @@ export const geminiExecutor: NodeExecutor<GeminiData> = async ({
   const google = createGoogleGenerativeAI({
     apiKey: decrypt(credential.value),
   });
-
+  const selectedGeminiModel = selectGeminiModel();
+  console.log(
+    chalk.bold.black.bgBlueBright(
+      `[Gemini] Selected model: ${selectedGeminiModel}`,
+    ),
+  );
   try {
     const { steps } = await step.ai.wrap("gemini-generate-text", generateText, {
-      model: google("gemini-2.5-flash"),
+      model: google(selectedGeminiModel),
       system: systemPrompt,
       prompt: userPrompt,
       experimental_telemetry: {

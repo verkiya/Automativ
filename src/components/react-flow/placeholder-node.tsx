@@ -30,7 +30,7 @@ export function PlaceholderNode({ children, onClick }: PlaceholderNodeProps) {
     from-sky-50/80
     via-white
     to-cyan-50/80
-    p-5
+    p-4
 
     text-sky-600
     shadow-[0_8px_24px_rgba(37,99,235,0.06)]

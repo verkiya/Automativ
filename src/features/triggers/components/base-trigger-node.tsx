@@ -58,12 +58,12 @@ export const BaseTriggerNode = memo(
         <NodeStatusIndicator
           status={status}
           variant="border"
-          className="rounded-l-2xl"
+          className="rounded-r-sm"
         >
           <BaseNode
             status={status}
             onDoubleClick={onDoubleClick}
-            className="rounded-l-2xl relative group "
+            className="rounded-r-sm relative group"
           >
             <BaseNodeContent>
               {typeof Icon === "string" ? (

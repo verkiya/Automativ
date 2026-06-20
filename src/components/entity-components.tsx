@@ -114,7 +114,7 @@ export const EntityHeader = ({
       )}
 
       {newButtonHref && !onNew && (
-        <Button size="lg" variant="gradient" asChild>
+        <Button size="lg" variant="default" asChild>
           <Link href={newButtonHref} prefetch>
             <PlusIcon className="size-4" />
             {newButtonLabel}
@@ -172,16 +172,17 @@ export const EntitySearch = ({
       to-cyan-500/5
     "
       />
-      <SearchIcon className="pointer-events-none z-10 size-4 absolute left-3 top-1/2 -translate-y-1/2 text-blue-700/50" />
+      <SearchIcon className="pointer-events-none z-10 size-4 absolute left-3 top-1/2 -translate-y-1/2 text-sky-600" />
       <Input
         className="
   relative
   w-full
-  border-blue-200/40
+  border-sky-100
   bg-white/95
   pl-8
   shadow-sm
-  focus-visible:border-blue-300
+  focus-visible:border-sky-300
+  focus-visible:ring-sky-500
 "
         placeholder={placeholder}
         value={value}
@@ -419,10 +420,12 @@ export const EmptyView = ({ message, onNew }: EmptyViewProps) => {
         {!!onNew && (
           <Button
             onClick={onNew}
+            size="lg"
             variant="shimmer"
             className="
               mt-7
-              w-[110px]
+          flex items-center
+          transition-all transition-300 ease-in-out
               shadow-[0_12px_35px_rgba(79,70,229,0.18)]
             "
           >

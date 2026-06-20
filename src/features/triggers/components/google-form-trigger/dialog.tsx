@@ -16,6 +16,7 @@ import { toast } from "@/components/ui/sonner";
 import { generateGoogleFormScript } from "./utils";
 import { CheckIcon } from "lucide-react";
 import { useState } from "react";
+import Image from "next/image";
 
 interface Props {
   open: boolean;
@@ -77,7 +78,8 @@ sm:max-w-lg
     "
       >
         <DialogHeader className="space-y-1">
-          <DialogTitle className="text-lg font-semibold">
+          <DialogTitle className="flex items-center gap-2">
+             <Image src="/googleform.svg" alt="Google Form" width={18} height={18} />
             Google Form Trigger
           </DialogTitle>
 

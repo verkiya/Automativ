@@ -117,7 +117,7 @@ function NodeCard({
         border-white/60
         bg-white/95
         p-3
-      
+
         transition-all
         duration-200 ease-in-out
 

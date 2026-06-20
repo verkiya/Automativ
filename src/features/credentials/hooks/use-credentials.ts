@@ -51,7 +51,7 @@ export const useRemoveCredential = () => {
   return useMutation(
     trpc.credentials.remove.mutationOptions({
       onSuccess: (data) => {
-        toast.success(`Credential "${data.name}" removed`);
+        toast.info(`Credential "${data.name}" removed`);
         queryClient.invalidateQueries(
           trpc.credentials.getMany.queryOptions({}),
         );
@@ -81,7 +81,7 @@ export const useUpdateCredential = () => {
   return useMutation(
     trpc.credentials.update.mutationOptions({
       onSuccess: (data) => {
-        toast.success(`Credential "${data.name}" saved`);
+        toast.info(`Credential "${data.name}" saved`);
         queryClient.invalidateQueries(
           trpc.credentials.getMany.queryOptions({}),
         );
