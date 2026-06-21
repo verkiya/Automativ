@@ -175,8 +175,8 @@ export const GeminiDialog = ({
 
                     <FormDescription className="space-y-2">
                       <span>Use this variable to reference AI output:</span>
-                      <div className="flex items-start gap-2 mt-2">
-                        <div
+                      <span className="flex items-start gap-2 mt-2">
+                        <span
                           className="
                             inline-flex
                             max-w-full
@@ -201,7 +201,7 @@ export const GeminiDialog = ({
                           >
                             {variableReference}
                           </code>
-                        </div>
+                        </span>
 
                         <Button
                           type="button"
@@ -216,7 +216,7 @@ export const GeminiDialog = ({
                             <CopyIcon className="size-3" />
                           )}
                         </Button>
-                      </div>
+                      </span>
                     </FormDescription>
 
                     <FormMessage />

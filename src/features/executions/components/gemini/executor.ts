@@ -95,12 +95,15 @@ export const geminiExecutor: NodeExecutor<GeminiData> = async ({
   const google = createGoogleGenerativeAI({
     apiKey: decrypt(credential.value),
   });
-  const selectedGeminiModel = selectGeminiModel();
-  console.log(
-    chalk.bold.black.bgBlueBright(
-      `[Gemini] Selected model: ${selectedGeminiModel}`,
-    ),
-  );
+  const selectedGeminiModel = await step.run("select-gemini-model", () => {
+    const model = selectGeminiModel();
+    console.log(
+      chalk.bold.black.bgBlueBright(
+        `[Gemini] Selected model: ${model}`,
+      ),
+    );
+    return model;
+  });
   try {
     const { steps } = await step.ai.wrap("gemini-generate-text", generateText, {
       model: google(selectedGeminiModel),
