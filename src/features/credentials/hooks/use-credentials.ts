@@ -8,6 +8,7 @@ import {
 import { toast } from "@/components/ui/sonner";
 import { useCredentialsParams } from "./use-credentials-params";
 import { CredentialType } from "@/generated/prisma";
+import { useRouter } from "next/navigation";
 
 /**
  * Hook to fetch all credentials using suspense
@@ -51,7 +52,7 @@ export const useRemoveCredential = () => {
   return useMutation(
     trpc.credentials.remove.mutationOptions({
       onSuccess: (data) => {
-        toast.info(`Credential "${data.name}" removed`);
+        toast.success(`Credential "${data.name}" removed`);
         queryClient.invalidateQueries(
           trpc.credentials.getMany.queryOptions({}),
         );
@@ -77,17 +78,18 @@ export const useSuspenseCredential = (id: string) => {
 export const useUpdateCredential = () => {
   const queryClient = useQueryClient();
   const trpc = useTRPC();
-
+  const router = useRouter();
   return useMutation(
     trpc.credentials.update.mutationOptions({
       onSuccess: (data) => {
-        toast.info(`Credential "${data.name}" saved`);
+        toast.success(`Credential "${data.name}" updated`);
         queryClient.invalidateQueries(
           trpc.credentials.getMany.queryOptions({}),
         );
         queryClient.invalidateQueries(
           trpc.credentials.getOne.queryOptions({ id: data.id }),
         );
+        router.push("/credentials");
       },
       onError: (error) => {
         toast.error(`Failed to save credential: ${error.message}`);
@@ -103,4 +105,3 @@ export const useCredentialsByType = (type: CredentialType) => {
   const trpc = useTRPC();
   return useQuery(trpc.credentials.getByType.queryOptions({ type }));
 };
-

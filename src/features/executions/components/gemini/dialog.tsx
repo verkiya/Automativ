@@ -31,7 +31,8 @@ import { useCredentialsByType } from "@/features/credentials/hooks/use-credentia
 import { CredentialType } from "@/generated/prisma";
 import { zodResolver } from "@hookform/resolvers/zod";
 import Image from "next/image";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
+import { CheckIcon, CopyIcon } from "lucide-react";
 import { useForm } from "react-hook-form";
 import z from "zod";
 
@@ -88,6 +89,22 @@ export const GeminiDialog = ({
   }, [open, defaultValues, form]);
 
   const watchVariableName = form.watch("variableName") || "myGemini";
+  const [copied, setCopied] = useState(false);
+
+  const variableReference = `{{${watchVariableName}.text}}`;
+
+  const handleCopy = async (e: React.MouseEvent<HTMLButtonElement>) => {
+    e.preventDefault();
+    e.stopPropagation();
+
+    await navigator.clipboard.writeText(variableReference);
+
+    setCopied(true);
+
+    setTimeout(() => {
+      setCopied(false);
+    }, 2000);
+  };
 
   const handleSubmit = (values: GeminiFormValues) => {
     onSubmit(values);
@@ -157,26 +174,49 @@ export const GeminiDialog = ({
                     </FormControl>
 
                     <FormDescription className="space-y-2">
-                      <span>
-                        Use this variable to reference AI output:
-                      </span>
+                      <span>Use this variable to reference AI output:</span>
+                      <div className="flex items-start gap-2 mt-2">
+                        <div
+                          className="
+                            inline-flex
+                            max-w-full
+                            rounded-xl
+                            border
+                            border-sky-200/60
+                            bg-gradient-to-r
+                            from-sky-50
+                            via-white
+                            to-cyan-50
+                            px-3
+                            py-1.5
+                          "
+                        >
+                          <code
+                            className="
+                              break-all
+                              font-mono
+                              text-xs
+                              text-sky-800
+                            "
+                          >
+                            {variableReference}
+                          </code>
+                        </div>
 
-                      <code
-                        className="
-                          inline-flex
-                          rounded-lg
-                          border
-                          border-sky-200
-                          bg-sky-50
-                          px-2 ml-1
-                          py-1.5
-                          font-mono
-                          text-xs
-                          text-sky-800
-                        "
-                      >
-                        {`{{${watchVariableName}.text}}`}
-                      </code>
+                        <Button
+                          type="button"
+                          size="icon-sm"
+                          onClick={handleCopy}
+                          variant="workflowSoft"
+                          className="shrink-0"
+                        >
+                          {copied ? (
+                            <CheckIcon className="size-3 text-emerald-500" />
+                          ) : (
+                            <CopyIcon className="size-3" />
+                          )}
+                        </Button>
+                      </div>
                     </FormDescription>
 
                     <FormMessage />
