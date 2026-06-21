@@ -22,7 +22,8 @@ import { Textarea } from "@/components/ui/textarea";
 import z from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
+import { CheckIcon, CopyIcon } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { useCredentialsByType } from "@/features/credentials/hooks/use-credentials";
 import { CredentialType } from "@/generated/prisma";
@@ -89,6 +90,22 @@ export const OpenAIDialog = ({
   }, [open, defaultValues, form]);
 
   const watchVariableName = form.watch("variableName") || "myOpenAI";
+  const [copied, setCopied] = useState(false);
+
+  const variableReference = `{{${watchVariableName}.text}}`;
+
+  const handleCopy = async (e: React.MouseEvent<HTMLButtonElement>) => {
+    e.preventDefault();
+    e.stopPropagation();
+
+    await navigator.clipboard.writeText(variableReference);
+
+    setCopied(true);
+
+    setTimeout(() => {
+      setCopied(false);
+    }, 2000);
+  };
 
   const handleSubmit = (values: z.infer<typeof formSchema>) => {
     onSubmit(values);
@@ -156,26 +173,49 @@ export const OpenAIDialog = ({
                     </FormControl>
 
                     <FormDescription className="space-y-2">
-                      <span>
-                        Use this variable to reference AI output:
-                      </span>
+                      <span>Use this variable to reference AI output:</span>
+                      <span className="flex items-start gap-2 mt-2">
+                        <span
+                          className="
+                            inline-flex
+                            max-w-full
+                            rounded-xl
+                            border
+                            border-sky-200/60
+                            bg-gradient-to-r
+                            from-sky-50
+                            via-white
+                            to-cyan-50
+                            px-3
+                            py-1.5
+                          "
+                        >
+                          <code
+                            className="
+                              break-all
+                              font-mono
+                              text-xs
+                              text-sky-800
+                            "
+                          >
+                            {variableReference}
+                          </code>
+                        </span>
 
-                      <code
-                        className="
-                          inline-flex
-                          rounded-lg
-                          border
-                          border-sky-200
-                          bg-sky-50
-                          px-2 ml-1
-                          py-1.5
-                          font-mono
-                          text-xs
-                          text-sky-800
-                        "
-                      >
-                        {`{{${watchVariableName}.text}}`}
-                      </code>
+                        <Button
+                          type="button"
+                          size="icon-sm"
+                          onClick={handleCopy}
+                          variant="workflowSoft"
+                          className="shrink-0"
+                        >
+                          {copied ? (
+                            <CheckIcon className="size-3 text-emerald-500" />
+                          ) : (
+                            <CopyIcon className="size-3" />
+                          )}
+                        </Button>
+                      </span>
                     </FormDescription>
 
                     <FormMessage />
