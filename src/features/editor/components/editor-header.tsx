@@ -1,7 +1,7 @@
 "use client";
 import { Button } from "@/components/ui/button";
 import { SidebarTrigger } from "@/components/ui/sidebar";
-import { Loader2Icon, SaveIcon, TrashIcon } from "lucide-react";
+import { HistoryIcon, Loader2Icon, SaveIcon, TrashIcon } from "lucide-react";
 import {
   Breadcrumb,
   BreadcrumbItem,
@@ -57,15 +57,38 @@ export const EditorSaveButton = ({ workflowId }: { workflowId: string }) => {
   };
   return (
     <div className="ml-auto flex space-x-2">
+      {" "}
       <Button
+        asChild
         size="default"
         variant="workflowSoft"
+        className="
+  border-sky-200
+  bg-gradient-to-r
+  from-sky-50
+  to-sky-50
+  text-sky-700
+  hover:border-sky-300
+"
+      >
+        <Link prefetch href={`/executions?workflowId=${workflowId}`}>
+          <HistoryIcon className="size-4" />
+          Workflow&apos;s Executions
+        </Link>
+      </Button>
+      <Button
+        size="default"
         onClick={handleSave}
         disabled={saveWorkflow.isPending}
+        variant="workflowSoft"
         className="
-    w-[140px]
-
-  "
+  border-emerald-400
+  bg-gradient-to-r
+  from-emerald-50
+  to-green-50
+  text-emerald-700
+  hover:border-emerald-300
+"
       >
         {saveWorkflow.isPending ? (
           <>
@@ -294,48 +317,49 @@ mr-2
 
             <div className="h-px bg-gradient-to-r from-transparent via-slate-200 to-transparent" />
 
-           {/* Selection */}
-<div className="space-y-3">
-  <p className="text-xs font-semibold uppercase tracking-wide text-slate-500">
-    Selection & Editing
-  </p>
+            {/* Selection */}
+            <div className="space-y-3">
+              <p className="text-xs font-semibold uppercase tracking-wide text-slate-500">
+                Selection & Editing
+              </p>
 
-  <div className="space-y-3 text-sm text-slate-600">
-    <div className="flex items-center gap-3">
-      <MousePointer2Icon className="size-4 shrink-0 text-sky-600" />
-      <span>Drag nodes to reposition them</span>
-    </div>
+              <div className="space-y-3 text-sm text-slate-600">
+                <div className="flex items-center gap-3">
+                  <MousePointer2Icon className="size-4 shrink-0 text-sky-600" />
+                  <span>Drag nodes to reposition them</span>
+                </div>
 
-    <div className="flex items-center gap-3">
-      <MousePointer2Icon className="size-4 shrink-0 text-sky-600" />
-      <span>Click a connection line to select it</span>
-    </div>
+                <div className="flex items-center gap-3">
+                  <MousePointer2Icon className="size-4 shrink-0 text-sky-600" />
+                  <span>Click a connection line to select it</span>
+                </div>
 
-    <div className="flex items-center gap-3">
-      <kbd className="rounded-lg border border-slate-200 bg-white px-2 py-1 text-xs font-medium shadow-sm">
-        Shift
-      </kbd>
-      <span>Drag to create a selection box</span>
-    </div>
+                <div className="flex items-center gap-3">
+                  <kbd className="rounded-lg border border-slate-200 bg-white px-2 py-1 text-xs font-medium shadow-sm">
+                    Shift
+                  </kbd>
+                  <span>Drag to create a selection box</span>
+                </div>
 
-    <div className="flex items-center gap-3">
-      <kbd className="rounded-lg border border-slate-200 bg-white px-2 py-1 text-xs font-medium shadow-sm">
-        Ctrl
-      </kbd>or<kbd className="rounded-lg border border-slate-200 bg-white px-2 py-1 text-xs font-medium shadow-sm">
-        ⌘
-      </kbd>
-      <span>Select multiple nodes on Windows/Linux/macOS</span>
-    </div>
+                <div className="flex items-center gap-3">
+                  <kbd className="rounded-lg border border-slate-200 bg-white px-2 py-1 text-xs font-medium shadow-sm">
+                    Ctrl
+                  </kbd>
+                  or
+                  <kbd className="rounded-lg border border-slate-200 bg-white px-2 py-1 text-xs font-medium shadow-sm">
+                    ⌘
+                  </kbd>
+                  <span>Select multiple nodes on Windows/Linux/macOS</span>
+                </div>
 
-
-    <div className="flex items-center gap-3">
-      <kbd className="rounded-lg border border-slate-200 bg-white px-2 py-1 text-xs font-medium shadow-sm">
-        Del
-      </kbd>
-      <span>Delete selected nodes or connections</span>
-    </div>
-  </div>
-</div>
+                <div className="flex items-center gap-3">
+                  <kbd className="rounded-lg border border-slate-200 bg-white px-2 py-1 text-xs font-medium shadow-sm">
+                    Del
+                  </kbd>
+                  <span>Delete selected nodes or connections</span>
+                </div>
+              </div>
+            </div>
 
             <div className="h-px bg-gradient-to-r from-transparent via-slate-200 to-transparent" />
 

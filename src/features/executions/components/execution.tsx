@@ -5,6 +5,7 @@ import {
   CheckCircle2Icon,
   ClockIcon,
   Loader2Icon,
+  WorkflowIcon,
   XCircleIcon,
 } from "lucide-react";
 import { formatDistanceToNow } from "date-fns";
@@ -55,10 +56,31 @@ export const ExecutionView = ({ executionId }: { executionId: string }) => {
     : null;
 
   return (
-    <Card className="shadow-none">
+    <Card className="h-full shadow-none">
       <CardHeader>
-        <div className="flex items-center gap-3">
-          {getStatusIcon(execution.status)}
+        <div className="flex items-center gap-4">
+          <div
+            className={`
+              size-12
+              rounded-xl
+              flex
+              items-center
+              justify-center
+              border
+              ${
+                execution.status === ExecutionStatus.SUCCESS
+                  ? "bg-green-50 border-green-200"
+                  : execution.status === ExecutionStatus.FAILED
+                    ? "bg-red-50 border-red-200"
+                    : execution.status === ExecutionStatus.RUNNING
+                      ? "bg-sky-50 border-sky-200"
+                      : "bg-slate-50 border-slate-200"
+              }
+            `}
+          >
+            {getStatusIcon(execution.status)}
+          </div>
+
           <div>
             <CardTitle>{formatStatus(execution.status)}</CardTitle>
             <CardDescription>
@@ -67,21 +89,36 @@ export const ExecutionView = ({ executionId }: { executionId: string }) => {
           </div>
         </div>
       </CardHeader>
-      <CardContent className="space-y-4">
-        <div className="grid grid-cols-2 gap-4">
-          <div>
+
+      <CardContent className="space-y-4 flex flex-col">
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-5 rounded-xl border bg-card p-4">
+          <div className="space-y-1">
             <p className="text-sm font-medium text-muted-foreground">
               Workflow
             </p>
-            <Link
-              prefetch
-              className="text-sm hover:underline text-primary"
-              href={`/workflows/${execution.workflowId}`}
-            >
-              {execution.workflow.name}
-            </Link>
-          </div>
 
+            <Button
+              asChild
+              variant="outline"
+              size="sm"
+              className="
+      w-fit
+      gap-2
+      rounded-lg
+      border-sky-200/60
+      bg-gradient-to-r
+      from-sky-50
+      to-cyan-50
+      hover:scale-[1.02]
+      transition-all
+    "
+            >
+              <Link prefetch href={`/workflows/${execution.workflowId}`}>
+                <WorkflowIcon className="size-4" />
+                {execution.workflow.name}
+              </Link>
+            </Button>
+          </div>
           <div>
             <p className="text-sm font-medium text-muted-foreground">Status</p>
             <p className="text-sm">{formatStatus(execution.status)}</p>
@@ -89,8 +126,11 @@ export const ExecutionView = ({ executionId }: { executionId: string }) => {
 
           <div>
             <p className="text-sm font-medium text-muted-foreground">Started</p>
+
             <p className="text-sm">
-              {formatDistanceToNow(execution.startedAt, { addSuffix: true })}
+              {formatDistanceToNow(execution.startedAt, {
+                addSuffix: true,
+              })}
             </p>
           </div>
 
@@ -99,6 +139,7 @@ export const ExecutionView = ({ executionId }: { executionId: string }) => {
               <p className="text-sm font-medium text-muted-foreground">
                 Completed
               </p>
+
               <p className="text-sm">
                 {formatDistanceToNow(execution.completedAt, {
                   addSuffix: true,
@@ -112,22 +153,28 @@ export const ExecutionView = ({ executionId }: { executionId: string }) => {
               <p className="text-sm font-medium text-muted-foreground">
                 Duration
               </p>
+
               <p className="text-sm">{duration}s</p>
             </div>
           ) : null}
 
           <div>
             <p className="text-sm font-medium text-muted-foreground">
-              Event ID
+              Inngest Event ID
             </p>
-            <p className="text-sm">{execution.inngestEventId}</p>
+
+            <p className="font-mono text-xs break-all">
+              {execution.inngestEventId}
+            </p>
           </div>
         </div>
+
         {execution.error && (
-          <div className="mt-6 p-4 bg-red-50 rounded-md space-y-3">
+          <div className="mt-6 rounded-xl border border-red-200 bg-red-50 p-4 space-y-3">
             <div>
-              <p className="text-sm font-medium text-red-900 mb-2">Error</p>
-              <p className="text-sm text-red-800 font-mono">
+              <p className="mb-2 text-sm font-medium text-red-900">Error</p>
+
+              <p className="font-mono text-sm text-red-800 break-words">
                 {execution.error}
               </p>
             </div>
@@ -139,15 +186,28 @@ export const ExecutionView = ({ executionId }: { executionId: string }) => {
               >
                 <CollapsibleTrigger asChild>
                   <Button
-                    variant="ghost"
+                    variant="destructive"
                     size="sm"
                     className="text-red-900 hover:bg-red-100"
                   >
                     {showStackTrace ? "Hide stack trace" : "Show stack trace"}
                   </Button>
                 </CollapsibleTrigger>
+
                 <CollapsibleContent>
-                  <pre className="text-xs font-mono text-red-800 overflow-auto mt-2 p-2 bg-red-100">
+                  <pre
+                    className="
+                      mt-2
+                      max-h-[300px]
+                      overflow-auto
+                      rounded-lg
+                      bg-red-100
+                      p-3
+                      text-xs
+                      font-mono
+                      text-red-800
+                    "
+                  >
                     {execution.errorStack}
                   </pre>
                 </CollapsibleContent>
@@ -157,11 +217,16 @@ export const ExecutionView = ({ executionId }: { executionId: string }) => {
         )}
 
         {execution.output && (
-          <div className="mt-6 p-4 bg-muted rounded-md">
-            <p className="text-sm font-medium mb-2">Output</p>
-            <pre className="text-xs font-mono overflow-auto">
-              {JSON.stringify(execution.output, null, 2)}
-            </pre>
+          <div className="mt-6 rounded-xl border bg-muted/40">
+            <div className="border-b px-4 py-3">
+              <p className="text-sm font-medium">Output</p>
+            </div>
+
+            <div className="max-h-[425px] overflow-auto p-4">
+              <pre className="font-mono text-xs whitespace-pre-wrap break-words">
+                {JSON.stringify(execution.output, null, 2)}
+              </pre>
+            </div>
           </div>
         )}
       </CardContent>
