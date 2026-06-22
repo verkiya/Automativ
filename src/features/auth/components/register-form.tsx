@@ -76,7 +76,7 @@ export function RegisterForm() {
           router.push("/");
         },
         onError: () => {
-          toast.error("Something went wrong!");
+          toast.error("GitHub Oauth not working!");
         },
       },
     );
@@ -91,7 +91,7 @@ export function RegisterForm() {
           router.push("/");
         },
         onError: () => {
-          toast.error("Something went wrong!");
+          toast.error("Google Oauth not working!");
         },
       },
     );
@@ -204,7 +204,10 @@ export function RegisterForm() {
                 </div>
                 <div className="text-center text-sm">
                   Already have an account?{" "}
-                  <Link href="/login" className="underline font-semibold underline-offset-4">
+                  <Link
+                    href="/login"
+                    className="underline font-semibold underline-offset-4"
+                  >
                     Login
                   </Link>
                 </div>
@@ -216,4 +219,3 @@ export function RegisterForm() {
     </div>
   );
 }
-

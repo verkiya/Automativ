@@ -37,6 +37,7 @@ import { useRouter } from "next/navigation";
 export const EditorSaveButton = ({ workflowId }: { workflowId: string }) => {
   const editor = useAtomValue(editorAtom);
   const removeWorkflow = useRemoveWorkflow();
+  const { data: workflow } = useSuspenseWorkflow(workflowId);
   const router = useRouter();
   const handleRemove = async () => {
     await removeWorkflow.mutateAsync({ id: workflowId });
@@ -56,7 +57,7 @@ export const EditorSaveButton = ({ workflowId }: { workflowId: string }) => {
     });
   };
   return (
-    <div className="ml-auto flex space-x-2">
+    <div className="ml-auto flex space-x-3">
       {" "}
       <Button
         asChild
@@ -71,9 +72,14 @@ export const EditorSaveButton = ({ workflowId }: { workflowId: string }) => {
   hover:border-sky-300
 "
       >
-        <Link prefetch href={`/executions?workflowId=${workflowId}`}>
+        <Link
+          prefetch
+          href={`/executions?workflowId=${workflowId}`}
+          target="_blank"
+          rel="noopener noreferrer"
+        >
           <HistoryIcon className="size-4" />
-          Workflow&apos;s Executions
+          {workflow.name} Executions
         </Link>
       </Button>
       <Button
