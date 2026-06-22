@@ -1,5 +1,4 @@
 import { SidebarTrigger } from "./ui/sidebar";
-import { PanelLeftIcon } from "lucide-react";
 
 export const AppHeader = () => {
   return (
@@ -47,8 +46,6 @@ rounded-2xl
           </span>
         </div>
       </div>
-
-      <div className="flex items-center gap-2">{/* future utilities */}</div>
     </header>
   );
 };

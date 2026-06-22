@@ -1,355 +1,528 @@
-"use client";
-
-import Link from "next/link";
 import {
-  ArrowRight,
-  Bot,
-  Brain,
+  AlertTriangle,
+  ArrowLeft,
+  Braces,
   CheckCircle2,
-  Cloud,
-  Cpu,
+  Clock3,
   Database,
   GitBranch,
-  Globe,
-  Home,
-  Layers3,
-  Lock,
-  Radar,
-  Rocket,
-  Server,
-  Sparkles,
+  KeyRound,
+  ListChecks,
+  LockKeyhole,
+  Network,
+  Radio,
+  Route,
+  SearchCode,
+  ShieldCheck,
   Workflow,
-  Zap,
 } from "lucide-react";
+import Link from "next/link";
 
-import { Button } from "@/components/ui/button";
-
-const pillars = [
+const lessons = [
   {
     icon: Workflow,
-    title: "Visual Workflow Engine",
-    desc: "A drag-and-drop node-based workflow editor powered by React Flow, enabling complex automation construction visually instead of manually wiring scripts.",
+    title: "Save before enqueueing",
+    area: "Execution",
+    summary:
+      "The canvas and the worker do not read from the same state. React Flow owns unsaved browser state, while Inngest reads the persisted graph from PostgreSQL. The execute button therefore saves first and only emits the event after the graph update resolves.",
+    evidence:
+      "ExecuteWorkflowButton awaits workflows.update before workflows.execute. The worker still loads the graph after enqueue, so executions are not immutable snapshots.",
+    watchFor:
+      "Do not add a faster execute path that skips save. It will reintroduce runs that do not match what the user sees on the canvas.",
   },
   {
-    icon: Bot,
-    title: "Multi-Provider AI Execution",
-    desc: "Run OpenAI, Claude, and Gemini inside workflows using a provider-agnostic abstraction layer via the AI SDK.",
-  },
-  {
-    icon: Server,
-    title: "Background Job Orchestration",
-    desc: "Long-running execution is offloaded to Inngest for durable background processing, retries, and event-driven automation reliability.",
+    icon: GitBranch,
+    title: "Sequential DAG execution keeps context understandable",
+    area: "Workflow engine",
+    summary:
+      "Nodes are topologically sorted and run one at a time. This makes the context contract simple: each node receives one accumulated object and returns the next accumulated object.",
+    evidence:
+      "topologicalSort rejects cycles during execution. Disconnected nodes are included, but ordering between independent branches is not a stable business promise.",
+    watchFor:
+      "Parallel branch execution needs an explicit merge policy before it is safe to implement.",
   },
   {
     icon: Database,
-    title: "Type-Safe Persistence Layer",
-    desc: "Prisma + Postgres power workflow storage, execution state, user data, subscriptions, and persistent platform state.",
+    title: "Replace-all graph persistence is intentional",
+    area: "Prisma",
+    summary:
+      "A save deletes existing graph rows and recreates the submitted nodes and connections inside one transaction. This avoids partial writes and keeps the server translation easy to audit.",
+    evidence:
+      "workflows.update preserves React Flow node IDs while recreating nodes because connections refer to those IDs.",
+    watchFor:
+      "Concurrent editors are last-write-wins. Add revisions before promising collaborative editing or conflict warnings.",
   },
   {
-    icon: Lock,
-    title: "Authentication + SaaS Access Control",
-    desc: "Better Auth secures authentication while premium feature access is enforced through typed backend middleware.",
+    icon: Braces,
+    title: "Workflow context is a public internal API",
+    area: "Data flow",
+    summary:
+      "Trigger payloads and action outputs share a flat context object. Handlebars expressions in later nodes depend on exact top-level variable names and output shapes.",
+    evidence:
+      "Executors are expected to return the previous context plus their named output. A missing spread silently removes upstream data.",
+    watchFor:
+      "Changing an executor's output shape can break saved workflows even when TypeScript still passes.",
   },
   {
-    icon: Radar,
-    title: "Observability & Monitoring",
-    desc: "Sentry captures runtime failures, AI telemetry, execution crashes, and debugging visibility across frontend + backend systems.",
+    icon: KeyRound,
+    title: "Encryption and authorization solve different problems",
+    area: "Credentials",
+    summary:
+      "Credential values are encrypted at rest, but executors still need an ownership predicate. Ciphertext is not a permission boundary.",
+    evidence:
+      "AI executors query by credential ID and workflow owner ID before decrypting server-side.",
+    watchFor:
+      "The credential edit flow can double-encrypt unchanged ciphertext. Fixing that requires a UI/API contract change, not just a crypto helper change.",
+  },
+  {
+    icon: Radio,
+    title: "Realtime status is presentation state",
+    area: "Inngest",
+    summary:
+      "Realtime messages help the editor feel alive during a run. They are not the durable audit trail and they are not reconstructed from execution history.",
+    evidence:
+      "The browser subscribes to provider-specific channels and filters incoming messages by node ID.",
+    watchFor:
+      "Node status should eventually be correlated to execution ID if simultaneous runs become common.",
+  },
+  {
+    icon: Network,
+    title: "External side effects are not exactly-once by default",
+    area: "Operations",
+    summary:
+      "Inngest steps are durable, but a provider can accept a request before the step result is recorded. Retrying Slack, Discord, arbitrary HTTP, or AI calls can repeat work.",
+    evidence:
+      "The HTTP executor already includes nodeId in its step identity; several repeated node-capable executors still use static step names.",
+    watchFor:
+      "Use idempotency keys or node-specific durable step IDs before adding high-value side effects.",
+  },
+  {
+    icon: ShieldCheck,
+    title: "Public trigger URLs need a trust model",
+    area: "Security",
+    summary:
+      "Authenticated tRPC execution checks ownership. Public Google Form and Stripe route handlers are separate entry points and currently trust the workflow ID.",
+    evidence:
+      "Both routes parse request JSON and enqueue an Inngest event without signature validation, shared trigger secret validation, event age checks, or replay controls.",
+    watchFor:
+      "Workflow IDs are identifiers. They should not be treated as long-lived webhook secrets.",
+  },
+  {
+    icon: LockKeyhole,
+    title: "Stored workflow data can contain secret-like values",
+    area: "Data classification",
+    summary:
+      "Provider API keys use the credential table, but Slack and Discord webhook URLs are saved inside node configuration JSON and returned to the editor.",
+    evidence:
+      "The graph load path returns node data so dialogs can be edited. That includes integration configuration stored directly on nodes.",
+    watchFor:
+      "Do not assume all secrets go through Credential. Audit node data before exporting, logging, or broadening telemetry.",
+  },
+  {
+    icon: Clock3,
+    title: "Executions are records of outcomes, not records of code",
+    area: "History",
+    summary:
+      "An execution row stores aggregate status, final output, and failure details. It does not store the graph definition, executor version, per-node output, or model configuration used at the time.",
+    evidence:
+      "executeWorkflow loads the current workflow graph after enqueue. Execution.output is one JSON blob for the terminal context.",
+    watchFor:
+      "Historical debugging will remain limited until graph snapshots or per-node execution rows are added.",
   },
 ];
 
-const stack = [
-  "Next.js 15",
-  "React 19",
-  "TypeScript",
-  "TailwindCSS v4",
-  "Prisma ORM",
-  "Postgres",
-  "Better Auth",
-  "Polar",
-  "Inngest",
-  "TanStack Query",
-  "tRPC v11",
-  "Zod",
-  "React Flow",
-  "AI SDK",
-  "Sentry",
-  "Jotai",
+const decisions = [
+  {
+    decision: "Normalized Node and Connection rows",
+    reason:
+      "The database can enforce workflow ownership, cascade graph deletion, and keep connection endpoints queryable instead of hiding the entire graph in one JSON field.",
+    cost: "The editor and server need a translation layer between React Flow objects and Prisma rows.",
+    files: "prisma/schema.prisma, workflows router",
+  },
+  {
+    decision: "Replace graph on save",
+    reason:
+      "A single transaction is straightforward, avoids partial graph persistence, and keeps complex diff logic out of the editor.",
+    cost: "No partial updates, no revision guard, and concurrent saves overwrite each other.",
+    files: "src/features/workflows/server/routers.ts",
+  },
+  {
+    decision: "Explicit provider modules",
+    reason:
+      "OpenAI, Anthropic, and Gemini each have provider-specific model behavior, UI copy, credentials, and status channels.",
+    cost: "Prompt compilation, credential lookup, response extraction, and status publishing are repeated.",
+    files: "src/features/executions/components/*",
+  },
+  {
+    decision: "Server prefetch plus browser hydration",
+    reason:
+      "Route components can authenticate and prefetch while TanStack Query remains the browser mutation and cache layer.",
+    cost: "Prefetch inputs, URL params, hook keys, and procedure schemas must stay synchronized.",
+    files: "src/trpc, feature prefetch modules",
+  },
+  {
+    decision: "Separate dashboard and editor shells",
+    reason:
+      "List pages use normal dashboard chrome while the workflow editor gets the full browser viewport.",
+    cost: "Route groups make the file hierarchy more complex than the public URL hierarchy.",
+    files: "src/app/(dashboard)",
+  },
+  {
+    decision: "Premium creation, protected maintenance",
+    reason:
+      "New workflows and credentials are gated by Polar state, while existing owned resources remain manageable through authentication and ownership checks.",
+    cost: "This product policy is easy to accidentally change while moving procedure middleware.",
+    files: "src/trpc/init.ts, feature routers",
+  },
 ];
 
-const capabilities = [
-  "Visual workflow CRUD",
-  "Drag-and-drop automation canvas",
-  "Webhook triggers",
-  "Manual triggers",
-  "AI provider nodes",
-  "Dynamic template variable mapping",
-  "External HTTP integrations",
-  "Background async execution",
-  "Automatic retries",
-  "Subscription billing",
-  "OAuth authentication",
-  "Premium feature gating",
-  "Real-time execution feedback",
-  "Typed API layer",
+const debugging = [
+  {
+    symptom: "Execution stays RUNNING",
+    checks:
+      "Confirm both Next.js and the Inngest dev server are running. Inspect the Inngest run, then check whether onFailure could find the Execution row by event ID.",
+  },
+  {
+    symptom: "Canvas changes did not execute",
+    checks:
+      "Verify workflows.update completed before workflows.execute. Inspect persisted nodes and connections because the worker does not read unsaved browser state.",
+  },
+  {
+    symptom: "AI node says credential not found",
+    checks:
+      "Check credentialId in node data, confirm the credential belongs to the workflow owner, and verify the credential was not deleted after the node was configured.",
+  },
+  {
+    symptom: "AI node cannot decrypt",
+    checks:
+      "Confirm ENCRYPTION_KEY has not changed. Then check whether an edit form submitted encrypted ciphertext as if it were plaintext.",
+  },
+  {
+    symptom: "Node status looks stale",
+    checks:
+      "Separate realtime state from execution history. Check provider channel subscription, node ID filtering, and whether another run reused the same node IDs.",
+  },
+  {
+    symptom: "Template output is malformed",
+    checks:
+      "Inspect the accumulated context shape and variable name. HTTP templates disable HTML escaping; AI/message executors compile or decode templates differently.",
+  },
+  {
+    symptom: "A repeated node behaves strangely",
+    checks:
+      "Review Inngest step IDs. Static step names are risky when the same node type can appear multiple times in one workflow.",
+  },
+  {
+    symptom: "External trigger runs unexpectedly",
+    checks:
+      "Inspect the public webhook route and payload. Current Google Form and Stripe endpoints do not validate sender authenticity or replay.",
+  },
+];
+
+const codePointers = [
+  {
+    label: "Graph save and execute procedures",
+    path: "src/features/workflows/server/routers.ts",
+    note: "Ownership checks, graph replacement, name generation, and Inngest event dispatch live here.",
+  },
+  {
+    label: "Workflow worker",
+    path: "src/inngest/functions.ts",
+    note: "Creates execution rows, loads the graph, registers realtime channels, runs executors, and records success or failure.",
+  },
+  {
+    label: "Graph utilities",
+    path: "src/inngest/utils.ts",
+    note: "Sends Inngest events and turns persisted connections into a topological node order.",
+  },
+  {
+    label: "Executor registry",
+    path: "src/features/executions/lib/executor-registry.ts",
+    note: "Maps persisted NodeType values to server-side executor implementations.",
+  },
+  {
+    label: "React Flow editor",
+    path: "src/features/editor/components/editor.tsx",
+    note: "Owns unsaved node and edge state until a save serializes it through tRPC.",
+  },
+  {
+    label: "Credential encryption",
+    path: "src/lib/encryption.ts",
+    note: "Wraps Cryptr and requires ENCRYPTION_KEY server-side.",
+  },
+  {
+    label: "Auth and premium middleware",
+    path: "src/trpc/init.ts",
+    note: "Builds protected and premium procedure middleware used by feature routers.",
+  },
+  {
+    label: "Public trigger routes",
+    path: "src/app/api/webhooks",
+    note: "Development-facing webhook entry points that currently treat workflowId as the capability.",
+  },
+];
+
+const invariants = [
+  "Resource ownership belongs in the Prisma query predicate.",
+  "An executor returns the complete next context, not only its own output.",
+  "React Flow node IDs and persisted connection endpoints must agree within one save.",
+  "Plaintext provider keys stay on the server and out of workflow context, logs, responses, and telemetry.",
+  "A repeated node type needs node-specific durable step identity.",
+  "Realtime status is a convenience; Execution rows are the durable aggregate record.",
+  "Applied Prisma migrations are historical records and are not rewritten.",
+  "nodebase-main can explain origins but never overrides Automativ behavior.",
+  "Public trigger routes are not trusted just because a request contains a workflow ID.",
+  "Provider model names are operational configuration and can become stale independently of the UI.",
+];
+
+const riskCards = [
+  {
+    title: "Webhook authenticity",
+    level: "High",
+    detail:
+      "Google Form and Stripe routes can enqueue workflows from arbitrary JSON. Add a generated trigger secret, provider signature verification where applicable, event age checks, and replay storage before trusting them in production.",
+  },
+  {
+    title: "Server-side HTTP reachability",
+    level: "High",
+    detail:
+      "HTTP nodes can request arbitrary URLs from the application runtime. Private network protection, redirect policy, timeouts, and response-size limits are not yet implemented.",
+  },
+  {
+    title: "Credential edit semantics",
+    level: "Medium",
+    detail:
+      "Credential list/detail procedures expose ciphertext to authenticated clients. Editing without entering a new plaintext value can turn ciphertext into newly encrypted ciphertext.",
+  },
+  {
+    title: "Observability data",
+    level: "Medium",
+    detail:
+      "Sentry replay, traces, logs, error stacks, AI telemetry, prompts, provider responses, and execution output need a data classification policy before sensitive workloads.",
+  },
 ];
 
 export default function LearningsPage() {
   return (
-    <main className="min-h-screen bg-background cursor-automativ">
-      {/*
-        ROUTE GROUPS STRATEGY (Next.js):
-        The application utilizes Next.js Route Groups to manage different layouts for the same URL paths.
-        For instance, the workflows list (`/workflows`) and the individual workflow editor (`/workflows/[id]`)
-        are separated into `(rest)` and `(editor)` groups respectively.
-        This allows the editor page to be a completely separate page utilizing a specialized full-screen
-        layout without inheriting the standard dashboard layout (sidebar, headers) used by the main workflows page.
-        Decoupling these layouts ensures that the complex requirements of the React Flow canvas do not
-        interfere with the lightweight list views.
-      */}
-      <div className="absolute inset-0 -z-10 bg-[radial-gradient(circle_at_top_left,rgba(167,139,250,0.14),transparent_35%),radial-gradient(circle_at_top_right,rgba(99,102,241,0.10),transparent_30%),radial-gradient(circle_at_bottom_left,rgba(192,132,252,0.08),transparent_35%)]" />
+    <main className="min-h-screen bg-background">
+      <div className="mx-auto max-w-7xl px-6 py-12 md:py-16">
+        <Link
+          href="/workflows"
+          className="mb-10 inline-flex items-center gap-2 text-sm font-medium text-muted-foreground transition-colors hover:text-foreground"
+        >
+          <ArrowLeft className="size-4" />
+          Back to workflows
+        </Link>
 
-      <div className="mx-auto max-w-7xl px-6 py-16 pb-40">
-        {/* HERO */}
-        <section className="mb-20 text-center">
-          <div className="mb-5 inline-flex items-center gap-2 rounded-full border border-border/60 bg-card/95 px-5 py-2 shadow-md">
-            <Sparkles className="size-4 text-primary" />
-            <span className="text-sm text-muted-foreground">
-              Automativ System Architecture
-            </span>
+        <header className="mb-14 max-w-5xl">
+          <div className="mb-4 inline-flex items-center gap-2 rounded-full border bg-card px-3 py-1 text-sm text-muted-foreground">
+            <Route className="size-4" />
+            Engineering knowledge base
           </div>
-
-          <h1 className="mb-6 text-5xl font-bold tracking-tight md:text-6xl">
-            AI-Native Workflow Automation Platform
+          <h1 className="text-4xl font-bold tracking-tight md:text-5xl">
+            What Automativ teaches maintainers
           </h1>
-
-          <p className="mx-auto max-w-4xl text-lg leading-relaxed text-muted-foreground">
-            Automativ is a browser-based AI-native workflow automation platform
-            combining visual workflow orchestration, background execution,
-            multi-provider AI integrations, SaaS billing infrastructure,
-            authentication, observability, and production-grade architecture.
+          <p className="mt-5 text-lg leading-8 text-muted-foreground">
+            This page is the in-product memory for engineering decisions,
+            operational traps, debugging paths, and security boundaries. It is
+            deliberately specific to this repository. It should help a future
+            maintainer understand not only what exists, but why small-looking
+            changes can have large effects.
           </p>
+        </header>
 
-          <div className="mt-10 flex flex-wrap justify-center gap-4">
-            <Button variant="shimmer" size="hero">
-              Explore Architecture
-              <ArrowRight />
-            </Button>
-
-            <Button variant="glass" size="hero">
-              Production SaaS Design
-              <Cloud />
-            </Button>
-          </div>
+        <section className="mb-16 grid gap-5 md:grid-cols-3">
+          <article className="rounded-2xl border bg-card p-6 shadow-sm">
+            <Workflow className="mb-5 size-7 text-primary" />
+            <h2 className="text-xl font-semibold">Core mental model</h2>
+            <p className="mt-3 leading-7 text-muted-foreground">
+              Automativ is a saved graph plus a background runner. The editor is
+              an authoring surface; PostgreSQL is what Inngest executes.
+            </p>
+          </article>
+          <article className="rounded-2xl border bg-card p-6 shadow-sm">
+            <Database className="mb-5 size-7 text-primary" />
+            <h2 className="text-xl font-semibold">Data contract</h2>
+            <p className="mt-3 leading-7 text-muted-foreground">
+              Nodes and connections are normalized rows, while node-specific
+              settings live in JSON. Context between nodes is a flat object.
+            </p>
+          </article>
+          <article className="rounded-2xl border bg-card p-6 shadow-sm">
+            <ShieldCheck className="mb-5 size-7 text-primary" />
+            <h2 className="text-xl font-semibold">Boundary to respect</h2>
+            <p className="mt-3 leading-7 text-muted-foreground">
+              Authenticated tRPC paths are user-scoped. Public trigger routes,
+              arbitrary HTTP nodes, and telemetry are separate trust surfaces.
+            </p>
+          </article>
         </section>
 
-        {/* CORE VISION */}
-        <section className="mb-16 rounded-3xl border border-border/60 bg-card/95 p-10 shadow-2xl">
-          <div className="grid gap-10 lg:grid-cols-2">
-            <div>
-              <h2 className="mb-5 text-3xl font-semibold">
-                Core Engineering Vision
-              </h2>
-
-              <p className="mb-5 leading-relaxed text-muted-foreground">
-                Automativ demonstrates how modern AI systems should actually be
-                built—not as toy demos, but as production-capable platforms with
-                durable execution, architecture discipline, observability,
-                monetization, and clean infrastructure boundaries.
-              </p>
-
-              <p className="mb-5 leading-relaxed text-muted-foreground">
-                The central architectural decision is separating workflow
-                triggering from workflow execution, enabling scalable automation
-                without blocking UI interactions.
-              </p>
-
-              <div className="mt-8 flex flex-wrap gap-4">
-                <Button variant="workflow">
-                  Execute Workflow
-                  <Workflow />
-                </Button>
-
-                <Button variant="aiGlow">
-                  AI Orchestration
-                  <Brain />
-                </Button>
-              </div>
-            </div>
-
-            <div className="rounded-2xl border border-border/60 bg-background/95 p-8">
-              <h3 className="mb-6 text-xl font-semibold">
-                Key Product Characteristics
-              </h3>
-
-              <div className="space-y-4">
-                {[
-                  "Visual drag-and-drop workflow engine",
-                  "Multi-provider AI execution",
-                  "Durable async execution",
-                  "Production SaaS billing layer",
-                  "Type-safe full-stack architecture",
-                  "Observability-first engineering",
-                  "Extensible integration platform",
-                ].map((item) => (
-                  <div key={item} className="flex items-center gap-3">
-                    <CheckCircle2 className="size-5 text-primary" />
-                    <span className="text-muted-foreground">{item}</span>
-                  </div>
-                ))}
-              </div>
-            </div>
-          </div>
-        </section>
-
-        {/* SYSTEM PILLARS */}
         <section className="mb-16">
-          <h2 className="mb-8 text-3xl font-semibold">System Pillars</h2>
-
-          <div className="grid gap-6 md:grid-cols-2 xl:grid-cols-3">
-            {pillars.map((pillar) => {
-              const Icon = pillar.icon;
-
+          <div className="mb-7 flex items-center gap-3">
+            <Workflow className="size-6 text-primary" />
+            <h2 className="text-2xl font-semibold">Lessons worth preserving</h2>
+          </div>
+          <div className="grid gap-5 md:grid-cols-2">
+            {lessons.map((lesson) => {
+              const Icon = lesson.icon;
               return (
-                <div
-                  key={pillar.title}
-                  className="rounded-2xl border border-border/60 bg-card/95 p-6 shadow-lg"
+                <article
+                  key={lesson.title}
+                  className="rounded-2xl border bg-card p-6 shadow-sm"
                 >
-                  <div className="mb-5 flex size-12 items-center justify-center rounded-2xl bg-primary/10">
-                    <Icon className="size-6 text-primary" />
+                  <div className="mb-5 flex items-start justify-between gap-4">
+                    <div className="flex size-11 shrink-0 items-center justify-center rounded-xl bg-primary/10 text-primary">
+                      <Icon className="size-5" />
+                    </div>
+                    <span className="rounded-full border px-3 py-1 text-xs font-medium text-muted-foreground">
+                      {lesson.area}
+                    </span>
                   </div>
-
-                  <h3 className="mb-3 text-xl font-semibold">{pillar.title}</h3>
-
-                  <p className="leading-relaxed text-muted-foreground">
-                    {pillar.desc}
+                  <h3 className="text-lg font-semibold">{lesson.title}</h3>
+                  <p className="mt-3 leading-7 text-muted-foreground">
+                    {lesson.summary}
                   </p>
-                </div>
+                  <div className="mt-5 border-l-2 border-primary/30 pl-4 text-sm leading-6 text-muted-foreground">
+                    <span className="font-semibold text-foreground">
+                      Repository evidence:{" "}
+                    </span>
+                    {lesson.evidence}
+                  </div>
+                  <div className="mt-4 rounded-xl bg-muted/50 p-4 text-sm leading-6 text-muted-foreground">
+                    <span className="font-semibold text-foreground">
+                      Watch for:{" "}
+                    </span>
+                    {lesson.watchFor}
+                  </div>
+                </article>
               );
             })}
           </div>
         </section>
 
-        {/* STACK */}
-        <section className="mb-16 rounded-3xl border border-border/60 bg-card/95 p-10 shadow-xl">
-          <div className="grid gap-10 lg:grid-cols-2">
-            <div>
-              <h2 className="mb-6 text-3xl font-semibold">Technology Stack</h2>
-
-              <p className="leading-relaxed text-muted-foreground">
-                Modern full-stack architecture optimized for type safety,
-                asynchronous reliability, production scalability, and
-                maintainable engineering workflows.
-              </p>
-            </div>
-
-            <div className="flex flex-wrap gap-3">
-              {stack.map((item) => (
-                <div
-                  key={item}
-                  className="rounded-full border border-border/60 bg-background/95 px-4 py-2 text-sm shadow-sm"
-                >
-                  {item}
-                </div>
-              ))}
-            </div>
-          </div>
-        </section>
-
-        {/* ARCHITECTURE FLOW */}
         <section className="mb-16">
-          <h2 className="mb-8 text-3xl font-semibold">
-            Architecture Execution Flow
-          </h2>
-
-          <div className="rounded-3xl border border-border/60 bg-card/95 p-10 shadow-xl">
-            <div className="grid gap-6 md:grid-cols-5">
-              {[
-                { icon: Layers3, label: "Frontend UI" },
-                { icon: Brain, label: "AI Decision Layer" },
-                { icon: Workflow, label: "Execution Engine" },
-                { icon: Database, label: "Persistence" },
-                { icon: Globe, label: "External Integrations" },
-              ].map((step, idx) => {
-                const Icon = step.icon;
-
-                return (
-                  <div
-                    key={step.label}
-                    className="flex flex-col items-center text-center"
-                  >
-                    <div className="mb-4 flex size-14 items-center justify-center rounded-2xl bg-primary/10">
-                      <Icon className="size-7 text-primary" />
-                    </div>
-
-                    <span className="font-medium">{step.label}</span>
-
-                    {idx < 4 && (
-                      <ArrowRight className="mt-6 hidden text-muted-foreground md:block" />
-                    )}
-                  </div>
-                );
-              })}
-            </div>
+          <div className="mb-7 flex items-center gap-3">
+            <GitBranch className="size-6 text-primary" />
+            <h2 className="text-2xl font-semibold">Decision tradeoffs</h2>
           </div>
-        </section>
-
-        {/* CAPABILITIES */}
-        <section className="mb-16 rounded-3xl border border-border/60 bg-card/95 p-10 shadow-xl">
-          <h2 className="mb-8 text-3xl font-semibold">Platform Capabilities</h2>
-
-          <div className="grid gap-4 md:grid-cols-2 xl:grid-cols-3">
-            {capabilities.map((item) => (
-              <div
-                key={item}
-                className="flex items-center gap-3 rounded-2xl border border-border/50 bg-background/95 p-4"
+          <div className="overflow-hidden rounded-2xl border bg-card">
+            {decisions.map((item, index) => (
+              <article
+                key={item.decision}
+                className={`grid gap-3 p-6 lg:grid-cols-[1fr_2fr_2fr_1.2fr] ${
+                  index === decisions.length - 1 ? "" : "border-b"
+                }`}
               >
-                <CheckCircle2 className="size-5 text-primary" />
-                <span>{item}</span>
-              </div>
+                <h3 className="font-semibold">{item.decision}</h3>
+                <p className="text-sm leading-6 text-muted-foreground">
+                  <span className="font-medium text-foreground">Why: </span>
+                  {item.reason}
+                </p>
+                <p className="text-sm leading-6 text-muted-foreground">
+                  <span className="font-medium text-foreground">Cost: </span>
+                  {item.cost}
+                </p>
+                <p className="text-sm leading-6 text-muted-foreground">
+                  <span className="font-medium text-foreground">Look at: </span>
+                  {item.files}
+                </p>
+              </article>
             ))}
           </div>
         </section>
 
-        {/* FUTURE */}
-        <section className="rounded-3xl border border-border/60 bg-card/95 p-10 shadow-xl">
-          <h2 className="mb-6 text-3xl font-semibold">Long-Term Direction</h2>
-
-          <p className="mb-8 max-w-5xl leading-relaxed text-muted-foreground">
-            Automativ’s broader trajectory is evolving into a production-grade
-            AI automation platform capable of intelligent orchestration,
-            workflow composition, real-time execution visibility, subscription
-            monetization, and enterprise-ready extensibility.
-          </p>
-
-          <div className="flex flex-wrap gap-4">
-            <Button variant="premium">
-              AI Platform Evolution
-              <Cpu />
-            </Button>
-
-            <Button variant="shimmer">
-              Product Expansion
-              <Rocket />
-            </Button>
-
-            <Button variant="glass">
-              Observability
-              <Zap />
-            </Button>
+        <section className="mb-16">
+          <div className="mb-7 flex items-center gap-3">
+            <SearchCode className="size-6 text-primary" />
+            <h2 className="text-2xl font-semibold">Where to look first</h2>
+          </div>
+          <div className="grid gap-4 md:grid-cols-2">
+            {codePointers.map((item) => (
+              <article
+                key={item.label}
+                className="rounded-2xl border bg-card p-5"
+              >
+                <h3 className="font-semibold">{item.label}</h3>
+                <code className="mt-3 block rounded-lg bg-muted px-3 py-2 text-xs text-muted-foreground">
+                  {item.path}
+                </code>
+                <p className="mt-3 text-sm leading-6 text-muted-foreground">
+                  {item.note}
+                </p>
+              </article>
+            ))}
           </div>
         </section>
-      </div>
 
-      {/* STICKY HOME */}
-      <div className="fixed bottom-0 left-0 right-0 z-50 border-t border-border/60 bg-background/95 p-5">
-        <div className="mx-auto flex max-w-7xl justify-center">
-          <Link href="/">
-            <Button variant="shimmer" size="hero">
-              <Home />
-              Go To Home
-            </Button>
-          </Link>
-        </div>
+        <section className="mb-16">
+          <div className="mb-7 flex items-center gap-3">
+            <AlertTriangle className="size-6 text-amber-600" />
+            <h2 className="text-2xl font-semibold">Debugging discoveries</h2>
+          </div>
+          <div className="grid gap-4">
+            {debugging.map((item) => (
+              <article
+                key={item.symptom}
+                className="rounded-2xl border bg-card p-5 md:grid md:grid-cols-[minmax(0,1fr)_minmax(0,2fr)] md:gap-8"
+              >
+                <h3 className="font-semibold">{item.symptom}</h3>
+                <p className="mt-2 text-sm leading-6 text-muted-foreground md:mt-0">
+                  {item.checks}
+                </p>
+              </article>
+            ))}
+          </div>
+        </section>
+
+        <section className="mb-16">
+          <div className="mb-7 flex items-center gap-3">
+            <AlertTriangle className="size-6 text-destructive" />
+            <h2 className="text-2xl font-semibold">Risk register highlights</h2>
+          </div>
+          <div className="grid gap-5 md:grid-cols-2">
+            {riskCards.map((risk) => (
+              <article
+                key={risk.title}
+                className="rounded-2xl border bg-card p-6 shadow-sm"
+              >
+                <div className="mb-4 flex items-center justify-between gap-4">
+                  <h3 className="font-semibold">{risk.title}</h3>
+                  <span className="rounded-full border border-destructive/30 bg-destructive/10 px-3 py-1 text-xs font-medium text-destructive">
+                    {risk.level}
+                  </span>
+                </div>
+                <p className="text-sm leading-6 text-muted-foreground">
+                  {risk.detail}
+                </p>
+              </article>
+            ))}
+          </div>
+        </section>
+
+        <section className="rounded-2xl border bg-card p-7 md:p-9">
+          <div className="mb-6 flex items-center gap-3">
+            <ListChecks className="size-6 text-primary" />
+            <h2 className="text-2xl font-semibold">Maintenance invariants</h2>
+          </div>
+          <div className="grid gap-4 md:grid-cols-2">
+            {invariants.map((invariant) => (
+              <div key={invariant} className="flex items-start gap-3">
+                <CheckCircle2 className="mt-1 size-4 shrink-0 text-primary" />
+                <p className="text-sm leading-6 text-muted-foreground">
+                  {invariant}
+                </p>
+              </div>
+            ))}
+          </div>
+          <p className="mt-8 border-t pt-6 text-sm leading-6 text-muted-foreground">
+            Deeper subsystem maps, operational warnings, and onboarding steps
+            live in <code>docs/ARCHITECTURE.md</code>,{" "}
+            <code>PROJECT_MEMORY.md</code>,{" "}
+            <code>docs/ONBOARDING.md</code>, and{" "}
+            <code>docs/REPOSITORY_HEALTH.md</code>.
+          </p>
+        </section>
       </div>
     </main>
   );

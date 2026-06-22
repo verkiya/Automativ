@@ -1,5 +1,5 @@
-import { sendWorkflowExecution } from "@/inngest/utils";
 import { type NextRequest, NextResponse } from "next/server";
+import { sendWorkflowExecution } from "@/inngest/utils";
 export async function POST(request: NextRequest) {
   try {
     const url = new URL(request.url);
@@ -13,6 +13,8 @@ export async function POST(request: NextRequest) {
         { status: 400 }, // 400 means a user error
       );
     }
+    // This route currently treats workflowId as a bearer capability. It does
+    // not authenticate the Apps Script sender or provide replay protection.
     const body = await request.json();
     const formData = {
       formId: body.formId,
@@ -24,7 +26,6 @@ export async function POST(request: NextRequest) {
       raw: body,
     };
 
-    //Triggering an Inngest job
     await sendWorkflowExecution({
       workflowId,
       initialData: {
