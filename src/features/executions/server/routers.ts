@@ -33,6 +33,7 @@ export const executionsRouter = createTRPCRouter({
           .min(PAGINATION.MIN_PAGE_SIZE)
           .max(PAGINATION.MAX_PAGE_SIZE)
           .default(PAGINATION.DEFAULT_PAGE_SIZE),
+        workflowId: z.string().nullish(),
       }),
     )
     .query(async ({ ctx, input }) => {
@@ -46,6 +47,7 @@ export const executionsRouter = createTRPCRouter({
             workflow: {
               userId: ctx.auth.user.id,
             },
+            ...(input.workflowId && { workflowId: input.workflowId }),
           },
           orderBy: {
             startedAt: "desc",
@@ -64,6 +66,7 @@ export const executionsRouter = createTRPCRouter({
             workflow: {
               userId: ctx.auth.user.id,
             },
+            ...(input.workflowId && { workflowId: input.workflowId }),
           },
         }),
       ]);

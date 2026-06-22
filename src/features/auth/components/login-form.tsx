@@ -49,7 +49,7 @@ export function LoginForm() {
           router.push("/");
         },
         onError: () => {
-          toast.error("Something went wrong!");
+          toast.error("GitHub Oauth not working!");
         },
       },
     );
@@ -64,7 +64,7 @@ export function LoginForm() {
           router.push("/");
         },
         onError: () => {
-          toast.error("Something went wrong!");
+          toast.error("Google Oauth not working!");
         },
       },
     );
@@ -179,7 +179,10 @@ export function LoginForm() {
                 </div>
                 <div className="text-center text-sm">
                   Don&apos;t have an account?{" "}
-                  <Link href="/signup" className="underline font-semibold underline-offset-4">
+                  <Link
+                    href="/signup"
+                    className="underline font-semibold underline-offset-4"
+                  >
                     Sign Up
                   </Link>
                 </div>
@@ -191,4 +194,3 @@ export function LoginForm() {
     </div>
   );
 }
-
