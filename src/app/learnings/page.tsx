@@ -17,6 +17,7 @@ import {
   Workflow,
 } from "lucide-react";
 import Link from "next/link";
+import { Button } from "@/components/ui/button";
 
 const lessons = [
   {
@@ -304,225 +305,300 @@ const riskCards = [
 
 export default function LearningsPage() {
   return (
-    <main className="min-h-screen bg-background">
-      <div className="mx-auto max-w-7xl px-6 py-12 md:py-16">
-        <Link
-          href="/workflows"
-          className="mb-10 inline-flex items-center gap-2 text-sm font-medium text-muted-foreground transition-colors hover:text-foreground"
-        >
-          <ArrowLeft className="size-4" />
-          Back to workflows
-        </Link>
+    <main className="relative min-h-screen overflow-hidden cursor-automativ bg-background pb-28 text-foreground md:pb-32">
+      <div className="pointer-events-none absolute inset-x-0 top-0 -z-10 h-[28rem] bg-[radial-gradient(circle_at_top_left,rgba(37,99,235,0.12),transparent_42%),radial-gradient(circle_at_top_right,rgba(8,145,178,0.12),transparent_38%)]" />
+      <div className="mx-auto max-w-5xl px-6 py-12 md:py-16 lg:px-10">
+        <div className="w-full">
+          <header className="mb-16 space-y-8">
+            <div className="inline-flex items-center gap-2 rounded-full border border-border/60 bg-[image:var(--glass-bg)] px-3 py-1 text-xs font-medium tracking-[0.2em] uppercase text-muted-foreground shadow-[0_4px_14px_0_rgba(37,99,235,0.1)] backdrop-blur-sm">
+              <Route className="size-3.5" />
+              Repository Memory
+            </div>
 
-        <header className="mb-14 max-w-5xl">
-          <div className="mb-4 inline-flex items-center gap-2 rounded-full border bg-card px-3 py-1 text-sm text-muted-foreground">
-            <Route className="size-4" />
-            Engineering knowledge base
-          </div>
-          <h1 className="text-4xl font-bold tracking-tight md:text-5xl">
-            What Automativ teaches maintainers
-          </h1>
-          <p className="mt-5 text-lg leading-8 text-muted-foreground">
-            This page is the in-product memory for engineering decisions,
-            operational traps, debugging paths, and security boundaries. It is
-            deliberately specific to this repository. It should help a future
-            maintainer understand not only what exists, but why small-looking
-            changes can have large effects.
-          </p>
-        </header>
-
-        <section className="mb-16 grid gap-5 md:grid-cols-3">
-          <article className="rounded-2xl border bg-card p-6 shadow-sm">
-            <Workflow className="mb-5 size-7 text-primary" />
-            <h2 className="text-xl font-semibold">Core mental model</h2>
-            <p className="mt-3 leading-7 text-muted-foreground">
-              Automativ is a saved graph plus a background runner. The editor is
-              an authoring surface; PostgreSQL is what Inngest executes.
-            </p>
-          </article>
-          <article className="rounded-2xl border bg-card p-6 shadow-sm">
-            <Database className="mb-5 size-7 text-primary" />
-            <h2 className="text-xl font-semibold">Data contract</h2>
-            <p className="mt-3 leading-7 text-muted-foreground">
-              Nodes and connections are normalized rows, while node-specific
-              settings live in JSON. Context between nodes is a flat object.
-            </p>
-          </article>
-          <article className="rounded-2xl border bg-card p-6 shadow-sm">
-            <ShieldCheck className="mb-5 size-7 text-primary" />
-            <h2 className="text-xl font-semibold">Boundary to respect</h2>
-            <p className="mt-3 leading-7 text-muted-foreground">
-              Authenticated tRPC paths are user-scoped. Public trigger routes,
-              arbitrary HTTP nodes, and telemetry are separate trust surfaces.
-            </p>
-          </article>
-        </section>
-
-        <section className="mb-16">
-          <div className="mb-7 flex items-center gap-3">
-            <Workflow className="size-6 text-primary" />
-            <h2 className="text-2xl font-semibold">Lessons worth preserving</h2>
-          </div>
-          <div className="grid gap-5 md:grid-cols-2">
-            {lessons.map((lesson) => {
-              const Icon = lesson.icon;
-              return (
-                <article
-                  key={lesson.title}
-                  className="rounded-2xl border bg-card p-6 shadow-sm"
-                >
-                  <div className="mb-5 flex items-start justify-between gap-4">
-                    <div className="flex size-11 shrink-0 items-center justify-center rounded-xl bg-primary/10 text-primary">
-                      <Icon className="size-5" />
-                    </div>
-                    <span className="rounded-full border px-3 py-1 text-xs font-medium text-muted-foreground">
-                      {lesson.area}
-                    </span>
-                  </div>
-                  <h3 className="text-lg font-semibold">{lesson.title}</h3>
-                  <p className="mt-3 leading-7 text-muted-foreground">
-                    {lesson.summary}
-                  </p>
-                  <div className="mt-5 border-l-2 border-primary/30 pl-4 text-sm leading-6 text-muted-foreground">
-                    <span className="font-semibold text-foreground">
-                      Repository evidence:{" "}
-                    </span>
-                    {lesson.evidence}
-                  </div>
-                  <div className="mt-4 rounded-xl bg-muted/50 p-4 text-sm leading-6 text-muted-foreground">
-                    <span className="font-semibold text-foreground">
-                      Watch for:{" "}
-                    </span>
-                    {lesson.watchFor}
-                  </div>
-                </article>
-              );
-            })}
-          </div>
-        </section>
-
-        <section className="mb-16">
-          <div className="mb-7 flex items-center gap-3">
-            <GitBranch className="size-6 text-primary" />
-            <h2 className="text-2xl font-semibold">Decision tradeoffs</h2>
-          </div>
-          <div className="overflow-hidden rounded-2xl border bg-card">
-            {decisions.map((item, index) => (
-              <article
-                key={item.decision}
-                className={`grid gap-3 p-6 lg:grid-cols-[1fr_2fr_2fr_1.2fr] ${
-                  index === decisions.length - 1 ? "" : "border-b"
-                }`}
-              >
-                <h3 className="font-semibold">{item.decision}</h3>
-                <p className="text-sm leading-6 text-muted-foreground">
-                  <span className="font-medium text-foreground">Why: </span>
-                  {item.reason}
-                </p>
-                <p className="text-sm leading-6 text-muted-foreground">
-                  <span className="font-medium text-foreground">Cost: </span>
-                  {item.cost}
-                </p>
-                <p className="text-sm leading-6 text-muted-foreground">
-                  <span className="font-medium text-foreground">Look at: </span>
-                  {item.files}
-                </p>
-              </article>
-            ))}
-          </div>
-        </section>
-
-        <section className="mb-16">
-          <div className="mb-7 flex items-center gap-3">
-            <SearchCode className="size-6 text-primary" />
-            <h2 className="text-2xl font-semibold">Where to look first</h2>
-          </div>
-          <div className="grid gap-4 md:grid-cols-2">
-            {codePointers.map((item) => (
-              <article
-                key={item.label}
-                className="rounded-2xl border bg-card p-5"
-              >
-                <h3 className="font-semibold">{item.label}</h3>
-                <code className="mt-3 block rounded-lg bg-muted px-3 py-2 text-xs text-muted-foreground">
-                  {item.path}
-                </code>
-                <p className="mt-3 text-sm leading-6 text-muted-foreground">
-                  {item.note}
-                </p>
-              </article>
-            ))}
-          </div>
-        </section>
-
-        <section className="mb-16">
-          <div className="mb-7 flex items-center gap-3">
-            <AlertTriangle className="size-6 text-amber-600" />
-            <h2 className="text-2xl font-semibold">Debugging discoveries</h2>
-          </div>
-          <div className="grid gap-4">
-            {debugging.map((item) => (
-              <article
-                key={item.symptom}
-                className="rounded-2xl border bg-card p-5 md:grid md:grid-cols-[minmax(0,1fr)_minmax(0,2fr)] md:gap-8"
-              >
-                <h3 className="font-semibold">{item.symptom}</h3>
-                <p className="mt-2 text-sm leading-6 text-muted-foreground md:mt-0">
-                  {item.checks}
-                </p>
-              </article>
-            ))}
-          </div>
-        </section>
-
-        <section className="mb-16">
-          <div className="mb-7 flex items-center gap-3">
-            <AlertTriangle className="size-6 text-destructive" />
-            <h2 className="text-2xl font-semibold">Risk register highlights</h2>
-          </div>
-          <div className="grid gap-5 md:grid-cols-2">
-            {riskCards.map((risk) => (
-              <article
-                key={risk.title}
-                className="rounded-2xl border bg-card p-6 shadow-sm"
-              >
-                <div className="mb-4 flex items-center justify-between gap-4">
-                  <h3 className="font-semibold">{risk.title}</h3>
-                  <span className="rounded-full border border-destructive/30 bg-destructive/10 px-3 py-1 text-xs font-medium text-destructive">
-                    {risk.level}
-                  </span>
-                </div>
-                <p className="text-sm leading-6 text-muted-foreground">
-                  {risk.detail}
-                </p>
-              </article>
-            ))}
-          </div>
-        </section>
-
-        <section className="rounded-2xl border bg-card p-7 md:p-9">
-          <div className="mb-6 flex items-center gap-3">
-            <ListChecks className="size-6 text-primary" />
-            <h2 className="text-2xl font-semibold">Maintenance invariants</h2>
-          </div>
-          <div className="grid gap-4 md:grid-cols-2">
-            {invariants.map((invariant) => (
-              <div key={invariant} className="flex items-start gap-3">
-                <CheckCircle2 className="mt-1 size-4 shrink-0 text-primary" />
-                <p className="text-sm leading-6 text-muted-foreground">
-                  {invariant}
+            <div className="grid gap-8 lg:grid-cols-[1.35fr_0.65fr] lg:items-end">
+              <div>
+                <h1 className="max-w-3xl text-5xl font-semibold tracking-tight lg:text-[4.5rem] lg:leading-[1.02]">
+                  What Automativ
+                  <span className="block text-transparent bg-clip-text bg-[image:var(--gradient-brand)]">teaches</span>
+                </h1>
+                <p className="mt-6 max-w-2xl border-l-2 border-primary/70 pl-4 text-base leading-relaxed text-muted-foreground lg:text-lg">
+                  This page is the in-product memory for engineering decisions,
+                  operational traps, debugging paths, and security boundaries. It is
+                  deliberately specific to this repository. It should help a future
+                  maintainer understand not only what exists, but why small-looking
+                  changes can have large effects.
                 </p>
               </div>
-            ))}
-          </div>
-          <p className="mt-8 border-t pt-6 text-sm leading-6 text-muted-foreground">
-            Deeper subsystem maps, operational warnings, and onboarding steps
-            live in <code>docs/ARCHITECTURE.md</code>,{" "}
-            <code>PROJECT_MEMORY.md</code>,{" "}
-            <code>docs/ONBOARDING.md</code>, and{" "}
-            <code>docs/REPOSITORY_HEALTH.md</code>.
-          </p>
-        </section>
+            </div>
+          </header>
+
+          <section className="mb-16 grid gap-4 md:grid-cols-4">
+            <div className="rounded-2xl border border-border/60 bg-[image:var(--glass-bg)] p-5 text-center shadow-[0_8px_30px_var(--glow-primary)] backdrop-blur-sm transition-all duration-300 hover:-translate-y-1 hover:shadow-[0_8px_30px_var(--glow-cyan)]">
+              <div className="text-3xl font-bold text-transparent bg-clip-text bg-[image:var(--gradient-brand)]">{lessons.length}</div>
+              <div className="mt-1 text-sm font-medium text-muted-foreground">Lessons Preserved</div>
+            </div>
+            <div className="rounded-2xl border border-border/60 bg-[image:var(--glass-bg)] p-5 text-center shadow-[0_8px_30px_var(--glow-primary)] backdrop-blur-sm transition-all duration-300 hover:-translate-y-1 hover:shadow-[0_8px_30px_var(--glow-cyan)]">
+              <div className="text-3xl font-bold text-transparent bg-clip-text bg-[image:var(--gradient-brand)]">{decisions.length}</div>
+              <div className="mt-1 text-sm font-medium text-muted-foreground">Architecture Decisions</div>
+            </div>
+            <div className="rounded-2xl border border-border/60 bg-[image:var(--glass-bg)] p-5 text-center shadow-[0_8px_30px_var(--glow-primary)] backdrop-blur-sm transition-all duration-300 hover:-translate-y-1 hover:shadow-[0_8px_30px_var(--glow-cyan)]">
+              <div className="text-3xl font-bold text-transparent bg-clip-text bg-[image:var(--gradient-brand)]">{debugging.length}</div>
+              <div className="mt-1 text-sm font-medium text-muted-foreground">Debugging Patterns</div>
+            </div>
+            <div className="rounded-2xl border border-border/60 bg-[image:var(--glass-bg)] p-5 text-center shadow-[0_8px_30px_var(--glow-primary)] backdrop-blur-sm transition-all duration-300 hover:-translate-y-1 hover:shadow-[0_8px_30px_var(--glow-cyan)]">
+              <div className="text-3xl font-bold text-transparent bg-clip-text bg-[image:var(--gradient-brand)]">{invariants.length}</div>
+              <div className="mt-1 text-sm font-medium text-muted-foreground">Maintenance Rules</div>
+            </div>
+          </section>
+
+          <section className="mb-16 grid gap-5 md:grid-cols-3">
+            <article className="rounded-2xl border bg-gradient-to-br from-background to-muted/30 p-6 shadow-sm transition-all duration-200 hover:-translate-y-0.5 hover:shadow-md">
+              <div className="mb-5 flex size-10 items-center justify-center rounded-lg bg-primary/10">
+                <Workflow className="size-5 text-primary" />
+              </div>
+              <h2 className="text-xl font-semibold">Core mental model</h2>
+              <p className="mt-3 leading-7 text-muted-foreground">
+                Automativ is a saved graph plus a background runner. The editor is
+                an authoring surface; PostgreSQL is what Inngest executes.
+              </p>
+            </article>
+            <article className="rounded-2xl border bg-gradient-to-br from-background to-muted/30 p-6 shadow-sm transition-all duration-200 hover:-translate-y-0.5 hover:shadow-md">
+              <div className="mb-5 flex size-10 items-center justify-center rounded-lg bg-primary/10">
+                <Database className="size-5 text-primary" />
+              </div>
+              <h2 className="text-xl font-semibold">Data contract</h2>
+              <p className="mt-3 leading-7 text-muted-foreground">
+                Nodes and connections are normalized rows, while node-specific
+                settings live in JSON. Context between nodes is a flat object.
+              </p>
+            </article>
+            <article className="rounded-2xl border bg-gradient-to-br from-background to-muted/30 p-6 shadow-sm transition-all duration-200 hover:-translate-y-0.5 hover:shadow-md">
+              <div className="mb-5 flex size-10 items-center justify-center rounded-lg bg-primary/10">
+                <ShieldCheck className="size-5 text-primary" />
+              </div>
+              <h2 className="text-xl font-semibold">Boundary to respect</h2>
+              <p className="mt-3 leading-7 text-muted-foreground">
+                Authenticated tRPC paths are user-scoped. Public trigger routes,
+                arbitrary HTTP nodes, and telemetry are separate trust surfaces.
+              </p>
+            </article>
+          </section>
+
+          <section id="lessons" className="mb-16 scroll-mt-20">
+            <div className="mb-7 flex items-center gap-3">
+              <div className="flex size-10 items-center justify-center rounded-lg bg-primary/10">
+                <Workflow className="size-5 text-primary" />
+              </div>
+              <h2 className="text-2xl font-semibold">Lessons worth preserving</h2>
+            </div>
+            <div className="grid gap-5 md:grid-cols-2">
+              {lessons.map((lesson) => {
+                const Icon = lesson.icon;
+                return (
+                  <article
+                    key={lesson.title}
+                    className="rounded-2xl border bg-gradient-to-br from-background to-muted/30 p-6 shadow-sm transition-all duration-200 hover:-translate-y-0.5 hover:shadow-md"
+                  >
+                    <div className="mb-5 flex items-start justify-between gap-4">
+                      <div className="flex size-11 shrink-0 items-center justify-center rounded-xl bg-primary/10 text-primary">
+                        <Icon className="size-5" />
+                      </div>
+                      <span className="rounded-full border px-3 py-1 text-xs font-medium text-muted-foreground">
+                        {lesson.area}
+                      </span>
+                    </div>
+                    <h3 className="text-lg font-semibold">{lesson.title}</h3>
+                    <p className="mt-3 leading-7 text-muted-foreground max-w-prose">
+                      {lesson.summary}
+                    </p>
+                    <div className="mt-5 rounded-lg border border-primary/10 bg-primary/5 p-4 text-sm leading-6 text-foreground">
+                      <span className="font-semibold text-primary">
+                        Evidence:{" "}
+                      </span>
+                      {lesson.evidence}
+                    </div>
+                    <div className="mt-4 rounded-lg border border-amber-200/50 bg-amber-50/50 p-4 text-sm leading-6 text-amber-900 dark:border-amber-500/20 dark:bg-amber-500/10 dark:text-amber-200">
+                      <span className="font-semibold text-amber-700 dark:text-amber-400">
+                        Watch for:{" "}
+                      </span>
+                      {lesson.watchFor}
+                    </div>
+                  </article>
+                );
+              })}
+            </div>
+          </section>
+
+          <section id="tradeoffs" className="mb-16 scroll-mt-20">
+            <div className="mb-7 flex items-center gap-3">
+              <div className="flex size-10 items-center justify-center rounded-lg bg-primary/10">
+                <GitBranch className="size-5 text-primary" />
+              </div>
+              <h2 className="text-2xl font-semibold">Decision tradeoffs</h2>
+            </div>
+            <div className="overflow-hidden rounded-2xl border bg-card shadow-sm">
+              <div className="hidden border-b bg-muted/50 p-4 px-6 text-sm font-medium text-muted-foreground lg:grid lg:grid-cols-[1.5fr_2fr_2fr_1.2fr] lg:gap-6">
+                <div>Decision</div>
+                <div>Why</div>
+                <div>Cost</div>
+                <div>Look at</div>
+              </div>
+              {decisions.map((item, index) => (
+                <article
+                  key={item.decision}
+                  className={`grid gap-4 p-6 transition-colors hover:bg-muted/30 lg:grid-cols-[1.5fr_2fr_2fr_1.2fr] lg:gap-6 ${
+                    index === decisions.length - 1 ? "" : "border-b"
+                  }`}
+                >
+                  <h3 className="font-semibold lg:mt-1">{item.decision}</h3>
+                  <p className="text-sm leading-6 text-muted-foreground lg:col-start-2">
+                    <span className="mb-1 block font-medium text-foreground lg:hidden">Why</span>
+                    {item.reason}
+                  </p>
+                  <p className="text-sm leading-6 text-muted-foreground lg:col-start-3">
+                    <span className="mb-1 block font-medium text-foreground lg:hidden">Cost</span>
+                    {item.cost}
+                  </p>
+                  <div className="lg:col-start-4">
+                    <span className="mb-1 block font-medium text-foreground lg:hidden">Look at</span>
+                    <code className="rounded bg-muted px-1.5 py-0.5 text-xs text-muted-foreground break-all">
+                      {item.files}
+                    </code>
+                  </div>
+                </article>
+              ))}
+            </div>
+          </section>
+
+          <section id="pointers" className="mb-16 scroll-mt-20">
+            <div className="mb-7 flex items-center gap-3">
+              <div className="flex size-10 items-center justify-center rounded-lg bg-primary/10">
+                <SearchCode className="size-5 text-primary" />
+              </div>
+              <h2 className="text-2xl font-semibold">Where to look first</h2>
+            </div>
+            <div className="grid gap-4 md:grid-cols-2">
+              {codePointers.map((item) => (
+                <article
+                  key={item.label}
+                  className="rounded-2xl border bg-gradient-to-br from-background to-muted/30 p-5 shadow-sm transition-all duration-200 hover:-translate-y-0.5 hover:shadow-md"
+                >
+                  <h3 className="font-semibold">{item.label}</h3>
+                  <code
+                    className="mt-3 block rounded-lg border bg-slate-50 px-3 py-2 text-xs font-mono text-slate-700 dark:border-slate-800 dark:bg-slate-900 dark:text-slate-300"
+                  >
+                    {item.path}
+                  </code>
+                  <p className="mt-3 text-sm leading-6 text-muted-foreground max-w-prose">
+                    {item.note}
+                  </p>
+                </article>
+              ))}
+            </div>
+          </section>
+
+          <section id="debugging" className="mb-16 scroll-mt-20">
+            <div className="mb-7 flex items-center gap-3">
+              <div className="flex size-10 items-center justify-center rounded-lg bg-amber-500/10">
+                <AlertTriangle className="size-5 text-amber-600 dark:text-amber-500" />
+              </div>
+              <h2 className="text-2xl font-semibold">Debugging discoveries</h2>
+            </div>
+            <div className="grid gap-4">
+              {debugging.map((item) => (
+                <article
+                  key={item.symptom}
+                  className="rounded-2xl border bg-gradient-to-br from-background to-muted/30 p-5 shadow-sm transition-all duration-200 hover:-translate-y-0.5 hover:shadow-md md:grid md:grid-cols-[minmax(0,1fr)_minmax(0,2fr)] md:gap-8"
+                >
+                  <h3 className="font-semibold">{item.symptom}</h3>
+                  <p className="mt-2 text-sm leading-6 text-muted-foreground md:mt-0 max-w-prose">
+                    {item.checks}
+                  </p>
+                </article>
+              ))}
+            </div>
+          </section>
+
+          <section id="risks" className="mb-16 scroll-mt-20">
+            <div className="mb-7 flex items-center gap-3">
+              <div className="flex size-10 items-center justify-center rounded-lg bg-destructive/10">
+                <AlertTriangle className="size-5 text-destructive" />
+              </div>
+              <h2 className="text-2xl font-semibold">Risk register highlights</h2>
+            </div>
+            <div className="grid gap-5 md:grid-cols-2">
+              {riskCards.map((risk) => (
+                <article
+                  key={risk.title}
+                  className={`rounded-2xl border p-6 shadow-sm transition-all duration-200 hover:-translate-y-0.5 hover:shadow-md ${
+                    risk.level === "High"
+                      ? "border-red-200 bg-red-50/50 dark:border-red-900/50 dark:bg-red-900/20"
+                      : risk.level === "Medium"
+                      ? "border-amber-200 bg-amber-50/50 dark:border-amber-900/50 dark:bg-amber-900/20"
+                      : "bg-gradient-to-br from-background to-muted/30"
+                  }`}
+                >
+                  <div className="mb-4 flex items-center justify-between gap-4">
+                    <h3 className="font-semibold">{risk.title}</h3>
+                    <span
+                      className={`rounded-full border px-3 py-1 text-xs font-medium ${
+                        risk.level === "High"
+                          ? "border-red-300 bg-red-100 text-red-800 dark:border-red-800 dark:bg-red-900/50 dark:text-red-300"
+                          : risk.level === "Medium"
+                          ? "border-amber-300 bg-amber-100 text-amber-800 dark:border-amber-800 dark:bg-amber-900/50 dark:text-amber-300"
+                          : "border-destructive/30 bg-destructive/10 text-destructive"
+                      }`}
+                    >
+                      {risk.level}
+                    </span>
+                  </div>
+                  <p className="text-sm leading-6 text-muted-foreground max-w-prose">
+                    {risk.detail}
+                  </p>
+                </article>
+              ))}
+            </div>
+          </section>
+
+          <section id="invariants" className="rounded-2xl border bg-gradient-to-br from-background to-muted/30 p-7 shadow-sm md:p-9 scroll-mt-20">
+            <div className="mb-6 flex items-center gap-3">
+              <div className="flex size-10 items-center justify-center rounded-lg bg-primary/10">
+                <ListChecks className="size-5 text-primary" />
+              </div>
+              <h2 className="text-2xl font-semibold">Maintenance invariants</h2>
+            </div>
+            <div className="grid gap-4 md:grid-cols-2">
+              {invariants.map((invariant) => (
+                <div
+                  key={invariant}
+                  className="flex items-start gap-3 rounded-xl border bg-muted/30 p-4 transition-colors hover:bg-muted/50"
+                >
+                  <CheckCircle2 className="mt-0.5 size-4 shrink-0 text-primary" />
+                  <p className="text-sm leading-6 text-muted-foreground">
+                    {invariant}
+                  </p>
+                </div>
+              ))}
+            </div>
+            <p className="mt-8 border-t pt-6 text-sm leading-6 text-muted-foreground">
+              Deeper subsystem maps, operational warnings, and onboarding steps
+              live in <code>docs/ARCHITECTURE.md</code>,{" "}
+              <code>PROJECT_MEMORY.md</code>, <code>docs/ONBOARDING.md</code>, and{" "}
+              <code>docs/REPOSITORY_HEALTH.md</code>.
+            </p>
+          </section>
+        </div>
+      </div>
+
+      <div className="fixed inset-x-0 bottom-0 z-30 border-t border-border/70 bg-background/85 px-4 py-4 backdrop-blur-xl supports-[backdrop-filter]:bg-background/70">
+        <div className="mx-auto flex max-w-7xl justify-center">
+          <Button asChild variant="premiumSoft" className="rounded-full shadow-[0_8px_30px_var(--glow-premium)] transition-all hover:scale-105 px-8 h-11">
+            <Link href="/">
+              <ArrowLeft className="mr-2 h-4 w-4" />
+              <span>Go back to Home</span>
+            </Link>
+          </Button>
+        </div>
       </div>
     </main>
   );
