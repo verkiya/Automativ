@@ -1,13 +1,14 @@
-import { Connection, Node } from "@/generated/prisma";
-import toposort from "toposort";
-import { inngest } from "./client";
 import { createId } from "@paralleldrive/cuid2";
+import toposort from "toposort";
+import type { Connection, Node } from "@/generated/prisma";
+import { inngest } from "./client";
 
 export const topologicalSort = (
   nodes: Node[],
   connections: Connection[],
 ): Node[] => {
-  // If no connections, return node as-is (they're all independent)
+  // With no edges every node is independent; their database order is the only
+  // available order and must not be treated as dependency semantics.
   if (connections.length === 0) {
     return nodes;
   }
@@ -18,7 +19,8 @@ export const topologicalSort = (
     conn.toNodeId,
   ]);
 
-  // Add nodes with no connections as self-edges to ensure they're included
+  // toposort only returns vertices present in an edge. Self-edges include
+  // disconnected nodes; duplicates are removed after sorting.
   const connectedNodeIds = new Set<string>();
   for (const conn of connections) {
     connectedNodeIds.add(conn.fromNodeId);
@@ -35,7 +37,6 @@ export const topologicalSort = (
   let sortedNodeIds: string[];
   try {
     sortedNodeIds = toposort(edges);
-    // Remove duplicates (from self-edges)
     sortedNodeIds = [...new Set(sortedNodeIds)];
   } catch (error) {
     if (error instanceof Error && error.message.includes("Cyclic")) {
@@ -44,14 +45,15 @@ export const topologicalSort = (
     throw error;
   }
 
-  // Map sorted IDs back to node objects
   const nodeMap = new Map(nodes.map((n) => [n.id, n]));
-  return sortedNodeIds.map((id) => nodeMap.get(id)!).filter(Boolean);
+  return sortedNodeIds
+    .map((id) => nodeMap.get(id))
+    .filter((node): node is Node => node !== undefined);
 };
 
 export const sendWorkflowExecution = async (data: {
   workflowId: string;
-  [key: string]: any;
+  initialData?: Record<string, unknown>;
 }) => {
   return inngest.send({
     name: "workflows/execute.workflow",

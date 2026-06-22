@@ -2,17 +2,18 @@
 import { type NodeProps, Position, useReactFlow } from "@xyflow/react";
 import type { LucideIcon } from "lucide-react";
 import Image from "next/image";
-import { memo, type ReactNode, useCallback } from "react";
+import { memo, type ReactNode } from "react";
+import { BaseHandle } from "@/components/react-flow/base-handle";
+import {
+  type NodeStatus,
+  NodeStatusIndicator,
+} from "@/components/react-flow/node-status-indicator";
+import { WorkflowNode } from "@/components/workflow-node";
 import {
   BaseNode,
   BaseNodeContent,
 } from "../../../components/react-flow/base-node";
-import { BaseHandle } from "@/components/react-flow/base-handle";
-import { WorkflowNode } from "@/components/workflow-node";
-import {
-  NodeStatus,
-  NodeStatusIndicator,
-} from "@/components/react-flow/node-status-indicator";
+
 interface BaseTriggerNodeProps extends NodeProps {
   icon: LucideIcon | string;
   name: string;
@@ -51,7 +52,6 @@ export const BaseTriggerNode = memo(
       <WorkflowNode
         name={name}
         description={description}
-
         onDelete={handleDelete}
         onSettings={onSettings}
       >

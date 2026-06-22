@@ -1,9 +1,9 @@
-import { auth } from "@/lib/auth";
-import { polarClient } from "@/lib/polar";
 import { initTRPC, TRPCError } from "@trpc/server";
 import { headers } from "next/headers";
 import { cache } from "react";
 import SuperJSON from "superjson";
+import { auth } from "@/lib/auth";
+import { polarClient } from "@/lib/polar";
 export const createTRPCContext = cache(async () => {
   /**
    * @see: https://trpc.io/docs/server/context
@@ -39,6 +39,8 @@ export const protectedProcedure = baseProcedure.use(async ({ ctx, next }) => {
 
 export const premiumProcedure = protectedProcedure.use(
   async ({ ctx, next }) => {
+    // Polar is queried on every gated mutation so the server, rather than
+    // cached client state, remains authoritative about subscription access.
     const customer = await polarClient.customers.getStateExternal({
       externalId: ctx.auth.user.id,
     });

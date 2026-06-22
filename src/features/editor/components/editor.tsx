@@ -1,30 +1,28 @@
 "use client";
-import { useState, useCallback, useMemo } from "react";
 import {
-  ReactFlow,
-  applyNodeChanges,
-  applyEdgeChanges,
   addEdge,
-  Node,
-  Edge,
-  NodeChange,
-  BezierEdge,
-  EdgeChange,
-  Connection,
+  applyEdgeChanges,
+  applyNodeChanges,
   Background,
+  type Connection,
   Controls,
+  type Edge,
+  type EdgeChange,
   MiniMap,
-  NodeToolbar,
+  type Node,
+  type NodeChange,
   Panel,
+  ReactFlow,
 } from "@xyflow/react";
+import { useCallback, useMemo, useState } from "react";
 import "@xyflow/react/dist/style.css";
+import { useSetAtom } from "jotai";
 import { ErrorView, LoadingView } from "@/components/entity-components";
-import { useSuspenseWorkflow } from "@/features/workflows/hooks/use-workflows";
 import { nodeComponents } from "@/config/node-components";
 import { AddNodeButton } from "@/features/editor/components/add-node-button";
-import { useSetAtom } from "jotai";
-import { editorAtom } from "../store/atoms";
+import { useSuspenseWorkflow } from "@/features/workflows/hooks/use-workflows";
 import { NodeType } from "@/generated/prisma";
+import { editorAtom } from "../store/atoms";
 import { ExecuteWorkflowButton } from "./execute-workflow-button";
 
 export const Editor = ({ workflowId }: { workflowId: string }) => {
@@ -47,7 +45,8 @@ export const Editor = ({ workflowId }: { workflowId: string }) => {
       setEdges((edgesSnapshot) => addEdge(params, edgesSnapshot)),
     [],
   );
-  //Use the delete key to remove the selected items
+  // React Flow state is intentionally local and unsaved until the header or
+  // execute control serializes the full graph through the workflow mutation.
   const hasManualTrigger = useMemo(() => {
     return nodes.some((node) => node.type === NodeType.MANUAL_TRIGGER);
   }, [nodes]);
@@ -72,7 +71,7 @@ export const Editor = ({ workflowId }: { workflowId: string }) => {
         deleteKeyCode={["Delete"]}
         selectionOnDrag
       >
-        <Background  gap={25}/>
+        <Background gap={25} />
 
         <Controls />
         <MiniMap

@@ -2,6 +2,7 @@ import type { Realtime } from "@inngest/realtime";
 import { useInngestSubscription } from "@inngest/realtime/hooks";
 import { useEffect, useState } from "react";
 import type { NodeStatus } from "@/components/react-flow/node-status-indicator";
+
 interface UseNodeStatusOptions {
   nodeId: string;
   channel: string;
@@ -23,7 +24,8 @@ export function useNodeStatus({
     if (!data.length) {
       return;
     }
-    // Find the latest message for this node
+    // Channels are shared by node kind, so the browser selects the newest
+    // matching node message. This is presentation state, not execution history.
     const latestMessage = data
       .filter(
         (msg) =>

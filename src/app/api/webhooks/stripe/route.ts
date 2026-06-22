@@ -1,5 +1,5 @@
-import { sendWorkflowExecution } from "@/inngest/utils";
 import { type NextRequest, NextResponse } from "next/server";
+import { sendWorkflowExecution } from "@/inngest/utils";
 export async function POST(request: NextRequest) {
   try {
     const url = new URL(request.url);
@@ -13,6 +13,8 @@ export async function POST(request: NextRequest) {
         { status: 400 },
       );
     }
+    // This is an application trigger endpoint, not Polar billing ingestion.
+    // Stripe signatures and replay protection are not currently verified.
     const body = await request.json();
     const stripeData = {
       // Event metadata
@@ -23,12 +25,13 @@ export async function POST(request: NextRequest) {
       raw: body.data?.object,
     };
 
-    //Triggering an Inngest job
     await sendWorkflowExecution({
       workflowId,
       initialData: {
         stripe: stripeData,
-        googleForm: stripeData, // temporary fallback
+        // Compatibility alias for workflows created before the Stripe context
+        // key was used consistently. Remove only with a data migration plan.
+        googleForm: stripeData,
       },
     });
     return NextResponse.json(

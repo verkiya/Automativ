@@ -1,6 +1,5 @@
 import Handlebars from "handlebars";
 import { NonRetriableError } from "inngest";
-import chalk from "chalk";
 
 import ky, { type Options as KyOptions } from "ky";
 import type { NodeExecutor } from "@/features/executions/types";
@@ -49,21 +48,23 @@ export const httpRequestExecutor: NodeExecutor<HttpRequestData> = async ({
         throw new NonRetriableError("HTTP Request node: Method not configured");
       }
 
-      // ✅ noEscape: true prevents & = ? from being HTML-encoded in URLs
-      const endpoint = Handlebars.compile(data.endpoint!, { noEscape: true })(
-        context,
-      );
+      const endpointTemplate = data.endpoint;
+      const variableName = data.variableName;
+
+      // URL and JSON templates need literal &, =, quotes, and slashes rather
+      // than Handlebars' default HTML entities.
+      const endpoint = Handlebars.compile(endpointTemplate, {
+        noEscape: true,
+      })(context);
       if (!endpoint || typeof endpoint !== "string") {
         throw new NonRetriableError(
           "Endpoint template must resolve to a non-empty string",
         );
       }
-      console.log(chalk.bgGreenBright.bold("ENDPOINT ->"), endpoint);
       const method = data.method;
       const options: KyOptions = { method };
 
       if (["POST", "PUT", "PATCH"].includes(method)) {
-        // ✅ same fix for body — JSON values like strings/URLs would also get escaped
         const resolved = Handlebars.compile(data.body || "{}", {
           noEscape: true,
         })(context);
@@ -93,7 +94,7 @@ export const httpRequestExecutor: NodeExecutor<HttpRequestData> = async ({
 
       return {
         ...context,
-        [data.variableName!]: {
+        [variableName]: {
           httpResponse: {
             status: response.status,
             statusText: response.statusText,

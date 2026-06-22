@@ -1,23 +1,20 @@
-import prisma from "@/lib/db";
-import { uniqueNamesGenerator, colors } from "unique-names-generator";
-
-import {
-  createTRPCRouter,
-  premiumProcedure,
-  protectedProcedure,
-} from "@/trpc/init";
+import type { Edge, Node } from "@xyflow/react";
+import { uniqueNamesGenerator } from "unique-names-generator";
 import z from "zod";
 import { PAGINATION } from "@/config/constants";
 import { NodeType } from "@/generated/prisma";
-import type { Node, Edge } from "@xyflow/react";
-import { inngest } from "@/inngest/client";
 import { sendWorkflowExecution } from "@/inngest/utils";
+import prisma from "@/lib/db";
 import {
   workflowPrefixes,
   workflowQualifiers,
   workflowSuffixes,
 } from "@/lib/dictionary";
-import { TRPCError } from "@trpc/server";
+import {
+  createTRPCRouter,
+  premiumProcedure,
+  protectedProcedure,
+} from "@/trpc/init";
 
 export const workflowsRouter = createTRPCRouter({
   execute: protectedProcedure
@@ -61,10 +58,6 @@ export const workflowsRouter = createTRPCRouter({
   remove: protectedProcedure
     .input(z.object({ id: z.string() }))
     .mutation(({ ctx, input }) => {
-    //   throw new TRPCError({
-    //   code: "INTERNAL_SERVER_ERROR",
-    //   message: "Testing remove workflow error",
-    // });
       return prisma.workflow.delete({
         where: {
           id: input.id,
@@ -92,14 +85,14 @@ export const workflowsRouter = createTRPCRouter({
         where: { id: input.id, userId: ctx.auth.user.id },
         include: { nodes: true, connections: true },
       });
-      //Transforming the server nodes to React-flow types
+      // Keep persistence types out of the editor boundary. React Flow owns
+      // unsaved state; Prisma owns the last explicitly saved graph.
       const nodes: Node[] = workflow.nodes.map((node) => ({
         id: node.id,
         type: node.type,
         position: node.position as { x: number; y: number },
         data: (node.data as Record<string, unknown>) || {},
       }));
-      // Transforming the server connections to react-flow compatible edges
       const edges: Edge[] = workflow.connections.map((connection) => ({
         id: connection.id,
         source: connection.fromNodeId,
@@ -115,7 +108,7 @@ export const workflowsRouter = createTRPCRouter({
       };
     }),
   update: protectedProcedure
-    .input(// this is react flow editor's edge and node input, later we convert it to DB compatible data types
+    .input(
       z.object({
         id: z.string(),
         nodes: z.array(
@@ -141,13 +134,12 @@ export const workflowsRouter = createTRPCRouter({
       const workflow = await prisma.workflow.findUniqueOrThrow({
         where: { id, userId: ctx.auth.user.id },
       });
-      // Transaction to ensure consistency
-      // We're doing to delete existing nodes and connections (cascade deletes connections)
+      // Saving is replace-all by design. Stable client-provided node IDs let
+      // connections be rebuilt, while the transaction prevents a partial graph.
       return await prisma.$transaction(async (tx) => {
         await tx.node.deleteMany({
           where: { workflowId: id },
         });
-        //Create new nodes which are compatible with our database
         await tx.node.createMany({
           data: nodes.map((node) => ({
             id: node.id,
@@ -158,7 +150,6 @@ export const workflowsRouter = createTRPCRouter({
             data: node.data || {},
           })),
         });
-        //Creating connections
         await tx.connection.createMany({
           data: edges.map((edge) => ({
             workflowId: id,
@@ -169,7 +160,6 @@ export const workflowsRouter = createTRPCRouter({
           })),
         });
 
-        //Update workflow's updateAt timestamp
         await tx.workflow.update({
           where: { id },
           data: { updatedAt: new Date() },
